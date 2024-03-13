@@ -11,6 +11,14 @@
 		3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F582BA016F0009C7D56 /* ContentView.swift */; };
 		3D080F5B2BA016F2009C7D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D080F5A2BA016F2009C7D56 /* Assets.xcassets */; };
 		3D080F5E2BA016F2009C7D56 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D080F5D2BA016F2009C7D56 /* Preview Assets.xcassets */; };
+		3D080F682BA01A05009C7D56 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F672BA01A05009C7D56 /* SplashScreen.swift */; };
+		3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F692BA01D47009C7D56 /* Login.swift */; };
+		3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */; };
+		3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */; };
+		3D080F732BA095AD009C7D56 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F722BA095AC009C7D56 /* SignUp.swift */; };
+		3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */; };
+		3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */; };
+		3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,14 @@
 		3D080F582BA016F0009C7D56 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3D080F5A2BA016F2009C7D56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D080F5D2BA016F2009C7D56 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3D080F672BA01A05009C7D56 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		3D080F692BA01D47009C7D56 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseableTextField.swift; sourceTree = "<group>"; };
+		3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseableButton.swift; sourceTree = "<group>"; };
+		3D080F722BA095AC009C7D56 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillInInformation.swift; sourceTree = "<group>"; };
+		3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerTextField.swift; sourceTree = "<group>"; };
+		3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				3D080F562BA016F0009C7D56 /* BusApp.swift */,
-				3D080F582BA016F0009C7D56 /* ContentView.swift */,
+				3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */,
+				3D080F6B2BA04450009C7D56 /* Reuseable */,
+				3D080F642BA0194E009C7D56 /* Views */,
 				3D080F5A2BA016F2009C7D56 /* Assets.xcassets */,
 				3D080F5C2BA016F2009C7D56 /* Preview Content */,
 			);
@@ -65,6 +83,28 @@
 				3D080F5D2BA016F2009C7D56 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3D080F642BA0194E009C7D56 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D080F582BA016F0009C7D56 /* ContentView.swift */,
+				3D080F672BA01A05009C7D56 /* SplashScreen.swift */,
+				3D080F692BA01D47009C7D56 /* Login.swift */,
+				3D080F722BA095AC009C7D56 /* SignUp.swift */,
+				3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3D080F6B2BA04450009C7D56 /* Reuseable */ = {
+			isa = PBXGroup;
+			children = (
+				3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */,
+				3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */,
+				3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */,
+			);
+			path = Reuseable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +177,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D080F732BA095AD009C7D56 /* SignUp.swift in Sources */,
+				3D080F682BA01A05009C7D56 /* SplashScreen.swift in Sources */,
 				3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
+				3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */,
+				3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */,
+				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
+				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
+				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
+				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
