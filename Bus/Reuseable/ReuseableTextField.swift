@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct ReuseableTextField: View {
-    let genders = ["Khác", "Nam", "Nữ"]
+    let genders = ["MALE", "FEMALE"]
     var imageName: String
     var placeholder: String
     @Binding var txtInput: String
+//    @Binding var chooseGender:String?
     @State private var isSecureTextEntry:Bool = true
     @State private var selectedGenderIndex = 0
     @State private var birthDate = Date()
-    var selectedGender:Bool
+//    var selectedGender:Bool
+    var hasError: Bool
+    
     
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
@@ -23,19 +26,22 @@ struct ReuseableTextField: View {
             .frame(height: 50)
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black, lineWidth: 1) // Đường viền cong với góc cong
+                    .stroke(hasError ? Color.red : Color.black, lineWidth: 1) // Đường viền cong với góc cong
                     .frame(height: 50)
             )
             .overlay(HStack{
                 Image(systemName: imageName)
-                if selectedGender {
-                    Picker(selection: $selectedGenderIndex, label: Text("Chọn")) {
-                        ForEach(0 ..< genders.count) {
-                            Text(self.genders[$0])
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                } else {
+//                if selectedGender {
+//                    Picker(selection: $selectedGenderIndex, label: Text("Chọn")) {
+//                        ForEach(0 ..< genders.count) { index in
+//                            Text(self.genders[index]).tag(index)
+//                        }
+//                    }
+//                    .pickerStyle(MenuPickerStyle())
+//                    .onChange(of: selectedGenderIndex) { index in
+//                            chooseGender = genders[index]
+//                        }
+//                } else {
                     if imageName == "lock.fill" {
                         if isSecureTextEntry {
                             SecureField(placeholder, text: $txtInput)
@@ -48,26 +54,8 @@ struct ReuseableTextField: View {
                         TextField(placeholder, text: $txtInput)
                             .autocapitalization(.none)
                     }
-                }
+//                }
 
-//                if selectedGender == true {
-//                    Picker(selection: $selectedGenderIndex, label: Text("Chọn")){
-//                        ForEach(0 ..< genders.count) {
-//                            Text(self.genders[$0])
-//                        }
-//                    }.pickerStyle(MenuPickerStyle())
-//                }
-//
-//                if imageName == "lock.fill"{
-//                    if isSecureTextEntry{
-//                        SecureField(placeholder, text: $txtInput).autocapitalization(.none)
-//                    } else {
-//                        TextField(placeholder, text: $txtInput).autocapitalization(.none)
-//                    }
-//                }else{
-//                    TextField(placeholder, text: $txtInput).autocapitalization(.none)
-//                }
-                
                 Spacer()
                 
                 if imageName == "lock.fill"{

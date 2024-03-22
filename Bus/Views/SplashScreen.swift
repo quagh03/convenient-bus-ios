@@ -14,7 +14,7 @@ struct SplashScreen: View {
             Login()
         }else{
             VStack{
-                Image("SplashScreen")
+                Image("splashScreen")
                     .resizable()
                     .ignoresSafeArea()
             }

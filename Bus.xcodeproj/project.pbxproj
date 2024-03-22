@@ -19,6 +19,11 @@
 		3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */; };
 		3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */; };
 		3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */; };
+		3D080F7F2BA7E638009C7D56 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F7E2BA7E638009C7D56 /* user.swift */; };
+		3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */; };
+		3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F822BA9A6A5009C7D56 /* Response.swift */; };
+		3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F842BA9CFC0009C7D56 /* Toast.swift */; };
+		3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F862BAC8113009C7D56 /* GenderField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +40,12 @@
 		3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillInInformation.swift; sourceTree = "<group>"; };
 		3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerTextField.swift; sourceTree = "<group>"; };
 		3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		3D080F7E2BA7E638009C7D56 /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOTPMail.swift; sourceTree = "<group>"; };
+		3D080F822BA9A6A5009C7D56 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		3D080F842BA9CFC0009C7D56 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		3D080F862BAC8113009C7D56 /* GenderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderField.swift; sourceTree = "<group>"; };
+		3DD112D12BAD2B18005D6575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +78,12 @@
 		3D080F552BA016F0009C7D56 /* Bus */ = {
 			isa = PBXGroup;
 			children = (
+				3DD112D12BAD2B18005D6575 /* Info.plist */,
 				3D080F562BA016F0009C7D56 /* BusApp.swift */,
 				3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */,
 				3D080F6B2BA04450009C7D56 /* Reuseable */,
 				3D080F642BA0194E009C7D56 /* Views */,
+				3D080F7D2BA7E5BD009C7D56 /* Models */,
 				3D080F5A2BA016F2009C7D56 /* Assets.xcassets */,
 				3D080F5C2BA016F2009C7D56 /* Preview Content */,
 			);
@@ -93,6 +106,7 @@
 				3D080F692BA01D47009C7D56 /* Login.swift */,
 				3D080F722BA095AC009C7D56 /* SignUp.swift */,
 				3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */,
+				3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -103,8 +117,19 @@
 				3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */,
 				3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */,
 				3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */,
+				3D080F842BA9CFC0009C7D56 /* Toast.swift */,
+				3D080F862BAC8113009C7D56 /* GenderField.swift */,
 			);
 			path = Reuseable;
+			sourceTree = "<group>";
+		};
+		3D080F7D2BA7E5BD009C7D56 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3D080F7E2BA7E638009C7D56 /* user.swift */,
+				3D080F822BA9A6A5009C7D56 /* Response.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,13 +205,18 @@
 				3D080F732BA095AD009C7D56 /* SignUp.swift in Sources */,
 				3D080F682BA01A05009C7D56 /* SplashScreen.swift in Sources */,
 				3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */,
+				3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */,
+				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
 				3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */,
+				3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */,
 				3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */,
 				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
+				3D080F7F2BA7E638009C7D56 /* user.swift in Sources */,
 				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
+				3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,13 +345,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bus/Preview Content\"";
+				DEVELOPMENT_TEAM = 6YB8YUS685;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Bus/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -343,13 +376,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bus/Preview Content\"";
+				DEVELOPMENT_TEAM = 6YB8YUS685;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Bus/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

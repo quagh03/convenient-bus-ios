@@ -20,7 +20,7 @@ struct ReuseableButton: View {
         Button(action: action){
             RoundedRectangle(cornerRadius: 17)
                 .fill(Color(red: red, green: green, blue: blue))
-                .frame(width: .infinity,height: 50)
+                .frame(width: width,height: 50)
                 .overlay(HStack{
                     if !imgName.isEmpty{
                         Image(imgName)
