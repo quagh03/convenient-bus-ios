@@ -14,6 +14,10 @@ struct Login: View {
     @State private var isSignUpButtonTapped = false
     @State private var gender: String = ""
     
+    @ObservedObject private var userModel = LoginApi()
+//    @Published var userLog: user?
+    @State private var isLogin: Bool = false
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -29,7 +33,7 @@ struct Login: View {
                     
                     HStack{
                         ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
-                            login()
+                            login(username: username, password: password)
                         }
                         Spacer()
                         Image(systemName: "faceid")
@@ -63,22 +67,62 @@ struct Login: View {
                         }
                     }.padding(.vertical, 12)
                     
+                    if isLogin{
+                        NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
+                            EmptyView()
+                        }
+                    }
+                    
                 }.padding(.all)
                 
             }
         }
     }
     
-    func login(){
-        if username == "hieu1" && password == "123456" {
-            print("Login successful")
-            // Navigate to the next view or perform other actions upon successful login
-        } else {
-            print("Login failed")
-            // Show an alert or update the UI to indicate login failure
-        }
-        navigationManager.navigateTo(page: "FillInInformation")
+    func loginBtn(){
+        userModel.login(username: username, password: password)
     }
+    
+    
+    func login(username: String, password: String){
+        guard let url = URL(string: "http://localhost:8080/api/v1/users/login") else {
+            print("Invalid url")
+            return
+        }
+        
+        let body: [String: String] = [
+            "username": username,
+            "password": password
+        ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-type")
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        } catch let error {
+            print("Failed to serialize body:", error)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            if httpResponse.statusCode == 200 {
+                print("Đăng nhập thành công")
+                isLogin = true
+            } else {
+                print("Đăng nhập không thành công!")
+            }
+        }.resume()
+        
+        
+        
+    }
+    
     
     func loginWithGoogle(){
         

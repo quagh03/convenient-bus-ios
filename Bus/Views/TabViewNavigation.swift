@@ -32,6 +32,7 @@ struct TabViewNavigation: View {
                     Text("Account")
                 }.tag(3)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

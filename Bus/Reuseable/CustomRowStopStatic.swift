@@ -8,26 +8,29 @@
 import SwiftUI
 
 struct CustomRowStopStatic: View {
+    @State var isFirst: Bool
     var body: some View {
         HStack(){
             // icon
             VStack(){
                 ZStack{
-                    Rectangle()
-                        .foregroundColor(Color("primary"))
-                        .frame(width: 1, height: 20)
-                        .offset(y:-14)
+                    if !isFirst {
+                        Rectangle()
+                            .foregroundColor(Color("primary"))
+                            .frame(width: 1, height: 24)
+                            .offset(y:-16)
+                    }
                     Circle()
                         .frame(width: 16, height: 16)
                         .foregroundColor(Color("lightBlue"))
                     Rectangle()
-                        .frame(width: 1, height: 20)
+                        .frame(width: 1, height: 24)
                         .foregroundColor(Color("primary"))
-                        .offset(y:14)
+                        .offset(y:19)
                 }
             }
             // info
-            Text("Tuyến đường 01")
+            Text("Tuyến đường 01").padding(.vertical)
             Spacer()
         }
     }
@@ -35,6 +38,6 @@ struct CustomRowStopStatic: View {
 
 struct CustomRowStopStatic_Previews: PreviewProvider {
     static var previews: some View {
-        CustomRowStopStatic()
+        CustomRowStopStatic(isFirst: true)
     }
 }

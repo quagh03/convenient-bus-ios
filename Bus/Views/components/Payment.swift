@@ -9,7 +9,23 @@ import SwiftUI
 
 struct Payment: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            ZStack(){
+                ReusableImage(color: "primary", height: 60)
+                Text("Thanh toán").foregroundColor(.white)
+                    .bold()
+                    .font(.system(size: 25))
+            }
+            Spacer()
+            
+            HStack{
+                VStack{
+                    ZStack{
+                        
+                    }
+                }
+            }
+        }
     }
 }
 

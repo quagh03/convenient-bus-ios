@@ -118,7 +118,7 @@ struct SignUp: View {
             }
             
         }
-        .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(true)
+        .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(false)
     }
     
     func navigate(){

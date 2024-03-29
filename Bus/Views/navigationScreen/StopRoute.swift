@@ -11,8 +11,7 @@ struct StopRoute: View {
     var body: some View {
         VStack{
             ForEach(1..<4, id: \.self){index in
-                CustomRowStopStatic()
-                    .padding(.horizontal)
+                CustomRowStopStatic(isFirst: index==1)
             }
         }
     }
