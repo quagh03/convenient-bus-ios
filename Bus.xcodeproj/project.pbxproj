@@ -24,6 +24,25 @@
 		3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F822BA9A6A5009C7D56 /* Response.swift */; };
 		3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F842BA9CFC0009C7D56 /* Toast.swift */; };
 		3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F862BAC8113009C7D56 /* GenderField.swift */; };
+		3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */; };
+		3D3CF7AA2BB11B730016B916 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A92BB11B730016B916 /* Home.swift */; };
+		3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7AB2BB11F1C0016B916 /* Payment.swift */; };
+		3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7AD2BB11F290016B916 /* Route.swift */; };
+		3D3CF7B02BB11F320016B916 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7AF2BB11F320016B916 /* Account.swift */; };
+		3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7B12BB124FE0016B916 /* ReusableImage.swift */; };
+		3D3CF7B42BB16B620016B916 /* ReusableSearchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7B32BB16B620016B916 /* ReusableSearchbar.swift */; };
+		3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7B52BB17B630016B916 /* ReusableFunc.swift */; };
+		3D3CF7BA2BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3CF7B92BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf */; };
+		3D3CF7BC2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3CF7BB2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf */; };
+		3D3CF7BE2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3CF7BD2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf */; };
+		3D3CF7C02BB31A980016B916 /* RouteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7BF2BB31A980016B916 /* RouteRow.swift */; };
+		3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */; };
+		3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */; };
+		3D78A9CD2BB63DD2005ED9B4 /* StopRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */; };
+		3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D02BB4FA0700BD62A1 /* Balance.swift */; };
+		3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */; };
+		3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */; };
+		3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D62BB5A5FE00BD62A1 /* CustomRowStopStatic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +64,27 @@
 		3D080F822BA9A6A5009C7D56 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		3D080F842BA9CFC0009C7D56 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		3D080F862BAC8113009C7D56 /* GenderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderField.swift; sourceTree = "<group>"; };
+		3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewNavigation.swift; sourceTree = "<group>"; };
+		3D3CF7A92BB11B730016B916 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3D3CF7AB2BB11F1C0016B916 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		3D3CF7AD2BB11F290016B916 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		3D3CF7AF2BB11F320016B916 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		3D3CF7B12BB124FE0016B916 /* ReusableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableImage.swift; sourceTree = "<group>"; };
+		3D3CF7B32BB16B620016B916 /* ReusableSearchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableSearchbar.swift; sourceTree = "<group>"; };
+		3D3CF7B52BB17B630016B916 /* ReusableFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableFunc.swift; sourceTree = "<group>"; };
+		3D3CF7B82BB189A40016B916 /* PlayfairDisplay-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		3D3CF7B92BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSerifDisplay-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
+		3D3CF7BB2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		3D3CF7BD2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-SemiBold.ttf"; sourceTree = "<group>"; };
+		3D3CF7BF2BB31A980016B916 /* RouteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRow.swift; sourceTree = "<group>"; };
+		3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
+		3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoutesApi.swift; sourceTree = "<group>"; };
+		3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopRoute.swift; sourceTree = "<group>"; };
 		3DD112D12BAD2B18005D6575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3DF325D02BB4FA0700BD62A1 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
+		3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBusRoute.swift; sourceTree = "<group>"; };
+		3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabNavigation.swift; sourceTree = "<group>"; };
+		3DF325D62BB5A5FE00BD62A1 /* CustomRowStopStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRowStopStatic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +117,7 @@
 		3D080F552BA016F0009C7D56 /* Bus */ = {
 			isa = PBXGroup;
 			children = (
+				3D3CF7B72BB189930016B916 /* Fonts */,
 				3DD112D12BAD2B18005D6575 /* Info.plist */,
 				3D080F562BA016F0009C7D56 /* BusApp.swift */,
 				3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */,
@@ -101,12 +141,16 @@
 		3D080F642BA0194E009C7D56 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D78A9CB2BB63DB6005ED9B4 /* navigationScreen */,
+				3D3CF7A62BB1134D0016B916 /* components */,
 				3D080F582BA016F0009C7D56 /* ContentView.swift */,
 				3D080F672BA01A05009C7D56 /* SplashScreen.swift */,
 				3D080F692BA01D47009C7D56 /* Login.swift */,
 				3D080F722BA095AC009C7D56 /* SignUp.swift */,
 				3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */,
 				3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */,
+				3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */,
+				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +163,13 @@
 				3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */,
 				3D080F842BA9CFC0009C7D56 /* Toast.swift */,
 				3D080F862BAC8113009C7D56 /* GenderField.swift */,
+				3D3CF7B12BB124FE0016B916 /* ReusableImage.swift */,
+				3D3CF7B32BB16B620016B916 /* ReusableSearchbar.swift */,
+				3D3CF7B52BB17B630016B916 /* ReusableFunc.swift */,
+				3D3CF7BF2BB31A980016B916 /* RouteRow.swift */,
+				3DF325D02BB4FA0700BD62A1 /* Balance.swift */,
+				3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */,
+				3DF325D62BB5A5FE00BD62A1 /* CustomRowStopStatic.swift */,
 			);
 			path = Reuseable;
 			sourceTree = "<group>";
@@ -126,10 +177,50 @@
 		3D080F7D2BA7E5BD009C7D56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D3CF7C32BB3BC130016B916 /* api */,
 				3D080F7E2BA7E638009C7D56 /* user.swift */,
 				3D080F822BA9A6A5009C7D56 /* Response.swift */,
+				3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3D3CF7A62BB1134D0016B916 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				3D3CF7A92BB11B730016B916 /* Home.swift */,
+				3D3CF7AB2BB11F1C0016B916 /* Payment.swift */,
+				3D3CF7AD2BB11F290016B916 /* Route.swift */,
+				3D3CF7AF2BB11F320016B916 /* Account.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		3D3CF7B72BB189930016B916 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3D3CF7BB2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf */,
+				3D3CF7B92BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf */,
+				3D3CF7B82BB189A40016B916 /* PlayfairDisplay-VariableFont_wght.ttf */,
+				3D3CF7BD2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3D3CF7C32BB3BC130016B916 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		3D78A9CB2BB63DB6005ED9B4 /* navigationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */,
+			);
+			path = navigationScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,8 +281,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D3CF7BC2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf in Resources */,
 				3D080F5E2BA016F2009C7D56 /* Preview Assets.xcassets in Resources */,
+				3D3CF7BE2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				3D080F5B2BA016F2009C7D56 /* Assets.xcassets in Resources */,
+				3D3CF7BA2BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,21 +296,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D3CF7C02BB31A980016B916 /* RouteRow.swift in Sources */,
 				3D080F732BA095AD009C7D56 /* SignUp.swift in Sources */,
 				3D080F682BA01A05009C7D56 /* SplashScreen.swift in Sources */,
 				3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */,
 				3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */,
+				3D3CF7B42BB16B620016B916 /* ReusableSearchbar.swift in Sources */,
 				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
+				3D3CF7B02BB11F320016B916 /* Account.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
+				3D3CF7AA2BB11B730016B916 /* Home.swift in Sources */,
 				3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */,
+				3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */,
 				3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */,
+				3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */,
 				3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */,
+				3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */,
 				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
+				3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */,
+				3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
+				3D78A9CD2BB63DD2005ED9B4 /* StopRoute.swift in Sources */,
+				3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */,
+				3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */,
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
 				3D080F7F2BA7E638009C7D56 /* user.swift in Sources */,
+				3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */,
 				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
+				3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */,
 				3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */,
+				3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */,
+				3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

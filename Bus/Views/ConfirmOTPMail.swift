@@ -13,44 +13,58 @@ struct ConfirmOTPMail: View {
     @State private var otp: [String] = Array(repeating: "", count: 6)
     @State private var currentTextField = 0
     
-//    @Binding var username: String
-//    @Binding var password: String
-//    @Binding var firstName: String
-//    @Binding var lastName: String
-//    @Binding var phone: String
-//    @Binding var email: String
-//    @Binding var chooseGender: String
-//    @Binding var birth: Date?
+    @FocusState private var fieldFocus:Int?
     
-//    @Binding var otpCode: String
+//    @State private var lastFocusedIndex: Int?
+//    @State private var otpEntered = Array(repeating: false, count: 6)
+//    @State private var checkIx: Bool = false
     
-//    @Binding var isSignUpSuccess: Bool
-//    @State private var showToast: Bool = false
+    //    @Binding var username: String
+    //    @Binding var password: String
+    //    @Binding var firstName: String
+    //    @Binding var lastName: String
+    //    @Binding var phone: String
+    //    @Binding var email: String
+    //    @Binding var chooseGender: String
+    //    @Binding var birth: Date?
+    
+    //    @Binding var otpCode: String
+    
+    //    @Binding var isSignUpSuccess: Bool
+    //    @State private var showToast: Bool = false
     
     
     var body: some View {
         NavigationView{
             VStack {
-//                Text("Nhập mã OTP").bold()
+                Text("OTP đã được gửi đến ")
                 HStack(spacing: 20) {
                     ForEach(0..<6, id: \.self) { index in
-                        otpTextField(index)
-                            .onReceive(Just(otp[index])) { newValue in
-                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.otp[index] = filtered
-                                }
-                                if newValue.count == 1 {
-                                    if index < 5 {
-                                        self.currentTextField = index + 1
+                        TextField("", text: $otp[index])
+                            .keyboardType(.numberPad)
+                            .frame(width: 40, height: 40)
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .overlay(
+                                Rectangle()
+                                    .frame(height: 1)
+                                    .padding(.top, 40)
+                                    .foregroundColor(.blue)
+                            )
+                            .focused($fieldFocus, equals: index)
+                            .tag(index)
+                            .onChange(of: otp[index]) { newValue in
+                                if !newValue.isEmpty{
+                                    if index == 5{
+                                        fieldFocus = nil
+                                    }else {
+                                        fieldFocus = (fieldFocus ?? 0) + 1
                                     }
-                                } else if newValue.isEmpty {
-                                    if index > 0 {
-                                        self.currentTextField = index - 1
-                                    }
+                                }else{
+                                    fieldFocus = (fieldFocus ?? 0) - 1
                                 }
                             }
-                            .keyboardType(.numberPad)
                     }
                 }
                 .padding()
@@ -60,62 +74,64 @@ struct ConfirmOTPMail: View {
                 }.padding(.all)
                 
                 Spacer()
-
+                
             }
         }.navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea()
     }
     
-    private func otpTextField(_ index: Int) -> some View {
-        TextField("", text: Binding(
-            get: { self.otp[index] },
-            set: {
-                self.otp[index] = $0
-                if $0.count > 0 && index < 5 {
-                    self.currentTextField = index + 1
-                } else if $0.count == 0 && index > 0 {
-                    self.currentTextField = index - 1
-                }
-            }
-        ))
-        .frame(width: 40, height: 40)
-        .multilineTextAlignment(.center)
-        .font(.title)
-        .textFieldStyle(PlainTextFieldStyle())
-        .textContentType(.oneTimeCode)
-        .foregroundColor(.black)
-        .overlay(
-            Rectangle()
-                .frame(height: 1)
-                .padding(.top, 40)
-                .foregroundColor(.blue)
-        )
-    }
+    //    private func otpTextField(_ index: Int) -> some View {
+    //        TextField("", text: Binding(
+    //            get: { self.otp[index] },
+    //            set: {
+    //                self.otp[index] = String($0.prefix(1).filter { $0.isNumber })
+    //                if $0.count > 0 && index < 5 {
+    //                    self.fieldFocus = index + 1
+    //                } else if $0.count == 0 && index > 0 {
+    //                    self.fieldFocus = index - 1
+    //                }
+    //            }
+    //        ))
+    //        .frame(width: 40, height: 40)
+    //        .multilineTextAlignment(.center)
+    //        .font(.title)
+    //        .textFieldStyle(PlainTextFieldStyle())
+    //        .textContentType(.oneTimeCode)
+    //        .foregroundColor(.black)
+    //        .tag(index)
+    //        .focused($fieldFocus, equals: index)
+    //        .overlay(
+    //            Rectangle()
+    //                .frame(height: 1)
+    //                .padding(.top, 40)
+    //                .foregroundColor(.blue)
+    //        )
+    //    }
     
     func verifyOTP(){
-        let enteredOtp = otp.joined()
+        //        let enteredOtp = otp.joined()
         
-        guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
-            print("Invalid url")
-            return
-        }
-//
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("Invalid response")
-                return
-            }
-            
-            if httpResponse.statusCode == 200 {
-                print("success!!")
-            } else {
-                print("error")
-            }
-        }.resume()
+        //        guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
+        //            print("Invalid url")
+        //            return
+        //        }
+        //
+        //        var request = URLRequest(url: url)
+        //        request.httpMethod = "GET"
+        //
+        //
+        //
+        //        URLSession.shared.dataTask(with: request) { data, response, error in
+        //            guard let httpResponse = response as? HTTPURLResponse else {
+        //                print("Invalid response")
+        //                return
+        //            }
+        //
+        //            if httpResponse.statusCode == 200 {
+        //                print("success!!")
+        //            } else {
+        //                print("error")
+        //            }
+        //        }.resume()
     }
     
     
