@@ -70,7 +70,7 @@ struct SignUp: View {
                         ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && (password.isEmpty || !isPasswordValid(password)) )
                         ReuseableTextField(imageName: "lock.fill", placeholder: "Xác nhận mật khẩu" ,txtInput: $confirmPassword, hasError: isSignUpButtonTapped && (confirmPassword.isEmpty || !isPasswordValid(confirmPassword)))
                         
-                        NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
+//                        NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
                             ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng ký", width: .infinity,imgName: "", textColor: .white) {
                                 isSignUpButtonTapped = true
                                 if allFieldsFilled() {
@@ -93,18 +93,18 @@ struct SignUp: View {
                                     showErrorAlert = true
                                 }
                             }.padding(.top, 10)
-                        }
+//                        }
                         
                     }
                     
                 }
                 .padding(.all)
                 
-                if isSignUpSuccess {
-                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
-                        EmptyView()
-                    }
-                }
+                                if isSignUpSuccess {
+                                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
+                                        EmptyView()
+                                    }
+                                }
                 
                 
                 
@@ -115,10 +115,11 @@ struct SignUp: View {
                 }
                 
                 
+                
             }
             
         }
-        .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(false)
+        .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
     }
     
     func navigate(){
@@ -127,7 +128,7 @@ struct SignUp: View {
     
     func signUp(){
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" 
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: birth!)
         
         guard let url = URL(string: "http://localhost:8080/api/v1/users/register") else {return}

@@ -18,6 +18,8 @@ struct Login: View {
 //    @Published var userLog: user?
     @State private var isLogin: Bool = false
     
+//    let busRouteDetail: BusRouteDetail
+    
     var body: some View {
         NavigationView{
             ZStack{

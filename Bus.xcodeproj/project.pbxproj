@@ -40,6 +40,14 @@
 		3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */; };
 		3D78A9CD2BB63DD2005ED9B4 /* StopRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */; };
 		3D78A9CF2BB6715B005ED9B4 /* LoginApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */; };
+		3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */; };
+		3D78A9D32BB7041C005ED9B4 /* BusRouteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */; };
+		3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */; };
+		3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */; };
+		3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */; };
+		3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9DA2BB97355005ED9B4 /* demoView.swift */; };
+		3DE687E52BBB10FA00C89FE3 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3DE687E42BBB10FA00C89FE3 /* SlidingTabView */; };
+		3DE687E82BBBA4E000C89FE3 /* InforRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE687E72BBBA4E000C89FE3 /* InforRoute.swift */; };
 		3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D02BB4FA0700BD62A1 /* Balance.swift */; };
 		3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */; };
 		3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */; };
@@ -82,7 +90,14 @@
 		3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoutesApi.swift; sourceTree = "<group>"; };
 		3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopRoute.swift; sourceTree = "<group>"; };
 		3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginApi.swift; sourceTree = "<group>"; };
+		3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDetailApi.swift; sourceTree = "<group>"; };
+		3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDetail.swift; sourceTree = "<group>"; };
+		3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
+		3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteViewModel.swift; sourceTree = "<group>"; };
+		3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedBusRoutesAPI.swift; sourceTree = "<group>"; };
+		3D78A9DA2BB97355005ED9B4 /* demoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoView.swift; sourceTree = "<group>"; };
 		3DD112D12BAD2B18005D6575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3DE687E72BBBA4E000C89FE3 /* InforRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InforRoute.swift; sourceTree = "<group>"; };
 		3DF325D02BB4FA0700BD62A1 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBusRoute.swift; sourceTree = "<group>"; };
 		3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabNavigation.swift; sourceTree = "<group>"; };
@@ -94,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE687E52BBB10FA00C89FE3 /* SlidingTabView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +139,7 @@
 				3DD112D12BAD2B18005D6575 /* Info.plist */,
 				3D080F562BA016F0009C7D56 /* BusApp.swift */,
 				3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */,
+				3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */,
 				3D080F6B2BA04450009C7D56 /* Reuseable */,
 				3D080F642BA0194E009C7D56 /* Views */,
 				3D080F7D2BA7E5BD009C7D56 /* Models */,
@@ -153,6 +170,7 @@
 				3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */,
 				3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */,
 				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
+				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,6 +178,7 @@
 		3D080F6B2BA04450009C7D56 /* Reuseable */ = {
 			isa = PBXGroup;
 			children = (
+				3DE687E62BBBA09D00C89FE3 /* components */,
 				3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */,
 				3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */,
 				3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */,
@@ -183,6 +202,7 @@
 				3D080F7E2BA7E638009C7D56 /* user.swift */,
 				3D080F822BA9A6A5009C7D56 /* Response.swift */,
 				3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */,
+				3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +234,9 @@
 			children = (
 				3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */,
 				3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */,
+				3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */,
+				3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */,
+				3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -222,8 +245,16 @@
 			isa = PBXGroup;
 			children = (
 				3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */,
+				3DE687E72BBBA4E000C89FE3 /* InforRoute.swift */,
 			);
 			path = navigationScreen;
+			sourceTree = "<group>";
+		};
+		3DE687E62BBBA09D00C89FE3 /* components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +273,9 @@
 			dependencies = (
 			);
 			name = Bus;
+			packageProductDependencies = (
+				3DE687E42BBB10FA00C89FE3 /* SlidingTabView */,
+			);
 			productName = Bus;
 			productReference = 3D080F532BA016F0009C7D56 /* Bus.app */;
 			productType = "com.apple.product-type.application";
@@ -270,6 +304,9 @@
 				Base,
 			);
 			mainGroup = 3D080F4A2BA016F0009C7D56;
+			packageReferences = (
+				3DE687E32BBB10FA00C89FE3 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
+			);
 			productRefGroup = 3D080F542BA016F0009C7D56 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -305,17 +342,22 @@
 				3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */,
 				3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */,
 				3D3CF7B42BB16B620016B916 /* ReusableSearchbar.swift in Sources */,
+				3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */,
 				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
 				3D3CF7B02BB11F320016B916 /* Account.swift in Sources */,
+				3D78A9D32BB7041C005ED9B4 /* BusRouteDetail.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
 				3D3CF7AA2BB11B730016B916 /* Home.swift in Sources */,
 				3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */,
 				3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */,
 				3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */,
+				3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */,
 				3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */,
+				3DE687E82BBBA4E000C89FE3 /* InforRoute.swift in Sources */,
 				3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */,
 				3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */,
 				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
+				3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */,
 				3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */,
 				3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
@@ -323,6 +365,7 @@
 				3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */,
 				3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */,
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
+				3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */,
 				3D080F7F2BA7E638009C7D56 /* user.swift in Sources */,
 				3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */,
 				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
@@ -331,6 +374,7 @@
 				3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */,
 				3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */,
 				3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */,
+				3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +512,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,7 +543,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -535,6 +579,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3DE687E32BBB10FA00C89FE3 /* XCRemoteSwiftPackageReference "SlidingTabView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuynhNguyen/SlidingTabView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3DE687E42BBB10FA00C89FE3 /* SlidingTabView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DE687E32BBB10FA00C89FE3 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
+			productName = SlidingTabView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D080F4B2BA016F0009C7D56 /* Project object */;
 }

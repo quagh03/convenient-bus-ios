@@ -16,6 +16,7 @@ struct ConfirmOTPMail: View {
     @FocusState private var fieldFocus:Int?
     
     @State private var isOTPVerify: Bool = false
+    @Environment(\.presentationMode) var presentationMode
     
 //    @State private var lastFocusedIndex: Int?
 //    @State private var otpEntered = Array(repeating: false, count: 6)
@@ -84,7 +85,8 @@ struct ConfirmOTPMail: View {
                 Spacer()
                 
             }
-        }.navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea()
+        }
+        .navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea().navigationBarBackButtonHidden(true).navigationBarHidden(isOTPVerify)
     }
     
     //    private func otpTextField(_ index: Int) -> some View {
@@ -147,8 +149,8 @@ struct ConfirmOTPMail: View {
     
 }
 
-//struct ConfirmOTPMail_Preview: PreviewProvider {
-//    static var previews: some View {
-//        ConfirmOTPMail()
-//    }
-//}
+struct ConfirmOTPMail_Preview: PreviewProvider {
+    static var previews: some View {
+        ConfirmOTPMail()
+    }
+}

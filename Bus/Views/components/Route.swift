@@ -9,42 +9,60 @@ import SwiftUI
 
 struct Route: View {
     @ObservedObject var viewModel = BusRoutesApi()
+    @ObservedObject var viewModelDetail = BusRoutesDetailApi()
+    
+    @EnvironmentObject var dataHolder: DataHolder
+    
+    @State private var selectedRoute: BusRouteDetail?
+    var busRouteDetail: [BusRouteDetail]?
+    //    private let combinedBusRoute: CombinedBusRoute
+    
+    //    @ObservedObject var viewModel = CombinedBusRoutesApi()
+    
+    //    let busRouteDetail: BusRouteDetail?
+    
+    @State var isTap: Bool = false
+    
     var body: some View {
-        VStack{
-            ZStack(){
-                ReusableImage(color: "primary", height: 60)
-                Text("Tuyến xe").foregroundColor(.white)
-                    .bold()
-                    .font(.system(size: 25))
-            }
-            ReusableSearchbar(searchKey: "")
-//                .offset(y:-80)
-                .padding(.horizontal)
-            
-//            List(viewModel.busRoutes, id: \.id){ route in
-//                RouteRow(busRoute: route)
-//            }.onAppear{
-//                viewModel.fetchData()
-//            }
-            
-            
-            ScrollView {
+        NavigationView{
+            VStack{
+                ZStack(){
+                    ReusableImage(color: "primary", height: 60)
+                    Text("Tuyến xe").foregroundColor(.white)
+                        .bold()
+                        .font(.system(size: 25))
+                }
+                ReusableSearchbar(searchKey: "")
+                //                .offset(y:-80)
+                    .padding(.horizontal)
+                
                 VStack {
-                    ForEach(viewModel.busRoutes, id: \.id) { route in
-                        RouteRow(busRoute: route)
+                    ForEach(viewModel.busRoutes, id: \.id) { busRoute in
+                        RouteRow(busRoute: busRoute)
+                            .onTapGesture {
+                                print(busRoute.routeName)
+                                dataHolder.nameRouteDetail = busRoute.routeName
+                                isTap = true
+                            }
                     }
                 }
+                //            .offset(y:-80)
+                .padding(.all)
+                .onAppear {
+                    viewModel.fetchData()
+                }
+                
+                Spacer()
+                // end VStack 1
+                
+                
+                // Kiểm tra dữ liệu đã được tải và không rỗng trước khi hiển thị NavigationLink
+                NavigationLink(destination: DetailBusRoute(/*routeDetail: viewModelDetail.busRouteDetail,*/nameRouteDetail: dataHolder.nameRouteDetail!) , isActive: $isTap) {
+                    EmptyView()
+                }
+                
+                
             }
-//            .offset(y:-80)
-            .padding(.all)
-            .onAppear {
-                viewModel.fetchData()
-            }
-
-
-
-            Spacer()
-         // end VStack 1
         }
     }
 }
