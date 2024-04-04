@@ -14,14 +14,16 @@ struct SplashScreen: View {
             Login()
         }else{
             VStack{
-                Image("splashScreen")
+                Image("logo")
                     .resizable()
+                    .scaledToFit()
+                    .frame(width: 150,height: 150)
                     .ignoresSafeArea()
             }
             .onAppear{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
                     withAnimation{
-                        self.isVisible = true
+//                        self.isVisible = true
                     }
                 }
             }

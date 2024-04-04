@@ -8,28 +8,42 @@
 import SwiftUI
 
 struct Login: View {
+    @State private var tokenLogin: String?
     @State private var username: String = ""
     @State private var password: String = ""
-    @EnvironmentObject var navigationManager: NavigationManager
     @State private var isSignUpButtonTapped = false
     @State private var gender: String = ""
+    
+    @ObservedObject private var userModel = LoginApi()
+    
+    @EnvironmentObject var dataHolder:  DataHolder
+//    @Published var userLog: user?
+    @State private var isLogin: Bool = false
+    
+//    let busRouteDetail: BusRouteDetail
     
     var body: some View {
         NavigationView{
             ZStack{
-                Image("background").resizable().ignoresSafeArea()
+//                Image("").resizable().ignoresSafeArea()
+//                Image("logo").resizable()
                 VStack{
-                    Image("logoHuce")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 125, height: 125)
-                        .padding(.bottom, 50)
+                    VStack{
+                        Image("logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 125, height: 125)
+                            .padding(.bottom, 50)
+                        Text("BUS CONVENIENT").font(.system(size: 30)).offset(y:-30)
+                            .foregroundColor(Color("primary"))
+                    }
                     ReuseableTextField(imageName: "person.fill", placeholder: "Tài khoản" ,txtInput: $username, hasError: isSignUpButtonTapped && username.isEmpty)
                     ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && password.isEmpty)
                     
                     HStack{
                         ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
-                            login()
+//                            login(username: username, password: password)
+                            login(username: username, password: password)
                         }
                         Spacer()
                         Image(systemName: "faceid")
@@ -37,6 +51,7 @@ struct Login: View {
                             .scaledToFit()
                             .frame(width: 50, height: 50)
                             .foregroundColor(.black)
+                            .offset(x: -2)
                     }
                     
                     HStack{
@@ -51,17 +66,25 @@ struct Login: View {
                             .padding(.horizontal,10)
                     }.padding(.vertical,10)
                     
-                    ReuseableButton(red: 255/255, green: 255/255, blue: 255/255, text: "Login with Google", width: .infinity , imgName: "loginwithgg", textColor: .black) {
+                    ReuseableButton(red: 255/255, green: 255/255, blue: 255/255, text: "Đăng nhập bằng Google", width: .infinity , imgName: "loginwithgg", textColor: .black) {
                         isSignUpButtonTapped = true
                         loginWithGoogle()
+                    }.overlay{
+                        
                     }
                     
                     HStack{
-                        Text("Don't have an account ?").padding(.trailing, 10)
+                        Text("Chưa có tài khoản?").padding(.trailing, 10)
                         NavigationLink(destination: SignUp()){
                             Text("Đăng Ký").foregroundColor(.blue)
                         }
                     }.padding(.vertical, 12)
+                    
+                    if isLogin{
+                        NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
+                            EmptyView()
+                        }
+                    }
                     
                 }.padding(.all)
                 
@@ -69,16 +92,73 @@ struct Login: View {
         }
     }
     
-    func login(){
-        if username == "hieu1" && password == "123456" {
-            print("Login successful")
-            // Navigate to the next view or perform other actions upon successful login
-        } else {
-            print("Login failed")
-            // Show an alert or update the UI to indicate login failure
-        }
-        navigationManager.navigateTo(page: "FillInInformation")
+    func loginBtn(){
+        userModel.login(username: username, password: password)
     }
+    
+    
+    func login(username: String, password: String){
+        guard let url = URL(string: "http://localhost:8080/api/v1/users/login") else {
+            print("Invalid url")
+            return
+        }
+        
+        let body: [String: String] = [
+            "username": username,
+            "password": password
+        ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-type")
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        } catch let error {
+            print("Failed to serialize body:", error)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data in response: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                print("Đăng nhập thành công")
+//                isLogin = true
+                
+                //
+                do{
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                        if let token = json["data"] as? String {
+                            DispatchQueue.main.async {
+                                dataHolder.tokenLogin = token
+                                print(token)
+                            }
+                            print(token)
+                        } else{
+                            print("không có token")
+                        }
+                    }
+                } catch {
+                    print("Failed to decode JSON")
+                }
+                
+                isLogin = true
+                
+            } else {
+                print("Đăng nhập không thành công!")
+            }
+        }.resume()
+    }
+    
     
     func loginWithGoogle(){
         
@@ -86,8 +166,8 @@ struct Login: View {
     
 }
 
-//struct Login_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Login()
-//    }
-//}
+struct Login_Previews: PreviewProvider {
+    static var previews: some View {
+        Login()
+    }
+}

@@ -10,16 +10,17 @@ import SwiftUI
 struct ReusableImage: View {
     var color: String
     var height: CGFloat
+    var width: CGFloat
     var body: some View {
         Rectangle()
             .foregroundColor(Color(color))
-            .frame(height: height)
+            .frame(width: width, height: height)
 //            .ignoresSafeArea()
     }
 }
 
 struct ReusableImage_Previews: PreviewProvider {
     static var previews: some View {
-        ReusableImage(color: "primary100",height: 200)
+        ReusableImage(color: "primary100",height: 200, width: .infinity)
     }
 }

@@ -35,7 +35,7 @@ struct TopTabNavigation: View {
                             .frame(height: 40)
                             .matchedGeometryEffect(id: "ID", in: buttonId)
                     }
-                }
+                }.animation(.default, value: selectedTab)
             }
         }
         //end HStack

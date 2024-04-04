@@ -8,18 +8,9 @@
 import SwiftUI
 
 struct StopRoute: View {
+    let busRouteDetailStopName: String
+    
     var body: some View {
-        VStack{
-            ForEach(1..<4, id: \.self){index in
-                CustomRowStopStatic()
-                    .padding(.horizontal)
-            }
-        }
-    }
-}
-
-struct StopRoute_Previews: PreviewProvider {
-    static var previews: some View {
-        StopRoute()
+        CustomRowStopStatic(stopPoint: busRouteDetailStopName, isFirst: false)
     }
 }

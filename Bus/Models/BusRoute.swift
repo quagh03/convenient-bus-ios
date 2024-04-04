@@ -15,10 +15,8 @@ import Foundation
 struct BusRoute : Codable{
     let id: Int
     let routeName: String
-//    let direction: String
     let startPoint: StopPoint
     let endPoint: StopPoint
-//    let routeStop: [RouteStop]
 }
 
 struct StopPoint: Codable{
@@ -26,10 +24,10 @@ struct StopPoint: Codable{
     let stopPoint: String
 }
 
-struct RouteStop: Codable {
-    let id: Int
-    let stopPoint: String
-}
+//struct RouteStop: Codable {
+//    let id: Int
+//    let stopPoint: String
+//}
 
 struct BusRouteData:Codable{
     let data: [BusRoute]

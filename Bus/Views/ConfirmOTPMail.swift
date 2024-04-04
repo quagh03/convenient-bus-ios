@@ -15,6 +15,9 @@ struct ConfirmOTPMail: View {
     
     @FocusState private var fieldFocus:Int?
     
+    @State private var isOTPVerify: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
 //    @State private var lastFocusedIndex: Int?
 //    @State private var otpEntered = Array(repeating: false, count: 6)
 //    @State private var checkIx: Bool = false
@@ -73,10 +76,17 @@ struct ConfirmOTPMail: View {
                     verifyOTP()
                 }.padding(.all)
                 
+                
+                NavigationLink(destination: TabViewNavigation().navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $isOTPVerify) {
+                    EmptyView()
+                }.isDetailLink(false)
+                    .hidden()
+                
                 Spacer()
                 
             }
-        }.navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea()
+        }
+        .navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea().navigationBarBackButtonHidden(true).navigationBarHidden(isOTPVerify)
     }
     
     //    private func otpTextField(_ index: Int) -> some View {
@@ -108,30 +118,31 @@ struct ConfirmOTPMail: View {
     //    }
     
     func verifyOTP(){
-        //        let enteredOtp = otp.joined()
+                let enteredOtp = otp.joined()
         
-        //        guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
-        //            print("Invalid url")
-        //            return
-        //        }
-        //
-        //        var request = URLRequest(url: url)
-        //        request.httpMethod = "GET"
-        //
-        //
-        //
-        //        URLSession.shared.dataTask(with: request) { data, response, error in
-        //            guard let httpResponse = response as? HTTPURLResponse else {
-        //                print("Invalid response")
-        //                return
-        //            }
-        //
-        //            if httpResponse.statusCode == 200 {
-        //                print("success!!")
-        //            } else {
-        //                print("error")
-        //            }
-        //        }.resume()
+                guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
+                    print("Invalid url")
+                    return
+                }
+        
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+        
+        
+        
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        print("Invalid response")
+                        return
+                    }
+        
+                    if httpResponse.statusCode == 200 {
+                        print("success!!")
+                        isOTPVerify = true
+                    } else {
+                        print("error")
+                    }
+                }.resume()
     }
     
     

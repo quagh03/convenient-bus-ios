@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReuseableButton: View {
+//    var colorStroke: Color
     var red:Double
     var green:Double
     var blue:Double
@@ -21,6 +22,10 @@ struct ReuseableButton: View {
             RoundedRectangle(cornerRadius: 17)
                 .fill(Color(red: red, green: green, blue: blue))
                 .frame(width: width,height: 50)
+                .overlay{
+                    RoundedRectangle(cornerRadius: 17)
+                        .stroke(.gray, lineWidth: 2)
+                }
                 .overlay(HStack{
                     if !imgName.isEmpty{
                         Image(imgName)

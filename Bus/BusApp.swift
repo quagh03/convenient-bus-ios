@@ -10,12 +10,15 @@ import SwiftUI
 @main
 struct BusApp: App {
     let navigationManager = NavigationManager.shared
+    var dataHolder = DataHolder()
+    let tabBarSetting = DataHolder()
     var body: some Scene {
         WindowGroup {
             //            SplashScreen()
             //            ContentView().environmentObject(navigationManager)
             ContentView()
                 .environmentObject(navigationManager)
+                .environmentObject(dataHolder)
         }
     }
 }

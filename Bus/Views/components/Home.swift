@@ -19,7 +19,7 @@ struct Home: View {
         ZStack{
             VStack{
                 ZStack(alignment: .top){
-                    ReusableImage(color: "primary", height: 190)
+                    ReusableImage(color: "primary", height: 190,width: .infinity)
                     HStack{
                         Rectangle()
                             .fill(.white)
@@ -36,7 +36,7 @@ struct Home: View {
                     // search
                     ReusableSearchbar(searchKey: "")
                         .padding(.all)
-                        .offset(y: -100)
+                        .offset(y: -80)
                     
                     // center
                     HStack{
@@ -68,7 +68,7 @@ struct Home: View {
                         }
                             
                         
-                    }.offset(y:-100)
+                    }.offset(y:-70)
                     
 //                    ZStack{
 //                        TabView(selection: $selectionImage) {
@@ -80,7 +80,7 @@ struct Home: View {
 //                            }
 //                        }.tabViewStyle(PageTabViewStyle())
 //                    }.offset(y:-105)
-                    Image("Container").resizable().scaledToFit().offset(y:-50)
+                    Image("Container").resizable().scaledToFit().offset(y:-40)
                     
                 }
                 
