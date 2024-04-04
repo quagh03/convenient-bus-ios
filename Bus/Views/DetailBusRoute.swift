@@ -15,6 +15,7 @@ struct DetailBusRoute: View {
     
     @EnvironmentObject var tabBarSettings: DataHolder
     
+    @Environment(\.presentationMode) var presentationMode
     //    let routeDetail: [BusRouteDetail]
 //    @State var nameInfo: String
     
@@ -29,7 +30,15 @@ struct DetailBusRoute: View {
     
     var body: some View {
         ZStack{
+//            Button {
+//                presentationMode.wrappedValue.dismiss()
+//            } label: {
+//                Image(systemName: "chevron.left")
+//                                    .foregroundColor(.blue)
+//            }
+
             VStack{
+                BarBackCustom( nameRoute: nameRouteDetail).padding(.bottom,15)
                 HStack{
                     // name route
                     RoundedRectangle(cornerRadius: 5)

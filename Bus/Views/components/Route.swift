@@ -27,7 +27,7 @@ struct Route: View {
         NavigationView{
             VStack{
                 ZStack(){
-                    ReusableImage(color: "primary", height: 60)
+                    ReusableImage(color: "primary", height: 60, width: .infinity)
                     Text("Tuyến xe").foregroundColor(.white)
                         .bold()
                         .font(.system(size: 25))
@@ -56,14 +56,12 @@ struct Route: View {
                 // end VStack 1
                 
                 
-                // Kiểm tra dữ liệu đã được tải và không rỗng trước khi hiển thị NavigationLink
-                NavigationLink(destination: DetailBusRoute(/*routeDetail: viewModelDetail.busRouteDetail,*/nameRouteDetail: dataHolder.nameRouteDetail!) , isActive: $isTap) {
-                    EmptyView()
-                }
-                
-                
             }
+            
+        }.fullScreenCover(isPresented: $isTap) {
+            DetailBusRoute(nameRouteDetail: dataHolder.nameRouteDetail!)
         }
+        // end navigationView
     }
 }
 

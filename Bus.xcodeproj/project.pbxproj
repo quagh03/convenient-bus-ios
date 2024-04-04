@@ -24,6 +24,9 @@
 		3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F822BA9A6A5009C7D56 /* Response.swift */; };
 		3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F842BA9CFC0009C7D56 /* Toast.swift */; };
 		3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D080F862BAC8113009C7D56 /* GenderField.swift */; };
+		3D1FB5E22BBE29A8007711FE /* QRCodeFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FB5E12BBE29A8007711FE /* QRCodeFetching.swift */; };
+		3D3B3ADE2BBEA06E00627F37 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3ADD2BBEA06E00627F37 /* Money.swift */; };
+		3D3B3AE02BBEAAE400627F37 /* Denomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3ADF2BBEAAE400627F37 /* Denomination.swift */; };
 		3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */; };
 		3D3CF7AA2BB11B730016B916 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A92BB11B730016B916 /* Home.swift */; };
 		3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7AB2BB11F1C0016B916 /* Payment.swift */; };
@@ -48,6 +51,8 @@
 		3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9DA2BB97355005ED9B4 /* demoView.swift */; };
 		3DE687E52BBB10FA00C89FE3 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 3DE687E42BBB10FA00C89FE3 /* SlidingTabView */; };
 		3DE687E82BBBA4E000C89FE3 /* InforRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE687E72BBBA4E000C89FE3 /* InforRoute.swift */; };
+		3DE687EA2BBBF28C00C89FE3 /* BarBackCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE687E92BBBF28C00C89FE3 /* BarBackCustom.swift */; };
+		3DE687EC2BBC010700C89FE3 /* WidthSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE687EB2BBC010700C89FE3 /* WidthSpacer.swift */; };
 		3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D02BB4FA0700BD62A1 /* Balance.swift */; };
 		3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */; };
 		3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */; };
@@ -73,6 +78,9 @@
 		3D080F822BA9A6A5009C7D56 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		3D080F842BA9CFC0009C7D56 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		3D080F862BAC8113009C7D56 /* GenderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderField.swift; sourceTree = "<group>"; };
+		3D1FB5E12BBE29A8007711FE /* QRCodeFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeFetching.swift; sourceTree = "<group>"; };
+		3D3B3ADD2BBEA06E00627F37 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		3D3B3ADF2BBEAAE400627F37 /* Denomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Denomination.swift; sourceTree = "<group>"; };
 		3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewNavigation.swift; sourceTree = "<group>"; };
 		3D3CF7A92BB11B730016B916 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3D3CF7AB2BB11F1C0016B916 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -98,6 +106,8 @@
 		3D78A9DA2BB97355005ED9B4 /* demoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoView.swift; sourceTree = "<group>"; };
 		3DD112D12BAD2B18005D6575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3DE687E72BBBA4E000C89FE3 /* InforRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InforRoute.swift; sourceTree = "<group>"; };
+		3DE687E92BBBF28C00C89FE3 /* BarBackCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBackCustom.swift; sourceTree = "<group>"; };
+		3DE687EB2BBC010700C89FE3 /* WidthSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthSpacer.swift; sourceTree = "<group>"; };
 		3DF325D02BB4FA0700BD62A1 /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBusRoute.swift; sourceTree = "<group>"; };
 		3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabNavigation.swift; sourceTree = "<group>"; };
@@ -171,6 +181,7 @@
 				3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */,
 				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
 				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
+				3D3B3ADD2BBEA06E00627F37 /* Money.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +202,9 @@
 				3DF325D02BB4FA0700BD62A1 /* Balance.swift */,
 				3DF325D42BB581DD00BD62A1 /* TopTabNavigation.swift */,
 				3DF325D62BB5A5FE00BD62A1 /* CustomRowStopStatic.swift */,
+				3DE687E92BBBF28C00C89FE3 /* BarBackCustom.swift */,
+				3DE687EB2BBC010700C89FE3 /* WidthSpacer.swift */,
+				3D3B3ADF2BBEAAE400627F37 /* Denomination.swift */,
 			);
 			path = Reuseable;
 			sourceTree = "<group>";
@@ -203,6 +217,7 @@
 				3D080F822BA9A6A5009C7D56 /* Response.swift */,
 				3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */,
 				3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */,
+				3D1FB5E12BBE29A8007711FE /* QRCodeFetching.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -343,7 +358,9 @@
 				3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */,
 				3D3CF7B42BB16B620016B916 /* ReusableSearchbar.swift in Sources */,
 				3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */,
+				3DE687EA2BBBF28C00C89FE3 /* BarBackCustom.swift in Sources */,
 				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
+				3D1FB5E22BBE29A8007711FE /* QRCodeFetching.swift in Sources */,
 				3D3CF7B02BB11F320016B916 /* Account.swift in Sources */,
 				3D78A9D32BB7041C005ED9B4 /* BusRouteDetail.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
@@ -360,6 +377,7 @@
 				3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */,
 				3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */,
 				3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */,
+				3D3B3AE02BBEAAE400627F37 /* Denomination.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
 				3D78A9CD2BB63DD2005ED9B4 /* StopRoute.swift in Sources */,
 				3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */,
@@ -367,11 +385,13 @@
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
 				3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */,
 				3D080F7F2BA7E638009C7D56 /* user.swift in Sources */,
+				3DE687EC2BBC010700C89FE3 /* WidthSpacer.swift in Sources */,
 				3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */,
 				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
 				3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */,
 				3D78A9CF2BB6715B005ED9B4 /* LoginApi.swift in Sources */,
 				3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */,
+				3D3B3ADE2BBEA06E00627F37 /* Money.swift in Sources */,
 				3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */,
 				3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */,
 				3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */,
