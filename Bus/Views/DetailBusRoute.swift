@@ -16,8 +16,6 @@ struct DetailBusRoute: View {
     @EnvironmentObject var tabBarSettings: DataHolder
     
     @Environment(\.presentationMode) var presentationMode
-    //    let routeDetail: [BusRouteDetail]
-//    @State var nameInfo: String
     
     var nameRouteDetail: String
     
@@ -38,7 +36,7 @@ struct DetailBusRoute: View {
 //            }
 
             VStack{
-                BarBackCustom( nameRoute: nameRouteDetail).padding(.bottom,15)
+                BarBackCustom(color: .blue,nameRoute: nameRouteDetail).padding(.bottom,15)
                 HStack{
                     // name route
                     RoundedRectangle(cornerRadius: 5)
@@ -113,7 +111,7 @@ struct DetailBusRoute: View {
                             ScrollView{
                                 ForEach(viewModel.departureRoutes, id: \.id) {departure in
                                     ForEach(departure.routeStop, id: \.id) { routeStop in
-                                        StopRoute(busRouteDetailStopName: routeStop.stopPoint)
+                                        StopRoute(busRouteDetailStopName: routeStop.stop.stopPoint)
                                     }
                                 }
                             }
@@ -133,7 +131,7 @@ struct DetailBusRoute: View {
                             ScrollView{
                                 ForEach(viewModel.returnRoutes, id: \.id) {departure in
                                     ForEach(departure.routeStop, id: \.id) { routeStop in
-                                        StopRoute(busRouteDetailStopName: routeStop.stopPoint)
+                                        StopRoute(busRouteDetailStopName: routeStop.stop.stopPoint)
                                     }
                                 }
                             }

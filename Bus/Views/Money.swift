@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import SafariServices
+import WebKit
 
 struct Money: View {
     var placeholder: String = "Nhập số tiền muốn nạp"
@@ -16,18 +18,25 @@ struct Money: View {
     @State private var isEditing: Bool = false
     @State private var keyboardHeight: CGFloat = 0.0
     
+    @State private var webViewURL: URL? = nil
+        @State private var isShowingWebView: Bool = false
+    
+//    @ObservedObject var viewModel = VNPayApi()
+    @EnvironmentObject var dataHolder: DataHolder
+    
+    
 //    let amounts: [Float] = [20000, 50000, 100000, 200000, 300000, 500000]
     let amounts: [String] = ["20000", "50000", "100000", "200000", "300000", "500000"]
     var body: some View {
         ZStack{
             VStack{
-                BarBackCustom(nameRoute: "Nạp tiền")
                 // retangle
                 ZStack(alignment:.top){
                     Rectangle()
                         .frame(height: 158)
                         .foregroundColor(Color("primary"))
                         .clipShape(RoundedCornerShape(corners: [.bottomLeft, .bottomRight], radius: 20))
+                    BarBackCustom(color: .white ,nameRoute: "Nạp tiền").padding(.horizontal).padding(.top)
                     
                     
                     // Form nạp tiền
@@ -168,8 +177,12 @@ struct Money: View {
                                             
                                             // btn nap tien
                                             ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: "Nạp tiền", width: .infinity, imgName: "", textColor: .white) {
-                                                
-                                            }
+                                                if let amount = Int(moneyText){
+                                                    submitOrder(amount: amount, orderInfo: "")
+                                                }else{
+                                                    print("Invalid amount")
+                                                }
+                                            }.padding(.bottom,10)
                                             
                                             
                                         }
@@ -190,11 +203,87 @@ struct Money: View {
             }
             // end VStack
         }
+//        .sheet(isPresented: $isShowingWebView, content: {
+//            if let url = webViewURL {
+//                            SafariView(url: url)
+//                        }
+//        })
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
 //        .ignoresSafeArea(.keyboard, edges: .bottom)
                         
+    }
+    
+    func submitOrder(amount: Int, orderInfo: String) {
+        guard let baseURL = URL(string: "http://localhost:8080/api/v1/vnpay/submitOrder") else {
+                   print("Invalid base URL")
+                   return
+               }
+        
+        guard let url = URL(string: "http://localhost:8080/api/v1/vnpay/submitOrder?amount=\(amount)&orderInfo=\(orderInfo)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        // Tạo yêu cầu URLRequest
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET" // Hoặc POST, PUT, DELETE tùy vào yêu cầu của bạn
+        request.setValue("Bearer \(dataHolder.tokenLogin)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+            } else if let data = data {
+                let str = String(data: data, encoding: .utf8)
+                print("Received data:\n\(str ?? "")")
+
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }.resume()
+//        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+//                components?.queryItems = [
+//                    URLQueryItem(name: "amount", value: "\(amount)"),
+//                    URLQueryItem(name: "orderInfo", value: orderInfo)
+//                ]
+//
+//                guard let url = components?.url else {
+//                    print("Failed to construct URL")
+//                    return
+//                }
+//
+//                // Open the URL in Safari
+//                webViewURL = url
+//                isShowingWebView = true
+    }
+    
+    
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
+        // Do nothing
+    }
+}
+
+struct WebView: UIViewRepresentable {
+    let url: URL
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        let request = URLRequest(url: url)
+        uiView.load(request)
     }
 }
 

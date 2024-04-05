@@ -26,8 +26,15 @@ struct RouteId:Codable{
 
 struct RouteStop: Codable {
     let id: Int
+    let stop: Stop
+    let index:Int
+}
+
+struct Stop: Codable{
+    let id:Int
     let stopPoint: String
 }
+
 
 struct BusRouteDataDetail:Codable{
     let data: [BusRouteDetail]

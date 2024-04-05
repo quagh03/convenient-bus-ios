@@ -39,7 +39,7 @@ class BusRoutesDetailApi:ObservableObject{
                 DispatchQueue.main.async {
                     self.busRouteDetail = decodedData.data
 
-                    self.departureRoutes = decodedData.data.filter { $0.direction == "DEPARTURE" }
+                    self.departureRoutes = decodedData.data.filter { $0.direction == "DEPARTURE"}
                     self.returnRoutes = decodedData.data.filter { $0.direction == "RETURN" }
                     self.inforDeparture = decodedData.data.filter { $0.direction == "DEPARTURE" }
                     self.inforReturn = decodedData.data.filter { $0.direction == "RETURN" }
