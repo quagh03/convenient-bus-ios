@@ -31,6 +31,7 @@
 		3D3B3AE42BBFE1AE00627F37 /* PaymentHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3AE32BBFE1AE00627F37 /* PaymentHistoryRow.swift */; };
 		3D3B3AE62BBFE8E900627F37 /* HeightSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3AE52BBFE8E900627F37 /* HeightSpacer.swift */; };
 		3D3B3AE82BBFFFD000627F37 /* VNPayApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3AE72BBFFFD000627F37 /* VNPayApi.swift */; };
+		3D3B3AEA2BC038BD00627F37 /* BuyTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */; };
 		3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */; };
 		3D3CF7AA2BB11B730016B916 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7A92BB11B730016B916 /* Home.swift */; };
 		3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7AB2BB11F1C0016B916 /* Payment.swift */; };
@@ -89,6 +90,7 @@
 		3D3B3AE32BBFE1AE00627F37 /* PaymentHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryRow.swift; sourceTree = "<group>"; };
 		3D3B3AE52BBFE8E900627F37 /* HeightSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightSpacer.swift; sourceTree = "<group>"; };
 		3D3B3AE72BBFFFD000627F37 /* VNPayApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VNPayApi.swift; sourceTree = "<group>"; };
+		3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicket.swift; sourceTree = "<group>"; };
 		3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewNavigation.swift; sourceTree = "<group>"; };
 		3D3CF7A92BB11B730016B916 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3D3CF7AB2BB11F1C0016B916 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
 				3D3B3ADD2BBEA06E00627F37 /* Money.swift */,
 				3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */,
+				3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
 				3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */,
 				3D080F7F2BA7E638009C7D56 /* user.swift in Sources */,
+				3D3B3AEA2BC038BD00627F37 /* BuyTicket.swift in Sources */,
 				3DE687EC2BBC010700C89FE3 /* WidthSpacer.swift in Sources */,
 				3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */,
 				3D080F7B2BA1B5E8009C7D56 /* NavigationManager.swift in Sources */,
