@@ -5,6 +5,31 @@
 //  Created by Nguyễn Hữu Hiếu on 04/04/2024.
 //
 
+//public RedirectView submidOrder(@RequestParam("amount") int orderTotal,
+//                                   @RequestParam("orderInfo") String orderInfo,
+//                                   HttpServletRequest request){
+//       orderInfo = "";
+//       String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/api/v1/vnpay";
+//       String paymentURL = vnPayService.createOrder(orderTotal, orderInfo, baseUrl,request);
+//       return new RedirectView(paymentURL);
+//   }
+//
+//public ResponseEntity<?> submidOrder(@RequestParam("amount") int orderTotal,
+//                                   @RequestParam("orderInfo") String orderInfo,
+//                                   HttpServletRequest request){
+//       orderInfo = "";
+//       String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/api/v1/vnpay";
+//       String paymentURL = vnPayService.createOrder(orderTotal, orderInfo, baseUrl,request);
+//       System.out.println(paymentURL);
+//       Response<String> response = new Response<>();
+//       response.setCode(200);
+//       response.setData(paymentURL);
+//       response.setSuccess(true);
+//       response.setTimestamp(LocalDateTime.now());
+//       response.setMessage("OK");
+//       return ResponseEntity.ok(response);
+//   }
+
 import SwiftUI
 import Combine
 import SafariServices
@@ -23,6 +48,8 @@ struct Money: View {
     
     //    @ObservedObject var viewModel = VNPayApi()
     @EnvironmentObject var dataHolder: DataHolder
+    
+    @State private var urlVnPayUrl: String = ""
     
     
     //    let amounts: [Float] = [20000, 50000, 100000, 200000, 300000, 500000]
@@ -72,33 +99,8 @@ struct Money: View {
                                                         .frame(height: 58)
                                                 )
                                                 .overlay{
-                                                    TextField(placeholder, text: $moneyText
-                                                              //                                                                Binding(
-                                                              //                                                                    get: {
-                                                              //                                                                        formatCurrency(amount: money)
-                                                              //                                                                    },
-                                                              //                                                                    set: { newValue in
-                                                              //                                                                        if let value = Float(newValue) {
-                                                              //                                                                            money = value
-                                                              //                                                                        }
-                                                              //                                                                    }
-                                                              //                                                                )
-                                                    )
-                                                    
-                                                    //                                                    .onTapGesture {
-                                                    //                                                        if moneyText == "0" {
-                                                    //                                                            moneyText = "" // Khi TextField được chọn, xóa số 0 mặc định
-                                                    //                                                        }
-                                                    //                                                        isEditing = true
-                                                    //                                                    }
-                                                    //                                                    .onChange(of: moneyText) { newValue in
-                                                    //                                                        // Khi giá trị của TextField thay đổi, kiểm tra và định dạng số tiền
-                                                    //                                                        if isEditing {
-                                                    //                                                            if let value = Float(newValue) {
-                                                    //                                                                money = value
-                                                    //                                                            }
-                                                    //                                                        }
-                                                    //                                                    }
+                                                    TextField(placeholder, text: $moneyText)
+
                                                     
                                                     .keyboardType(.numberPad).padding(.horizontal)
                                                     .font(.system(size: 25))
@@ -179,6 +181,7 @@ struct Money: View {
                                             ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: "Nạp tiền", width: .infinity, imgName: "", textColor: .white) {
                                                 if let amount = Int(moneyText){
                                                     submitOrder(amount: amount, orderInfo: "")
+                                                               
                                                 }else{
                                                     print("Invalid amount")
                                                 }
@@ -194,7 +197,6 @@ struct Money: View {
                                     // end Vstack 1 overlay
                                     
                                 }
-                            //  .offset(y: -40)
                         }
                     }.padding(.top, 100)
                     // end form
@@ -207,20 +209,17 @@ struct Money: View {
                                .edgesIgnoringSafeArea(.all)
                        }
         }
-        //        .sheet(isPresented: $isShowingWebView, content: {
-        //            if let url = webViewURL {
-        //                            SafariView(url: url)
-        //                        }
-        //        })
+
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
         
     }
     
+    
     func submitOrder(amount: Int, orderInfo: String) {
         
-        guard let url = URL(string: "http://localhost:8080/api/v1/vnpay/submitOrder?amount=\(amount)&orderInfo=\(orderInfo)") else {
+        guard let url = URL(string: "http://localhost:8080/api/v1/vnpay/submitOrder?amount=\(amount*100)&orderInfo=\(orderInfo)") else {
             print("Invalid URL")
             return
         }
@@ -230,53 +229,32 @@ struct Money: View {
         request.httpMethod = "GET" // Hoặc POST, PUT, DELETE tùy vào yêu cầu của bạn
         request.setValue("Bearer \(dataHolder.tokenLogin)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-            } else if let data = data {
-                // Đảm bảo rằng response không nil và status code là 200 (OK)
-//                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-//                    DispatchQueue.main.async {
-//                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//                    }
-//                } else {
-//                    print("Invalid response received")
-//                }
-                do {
-                            // Kiểm tra xem dữ liệu có phải là trang HTML không
-                            let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-                                .documentType: NSAttributedString.DocumentType.html,
-                                .characterEncoding: String.Encoding.utf8.rawValue
-                            ]
-                            let attributedString = try NSAttributedString(data: data, options: options, documentAttributes: nil)
-                            
-                            DispatchQueue.main.async {
-                                // Hiển thị trang web trong Safari
-                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                            }
-                        } catch {
-                            print("Error parsing HTML: \(error)")
-                        }
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else{
+                print("Error fetching")
+                return
             }
+            
+            do{
+                let decodedData = try JSONDecoder().decode(QRCode.self, from: data)
+                DispatchQueue.main.async {
+                    self.urlVnPayUrl = decodedData.data
+                    if let url = URL(string: urlVnPayUrl){
+                        UIApplication.shared.open(url)
+                    }
+                    
+                }
+            } catch{
+                print(String(describing: error))
+            }
+            
+            
         }.resume()
-        //        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
-        //                components?.queryItems = [
-        //                    URLQueryItem(name: "amount", value: "\(amount)"),
-        //                    URLQueryItem(name: "orderInfo", value: orderInfo)
-        //                ]
-        //
-        //                guard let url = components?.url else {
-        //                    print("Failed to construct URL")
-        //                    return
-        //                }
-        //
-        //                // Open the URL in Safari
-        //                webViewURL = url
-        //                isShowingWebView = true
     }
     
     
 }
+    
 
 struct SafariView: UIViewControllerRepresentable {
     let url: URL

@@ -16,6 +16,8 @@ class DataHolder : ObservableObject{
     @Published var isTabBarHidden = false
     @Published var tokenLogin: String
     
+    @Published var stringURL: String?
+    
     init() {
         self.nameRouteHolder = "initial name"
         self.nameRouteDetail = "initial"

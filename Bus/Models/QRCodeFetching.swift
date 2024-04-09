@@ -8,7 +8,7 @@
 import Foundation
 
 struct QRCodeFetching: Codable{
-    let qrUrl: String
+    let data: String
 }
 
 struct QRCode: Codable{
