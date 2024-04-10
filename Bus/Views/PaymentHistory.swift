@@ -25,6 +25,10 @@ struct PaymentHistory: View {
             Spacer()
             
             
+            if selectedTab == 0 {
+                
+            }
+            
         }
     }
 }

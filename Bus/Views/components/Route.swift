@@ -15,11 +15,6 @@ struct Route: View {
     
     @State private var selectedRoute: BusRouteDetail?
     var busRouteDetail: [BusRouteDetail]?
-    //    private let combinedBusRoute: CombinedBusRoute
-    
-    //    @ObservedObject var viewModel = CombinedBusRoutesApi()
-    
-    //    let busRouteDetail: BusRouteDetail?
     
     @State var isTap: Bool = false
     

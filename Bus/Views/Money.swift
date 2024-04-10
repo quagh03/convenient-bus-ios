@@ -5,31 +5,6 @@
 //  Created by Nguyễn Hữu Hiếu on 04/04/2024.
 //
 
-//public RedirectView submidOrder(@RequestParam("amount") int orderTotal,
-//                                   @RequestParam("orderInfo") String orderInfo,
-//                                   HttpServletRequest request){
-//       orderInfo = "";
-//       String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/api/v1/vnpay";
-//       String paymentURL = vnPayService.createOrder(orderTotal, orderInfo, baseUrl,request);
-//       return new RedirectView(paymentURL);
-//   }
-//
-//public ResponseEntity<?> submidOrder(@RequestParam("amount") int orderTotal,
-//                                   @RequestParam("orderInfo") String orderInfo,
-//                                   HttpServletRequest request){
-//       orderInfo = "";
-//       String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/api/v1/vnpay";
-//       String paymentURL = vnPayService.createOrder(orderTotal, orderInfo, baseUrl,request);
-//       System.out.println(paymentURL);
-//       Response<String> response = new Response<>();
-//       response.setCode(200);
-//       response.setData(paymentURL);
-//       response.setSuccess(true);
-//       response.setTimestamp(LocalDateTime.now());
-//       response.setMessage("OK");
-//       return ResponseEntity.ok(response);
-//   }
-
 import SwiftUI
 import Combine
 import SafariServices

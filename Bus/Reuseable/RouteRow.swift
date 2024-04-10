@@ -20,9 +20,6 @@ struct RouteRow: View {
     var body: some View {
             ZStack(alignment:.bottom){
                 HStack{
-                    // infor
-//                    Button {
-//                    } label: {
                         VStack(alignment: .leading){
                             Group{
                                 Text(busRoute.routeName)
