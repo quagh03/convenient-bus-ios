@@ -10,9 +10,10 @@ import Foundation
 class Favotites: ObservableObject {
     @Published var busRoutes: [Int]
     @Published var showingFavs: Bool = false
-    @Published var saveItems: Set<Int> = [1,7]
+    @Published var saveItems: Set<Int> = [1,2]
     
     private var db = Database()
+
     
     init(){
         busRoutes = []

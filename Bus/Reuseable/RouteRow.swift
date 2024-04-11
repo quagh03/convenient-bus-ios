@@ -17,6 +17,8 @@ struct RouteRow: View {
 //    let busRouteDetail : BusRouteDetail
     
     @State private var isPressRow: Bool = false
+    
+    @State private var isFaved: Bool = false
     var body: some View {
             ZStack(alignment:.bottom){
                 HStack{
@@ -62,7 +64,7 @@ struct RouteRow: View {
                     Spacer()
                     // favorite
                     Button(action: {
-                        
+                        isFaved.toggle()
                     }){
                         Rectangle()
                             .fill(.clear)

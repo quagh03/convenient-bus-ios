@@ -16,6 +16,8 @@ struct Payment: View {
     
     @State var isTap: Bool = false
     
+    @ObservedObject var userAPI = UserAPI()
+    
     var body: some View {
         VStack{
             ZStack(){
@@ -43,7 +45,7 @@ struct Payment: View {
                                 ZStack(alignment:.leading){
                                     Text("********")
                                         .opacity(isPress ? 0 : 1)
-                                    Text("100000000")
+                                    Text(formatBalance())
                                         .opacity(isPress ? 1 : 0)
                                 }
                                 Button(action: {
@@ -132,11 +134,26 @@ struct Payment: View {
         }
         .onAppear{
             fetchQRCode(token: dataHolder.tokenLogin)
+            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
         }
         .fullScreenCover(isPresented: $isTap) {
             Money()
         }
         /// end VStack
+    }
+    
+    func formatBalance() -> String{
+        if let balance = userAPI.balance {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.maximumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            numberFormatter.minimumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            if let formattedBalance = numberFormatter.string(from: NSNumber(value: balance)) {
+                return formattedBalance
+            }
+        }
+        return "0"
+        
     }
     
     func fetchQRCode(token: String){
@@ -170,8 +187,3 @@ struct Payment: View {
     }
 }
 
-//struct Payment_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Payment()
-//    }
-//}
