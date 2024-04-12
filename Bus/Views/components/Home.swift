@@ -11,6 +11,9 @@ struct Home: View {
     @State var isPressed:Bool = false
     @State private var selectionImage = 0
     @Binding var selection: Int
+    @State private var isFavPress: Bool = false
+    @State private var isBuyTicketPress: Bool = false
+    @State private var isFeedbackPress: Bool = false
     
     let images = ["12","bus"]
     
@@ -87,6 +90,9 @@ struct Home: View {
                 Spacer()
             }
         }
+        .fullScreenCover(isPresented: $isFavPress) {
+            FavoriteScreen()
+        }
     }
     
     func buyTicket(){
@@ -94,7 +100,7 @@ struct Home: View {
     }
     
     func favorite(){
-        
+        isFavPress = true
     }
     
     func feedback(){

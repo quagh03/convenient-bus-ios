@@ -29,6 +29,7 @@
 		3D1FB5E22BBE29A8007711FE /* QRCodeFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FB5E12BBE29A8007711FE /* QRCodeFetching.swift */; };
 		3D2732252BC61B7500134467 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2732242BC61B7500134467 /* Favorites.swift */; };
 		3D2732272BC61E3000134467 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2732262BC61E3000134467 /* Database.swift */; };
+		3D3277702BC8D31F0063E1CD /* FavoriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */; };
 		3D3B3ADE2BBEA06E00627F37 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3ADD2BBEA06E00627F37 /* Money.swift */; };
 		3D3B3AE02BBEAAE400627F37 /* Denomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3ADF2BBEAAE400627F37 /* Denomination.swift */; };
 		3D3B3AE22BBEF88000627F37 /* PaymentHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */; };
@@ -95,6 +96,7 @@
 		3D1FB5E12BBE29A8007711FE /* QRCodeFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeFetching.swift; sourceTree = "<group>"; };
 		3D2732242BC61B7500134467 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		3D2732262BC61E3000134467 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteScreen.swift; sourceTree = "<group>"; };
 		3D3B3ADD2BBEA06E00627F37 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		3D3B3ADF2BBEAAE400627F37 /* Denomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Denomination.swift; sourceTree = "<group>"; };
 		3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistory.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */,
 				3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */,
 				3DF940332BC812A100B97C33 /* TEST.swift */,
+				3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */,
 				3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */,
 				3D2732252BC61B7500134467 /* Favorites.swift in Sources */,
+				3D3277702BC8D31F0063E1CD /* FavoriteScreen.swift in Sources */,
 				3D3B3AE82BBFFFD000627F37 /* VNPayApi.swift in Sources */,
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
 				3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */,

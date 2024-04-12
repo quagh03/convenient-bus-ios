@@ -9,6 +9,8 @@ import Foundation
 
 class BusRoutesApi:ObservableObject{
     @Published var busRoutes: [BusRoute] = []
+    @Published var busRouteFavorite: [BusRoute] = []
+    var favoriteIDs: Set<Int> = []
     
     func fetchData(){
         guard let url = URL(string: "http://localhost:8080/api/v1/bus_routes/all") else {
@@ -27,6 +29,8 @@ class BusRoutesApi:ObservableObject{
                 DispatchQueue.main.async {
 //                    self.busRoutes = decodedData
                     self.busRoutes = decodedData.data
+                    self.busRouteFavorite = decodedData.data.filter{self.favoriteIDs.contains($0.id)}
+                    
                 }
             } catch{
                 print(String(describing: error))

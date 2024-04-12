@@ -54,6 +54,7 @@ struct BuyTicket: View {
                                         Rectangle()
                                             .fill(Color.gray)
                                             .frame(width: 365, height: 1)
+                                            .padding(.bottom,10)
                                         
                                         // table
                                         Rectangle()
@@ -114,7 +115,7 @@ struct BuyTicket: View {
                             
                         }
                     }
-                    .padding(.top,100)
+                    .padding(.top,80)
                     // end form
                     
                     Spacer()

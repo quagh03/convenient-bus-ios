@@ -188,6 +188,11 @@ struct Money: View {
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
+        .sheet(isPresented: $isShowingWebView) {
+            if let webViewURL = webViewURL {
+                WebView(url: webViewURL)
+            }
+        }
         
     }
     
@@ -215,7 +220,9 @@ struct Money: View {
                 DispatchQueue.main.async {
                     self.urlVnPayUrl = decodedData.data
                     if let url = URL(string: urlVnPayUrl){
-                        UIApplication.shared.open(url)
+                        self.webViewURL = url
+                        self.isShowingWebView = true
+//                        UIApplication.shared.open(url)
                     }
                     
                 }

@@ -8,19 +8,24 @@
 import Foundation
 
 class Favotites: ObservableObject {
-    @Published var busRoutes: [Int]
-    @Published var showingFavs: Bool = false
-    @Published var saveItems: Set<Int> = [1,2]
+    @Published var busRoutes = [BusRoute]()
+    @Published var saveItems: Set<Int> = []
     
     private var db = Database()
-
     
+    var filterItem: [BusRoute] {
+        return busRoutes.filter {
+            saveItems.contains($0.id)
+        }
+    }
+
     init(){
+        self.saveItems = db.load()
         busRoutes = []
     }
     
     func contains(_ busRoute: BusRoute)->Bool{
-        busRoutes.contains(busRoute.id)
+        saveItems.contains(busRoute.id)
     }
     
     func toggleFavs(busRoute: BusRoute){

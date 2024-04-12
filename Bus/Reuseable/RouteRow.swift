@@ -12,7 +12,9 @@ struct RouteRow: View {
 //    let busRouteCombine: CombinedBusRoute
 //    let onTap: ()->Void
 //    @Binding var name: String?
-    @EnvironmentObject var dataHolder: DataHolder
+//    @EnvironmentObject var dataHolder: DataHolder
+    
+    @EnvironmentObject private var favorite: Favotites
     
 //    let busRouteDetail : BusRouteDetail
     
@@ -64,13 +66,15 @@ struct RouteRow: View {
                     Spacer()
                     // favorite
                     Button(action: {
-                        isFaved.toggle()
+                        favorite.toggleFavs(busRoute: busRoute)
                     }){
                         Rectangle()
                             .fill(.clear)
                             .frame(width: 28, height: 28)
                             .overlay {
-                                Image(systemName: "heart").resizable().frame(width: 28, height: 28).foregroundColor(.black)
+                                Image(systemName: favorite.contains(busRoute)
+                                      ? "heart.fill" : "heart"
+                                ).resizable().frame(width: 28, height: 28).foregroundColor(favorite.contains(busRoute) ? Color.red : Color.black)
                             }
                     }.padding(.trailing, 10)
                     
