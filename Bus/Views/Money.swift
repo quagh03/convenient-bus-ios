@@ -20,11 +20,14 @@ struct Money: View {
     
     @State private var webViewURL: URL? = nil
     @State private var isShowingWebView: Bool = false
+    @State private var isLoadingWebView: Bool = false
+    @State private var webViewNavigated: Bool = false
     
     //    @ObservedObject var viewModel = VNPayApi()
     @EnvironmentObject var dataHolder: DataHolder
     
     @State private var urlVnPayUrl: String = ""
+    @ObservedObject var userAPI = UserAPI()
     
     
     //    let amounts: [Float] = [20000, 50000, 100000, 200000, 300000, 500000]
@@ -38,7 +41,7 @@ struct Money: View {
                         .frame(height: 158)
                         .foregroundColor(Color("primary"))
                         .clipShape(RoundedCornerShape(corners: [.bottomLeft, .bottomRight], radius: 20))
-                    BarBackCustom(color: .white ,nameRoute: "Nạp tiền").padding(.horizontal).padding(.top)
+                    BarBackCustom(back: "",color: .white ,nameRoute: "Nạp tiền").padding(.horizontal).padding(.top)
                     
                     
                     // Form nạp tiền
@@ -60,7 +63,7 @@ struct Money: View {
                                                 HStack{
                                                     Text("Số dư của bạn: ")
                                                     Spacer()
-                                                    Text("0 VND")
+                                                    Text("\(formatBalance()) VND")
                                                 }
                                             }.font(.system(size: 22))
                                                 .padding(.top)
@@ -179,22 +182,56 @@ struct Money: View {
                 Spacer()
             }
             // end VStack
-            if isShowingWebView {
-                           WebView(url: webViewURL!)
-                               .edgesIgnoringSafeArea(.all)
-                       }
+//            if isShowingWebView {
+//                WebView(url: webViewURL!, onClose: {
+//                    userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+//                })
+//                    .edgesIgnoringSafeArea(.all)
+//            }
         }
-
+        .onAppear{
+            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+        }
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
         }
         .sheet(isPresented: $isShowingWebView) {
-            if let webViewURL = webViewURL {
-                WebView(url: webViewURL)
+//            if self.isLoadingWebView { // Kiểm tra xem có đang tải không
+//                ProgressView() // Hiển thị thanh tiến trình trong khi đang tải
+//            } else {
+//                WebView(url: dataHolder.webViewUrl!){
+//                        userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+//                    }
+//            }
+            VStack {
+                WebView(url: dataHolder.webViewUrl!, webViewNavigated: $webViewNavigated) {
+                    userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }
+                if webViewNavigated{
+                    Button("Quay lại") {
+                        self.isShowingWebView = false
+                        userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                    }
+                }
             }
         }
         
     }
+    
+    func formatBalance() -> String{
+        if let balance = userAPI.balance {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.maximumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            numberFormatter.minimumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            if let formattedBalance = numberFormatter.string(from: NSNumber(value: balance)) {
+                return formattedBalance
+            }
+        }
+        return "0"
+        
+    }
+
     
     
     func submitOrder(amount: Int, orderInfo: String) {
@@ -203,6 +240,8 @@ struct Money: View {
             print("Invalid URL")
             return
         }
+        
+        self.isLoadingWebView = true
         
         // Tạo yêu cầu URLRequest
         var request = URLRequest(url: url)
@@ -222,6 +261,8 @@ struct Money: View {
                     if let url = URL(string: urlVnPayUrl){
                         self.webViewURL = url
                         self.isShowingWebView = true
+                        self.isLoadingWebView = false
+                        dataHolder.webViewUrl = url
 //                        UIApplication.shared.open(url)
                     }
                     
@@ -252,14 +293,63 @@ struct SafariView: UIViewControllerRepresentable {
 
 struct WebView: UIViewRepresentable {
     let url: URL
+    let webViewNavigated: Binding<Bool>
+    let onClose: ()->Void
     
     func makeUIView(context: Context) -> WKWebView {
-        return WKWebView()
+//        return WKWebView()
+        let webView = WKWebView()
+        webView.navigationDelegate = context.coordinator
+        return webView
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
         let request = URLRequest(url: url)
         uiView.load(request)
+    }
+    
+    func makeCoordinator() -> Coordinator {
+       return Coordinator(parent: self)
+   }
+    
+    class Coordinator: NSObject, WKNavigationDelegate {
+            let parent: WebView
+
+            init(parent: WebView) {
+                self.parent = parent
+            }
+
+            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                // Đã tải xong, có thể hiển thị WebView
+                let urlString = webView.url?.absoluteString ?? ""
+                           if urlString.contains("status") {
+                               parent.webViewNavigated.wrappedValue = true // Đặt webViewNavigated thành true
+                           }
+            }
+
+            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+                // Lỗi khi tải WebView
+            }
+
+            func webViewDidClose(_ webView: WKWebView) {
+                // WebView đã đóng
+                parent.onClose() // Gọi callback để thông báo rằng WebView đã đóng
+            }
+        }
+}
+
+class WebViewDelegate: NSObject, WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let urlString = webView.url?.absoluteString ?? ""
+        if urlString.contains("status") {
+            // WebView đã chuyển hướng đến trang thông báo thành công của VNPay
+            // Đặt biến webViewNavigated thành true
+            // Để sử dụng biến webViewNavigated, bạn cần chuyển Money view sang class
+            // hoặc sử dụng một @ObservedObject hoặc @StateObject để lưu trạng thái
+            // trong một class ObservableObject khác
+            
+            
+        }
     }
 }
 
@@ -300,8 +390,8 @@ struct RoundedCornerShape: Shape {
 }
 
 
-struct Money_Previews: PreviewProvider {
-    static var previews: some View {
-        Money()
-    }
-}
+//struct Money_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Money()
+//    }
+//}

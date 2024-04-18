@@ -8,10 +8,20 @@
 import SwiftUI
 
 struct BuyTicket: View {
-    @State var items = [
-        ["Vé liên tuyến" , "200000", "1"]
-    ]
+    @EnvironmentObject var dataHolder: DataHolder
     
+    @State private var isDetailBuyTicketVisible = true
+    @State  var priceTicket: Int = 100000
+    @State  var numOfTicket: Int = 1
+    
+    @State var isPressed: Bool = false
+    
+    @State private var pressedTime: Date?
+    private let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter
+    }()
     
     var body: some View {
         ZStack{
@@ -21,7 +31,7 @@ struct BuyTicket: View {
                         .frame(height: 158)
                         .foregroundColor(Color("primary"))
                         .clipShape(RoundedCornerShape(corners: [.bottomLeft, .bottomRight], radius: 20))
-                    BarBackCustom(color: .white ,nameRoute: "Đăng ký vé tháng").padding(.horizontal).padding(.top)
+                    BarBackCustom(back: "" ,color: .white ,nameRoute: "Đăng ký vé tháng").padding(.horizontal).padding(.top)
                     
                     // vstack
                     VStack{
@@ -51,37 +61,63 @@ struct BuyTicket: View {
                                         // end HStack
                                         
                                         // line
-                                        Rectangle()
-                                            .fill(Color.gray)
-                                            .frame(width: 365, height: 1)
-                                            .padding(.bottom,10)
+                                        DottedLine().frame(height: 5 )
+                                        
+
                                         
                                         // table
                                         Rectangle()
                                             .fill(.clear)
-                                            .frame(width: 365, height: 52)
+                                            .frame(width: 365)
                                             .overlay{
-                                                //table
-                                                LazyVGrid(columns: [
-                                                    GridItem(.flexible(), spacing: 16),
-                                                    GridItem(.flexible(), spacing: 16),
-                                                    GridItem(.flexible(), spacing: 16),
-                                                ], spacing: 16) {
-                                                    // Tiêu đề của các cột
+                                                VStack{
+                                                    // title
+                                                    RoundedRectangle(cornerRadius: 2).fill(Color("primary"))
+                                                        .frame(height: 52)
+                                                        .overlay{
+                                                            VStack{
+                                                                HStack {
+                                                                    // Tiêu đề của các cột
+                                                                    Text("Loại").fontWeight(.bold)
+                                                                        .frame(maxWidth: .infinity)
+                                                                        .padding(8)
+                                                                        .foregroundColor(.white)
+                                                                    Text("Giá").fontWeight(.bold)
+                                                                        .frame(maxWidth: .infinity)
+                                                                        .padding(8)
+                                                                        .foregroundColor(.white)
+                                                                    Text("Thời hạn").fontWeight(.bold)
+                                                                        .frame(maxWidth: .infinity)
+                                                                        .padding(8)
+                                                                        .foregroundColor(.white)
+                                                                }
+                                                                // data
+                                                            }
+                                                        }
+                                                    // data
+                                                    RoundedRectangle(cornerRadius: 2).fill(.clear)
+                                                        .frame(height: 52)
+                                                        .overlay{
+                                                            HStack {
+                                                                // Tiêu đề của các cột
+                                                                Text("Vé liên tuyến")
+                                                                    .frame(maxWidth: .infinity)
+                                                                    .padding(8)
+                                                                Text("\(priceTicket)")
+                                                                    .frame(maxWidth: .infinity)
+                                                                    .padding(8)
+                                                                Picker("", selection: $numOfTicket) {
+                                                                    ForEach(1..<7) { number in
+                                                                        Text("\(number) tháng")
+                                                                            .tag(number)
+                                                                    }
+                                                                }
+                                                                .frame(maxWidth: .infinity)
+                                                            }
+                                                        }
+                                                    Spacer()
                                                     
-                                                    Text("Loại").fontWeight(.bold)
-                                                    Text("Giá").fontWeight(.bold)
-                                                    Text("Số lượng").fontWeight(.bold)
-                                                    
-                                                    
-                                                    // Các hàng dữ liệu
-                                                    ForEach(items.indices, id: \.self) { index in
-                                                        Text(items[index][0]) // Loại
-                                                        Text(items[index][1]) // Giá
-                                                        Text(items[index][2]) // Số lượng
-                                                    }
                                                 }
-                                                .padding(.horizontal)
                                                 
                                             }
                                         // end table
@@ -98,13 +134,14 @@ struct BuyTicket: View {
                                         HStack{
                                             Text("Tổng cộng").bold()
                                             Spacer()
-                                            Text("100000").bold()
+                                            Text("\(priceTicket*numOfTicket)").bold()
                                         }.padding(.horizontal)
                                             .padding(.bottom,10)
                                             .frame(maxWidth: 365)
                                         
                                         ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: "Tiếp tục", width: .infinity, imgName: "", textColor: .white) {
-                                            
+                                            self.pressedTime = Date()
+                                            saveInfo()
                                         }.padding(.bottom,15)
                                             .padding(.horizontal)
                                         
@@ -122,9 +159,54 @@ struct BuyTicket: View {
                 }
                 // end ZStack
             }
+        }.fullScreenCover(isPresented: $isPressed) {
+            if isDetailBuyTicketVisible {
+               DetailBuyTicket(isShowDetailBuyTicket: $isDetailBuyTicketVisible)
+           }
+        }
+        // end
+    }
+    
+    // saveInfo
+    func saveInfo(){
+        dataHolder.priceTicket = priceTicket
+        dataHolder.numOfTicket = numOfTicket
+        dataHolder.date = dateFormatter.string(from: pressedTime!)
+        dataHolder.date1 = pressedTime!
+        
+        isPressed = true
+    }
+    
+    
+    
+}
+
+struct DottedLine: View {
+    var body: some View {
+        GeometryReader { geometry in
+            Path { path in
+                let spacing: CGFloat = 5
+                let dashedLength: CGFloat = 5
+                let numberOfSegments = Int((geometry.size.width + dashedLength) / (spacing + dashedLength))
+                let totalLength = CGFloat(numberOfSegments) * (spacing + dashedLength) - dashedLength
+                
+                let startX = (geometry.size.width - totalLength) / 2.0
+                path.move(to: CGPoint(x: startX, y: 0))
+                
+                for index in 0..<numberOfSegments {
+                    let x = startX + CGFloat(index) * (spacing + dashedLength)
+                    path.addLine(to: CGPoint(x: x, y: 0))
+                    path.move(to: CGPoint(x: x + dashedLength, y: 0))
+                }
+            }
+            .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
+            .foregroundColor(Color("primary"))
+            .frame(height: 1)
         }
     }
 }
+
+
 
 struct BuyTicket_Previews: PreviewProvider {
     static var previews: some View {

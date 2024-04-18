@@ -36,7 +36,7 @@ struct DetailBusRoute: View {
 //            }
 
             VStack{
-                BarBackCustom(color: .blue,nameRoute: nameRouteDetail).padding(.bottom,15)
+                BarBackCustom(back: "",color: .blue,nameRoute: nameRouteDetail).padding(.bottom,15)
                 HStack{
                     // name route
                     RoundedRectangle(cornerRadius: 5)

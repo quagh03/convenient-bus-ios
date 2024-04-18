@@ -10,6 +10,7 @@ import Foundation
 class UserAPI: ObservableObject {
     @Published var user: User?
     @Published var balance: Float?
+    @Published var id : Int?
 
     func getUser(tokenLogin: String){
         guard let url = URL(string: "http://localhost:8080/api/v1/users/info") else {
@@ -30,6 +31,7 @@ class UserAPI: ObservableObject {
                 DispatchQueue.main.async {
                     self.user = decodedData.data
                     self.balance = decodedData.data.balance
+                    self.id = decodedData.data.id
                 }
             } catch{
                 print(error)

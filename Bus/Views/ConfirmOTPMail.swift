@@ -18,24 +18,6 @@ struct ConfirmOTPMail: View {
     @State private var isOTPVerify: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
-//    @State private var lastFocusedIndex: Int?
-//    @State private var otpEntered = Array(repeating: false, count: 6)
-//    @State private var checkIx: Bool = false
-    
-    //    @Binding var username: String
-    //    @Binding var password: String
-    //    @Binding var firstName: String
-    //    @Binding var lastName: String
-    //    @Binding var phone: String
-    //    @Binding var email: String
-    //    @Binding var chooseGender: String
-    //    @Binding var birth: Date?
-    
-    //    @Binding var otpCode: String
-    
-    //    @Binding var isSignUpSuccess: Bool
-    //    @State private var showToast: Bool = false
-    
     
     var body: some View {
         NavigationView{

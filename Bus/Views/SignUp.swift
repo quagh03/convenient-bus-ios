@@ -100,12 +100,12 @@ struct SignUp: View {
                 }
                 .padding(.all)
                 
-                                if isSignUpSuccess {
-                                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
-                                        EmptyView()
-                                    }
-                                }
-                
+                               
+                if isSignUpSuccess {
+                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
+                        EmptyView()
+                    }
+                }
                 
                 
                 if(showErrorAlert && showToast && isShowing){
@@ -159,7 +159,8 @@ struct SignUp: View {
                 if httpResponse.statusCode == 200 {
                     print("Đăng ký thành công")
                     isSignUpSuccess = true
-                    print(isSignUpSuccess)
+//                    showSignUpView = false
+                    
                 } else {
                     print("Đăng ký không thành công!")
                     isSignUpSuccess = false
@@ -229,3 +230,4 @@ struct SignUp_Previews: PreviewProvider {
         SignUp()
     }
 }
+

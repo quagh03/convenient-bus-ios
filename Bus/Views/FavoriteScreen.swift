@@ -18,7 +18,7 @@ struct FavoriteScreen: View {
             VStack{
                 ZStack{
                     ReusableImage(color: "primary", height: 65, width: .infinity)
-                    BarBackCustom(color: .white, nameRoute: "Yêu thích")
+                    BarBackCustom(back: "",color: .white, nameRoute: "Yêu thích").padding(.horizontal)
                 }
                 Spacer()
                 ScrollView{

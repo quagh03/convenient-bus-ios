@@ -15,7 +15,9 @@ struct Home: View {
     @State private var isBuyTicketPress: Bool = false
     @State private var isFeedbackPress: Bool = false
     
-    let images = ["12","bus"]
+    
+    @EnvironmentObject var dataHolder: DataHolder
+    @ObservedObject var userAPI = UserAPI()
     
     
     var body: some View {
@@ -90,13 +92,19 @@ struct Home: View {
                 Spacer()
             }
         }
+//        .onAppear{
+//            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+//        }
         .fullScreenCover(isPresented: $isFavPress) {
             FavoriteScreen()
+        }
+        .fullScreenCover(isPresented: $isBuyTicketPress) {
+            BuyTicket()
         }
     }
     
     func buyTicket(){
-        
+        isBuyTicketPress = true
     }
     
     func favorite(){
@@ -110,8 +118,8 @@ struct Home: View {
     
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home(selection: .constant(1))
-    }
-}
+//struct Home_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Home(selection: .constant(1))
+//    }
+//}

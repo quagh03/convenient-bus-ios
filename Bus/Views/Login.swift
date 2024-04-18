@@ -20,7 +20,10 @@ struct Login: View {
 //    @Published var userLog: user?
     @State private var isLogin: Bool = false
     
+    @State var showSignUpView: Bool = false
 //    let busRouteDetail: BusRouteDetail
+    
+    @ObservedObject var faceIDAuth = FaceIDAuthentication()
     
     var body: some View {
         NavigationView{
@@ -46,12 +49,20 @@ struct Login: View {
                             login(username: username, password: password)
                         }
                         Spacer()
-                        Image(systemName: "faceid")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(.black)
-                            .offset(x: -2)
+                        
+                        Button {
+                            faceIDAuth.authenticate()
+                        } label: {
+                            Image(systemName: "faceid")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(.black)
+                                .offset(x: -2)
+                        }.alert(isPresented: $faceIDAuth.showingAlert) {
+                            Alert(title: Text("Authentication Failed"), message: Text(faceIDAuth.biometricError?.localizedDescription ?? "Unable to authenticate using Face ID."), dismissButton: .default(Text("OK")))
+                        }
+
                     }
                     
                     HStack{
@@ -75,9 +86,11 @@ struct Login: View {
                     
                     HStack{
                         Text("Chưa có tài khoản?").padding(.trailing, 10)
-                        NavigationLink(destination: SignUp()){
-                            Text("Đăng Ký").foregroundColor(.blue)
-                        }
+//                        if !showSignUpView{
+                            NavigationLink(destination: SignUp()){
+                                Text("Đăng Ký").foregroundColor(.blue)
+                            }
+//                        }
                     }.padding(.vertical, 12)
                     
                     if isLogin{

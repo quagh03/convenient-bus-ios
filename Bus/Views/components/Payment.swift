@@ -15,6 +15,7 @@ struct Payment: View {
     @State var code: String = ""
     
     @State var isTap: Bool = false
+    @State var isPaymentHistory: Bool = false
     
     @ObservedObject var userAPI = UserAPI()
     
@@ -107,7 +108,7 @@ struct Payment: View {
             
             // history
             Button {
-                
+                isPaymentHistory = true
             } label: {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(.clear)
@@ -138,6 +139,9 @@ struct Payment: View {
         }
         .fullScreenCover(isPresented: $isTap) {
             Money()
+        }
+        .fullScreenCover(isPresented: $isPaymentHistory) {
+            PaymentHistory()
         }
         /// end VStack
     }

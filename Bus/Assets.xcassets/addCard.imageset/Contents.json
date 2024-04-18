@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "outline_add_card_black_24pt_1x.png",
+      "filename" : "addCard.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "outline_add_card_black_24pt_2x.png",
+      "filename" : "Payment method 1-3.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "outline_add_card_black_24pt_3x.png",
+      "filename" : "Payment method 1-4.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

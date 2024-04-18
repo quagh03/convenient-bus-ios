@@ -51,6 +51,19 @@
 		3D3CF7C02BB31A980016B916 /* RouteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7BF2BB31A980016B916 /* RouteRow.swift */; };
 		3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */; };
 		3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */; };
+		3D5D74612BCD10320043DB14 /* DetailBuyTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D74602BCD10320043DB14 /* DetailBuyTicket.swift */; };
+		3D5D74632BCD27D60043DB14 /* TransactionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D74622BCD27D60043DB14 /* TransactionAPI.swift */; };
+		3D5D74662BCD74D70043DB14 /* CustomCircleCheckmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D74652BCD74D70043DB14 /* CustomCircleCheckmark.swift */; };
+		3D5D74682BCD84BE0043DB14 /* CircleCheckmarkParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D74672BCD84BE0043DB14 /* CircleCheckmarkParameters.swift */; };
+		3D5D746A2BCE8B320043DB14 /* CustomCircleFailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D74692BCE8B320043DB14 /* CustomCircleFailed.swift */; };
+		3D5D746C2BCEC8FE0043DB14 /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D746B2BCEC8FE0043DB14 /* test2.swift */; };
+		3D5D746E2BCECD530043DB14 /* test3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D746D2BCECD530043DB14 /* test3.swift */; };
+		3D5D74702BCECD5A0043DB14 /* test4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D746F2BCECD5A0043DB14 /* test4.swift */; };
+		3D7522282BCF725A0028178F /* AlertPaymentSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7522272BCF725A0028178F /* AlertPaymentSuccess.swift */; };
+		3D75222B2BD00D7B0028178F /* AlertPaymentFailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75222A2BD00D7B0028178F /* AlertPaymentFailed.swift */; };
+		3D75222D2BD0151F0028178F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75222C2BD0151F0028178F /* Transaction.swift */; };
+		3D75222F2BD101610028178F /* DetailPaymentHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75222E2BD101610028178F /* DetailPaymentHistory.swift */; };
+		3D7522312BD155770028178F /* FaceIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7522302BD155770028178F /* FaceIDAuthentication.swift */; };
 		3D78A9CD2BB63DD2005ED9B4 /* StopRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */; };
 		3D78A9CF2BB6715B005ED9B4 /* LoginApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */; };
 		3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */; };
@@ -119,6 +132,19 @@
 		3D3CF7BF2BB31A980016B916 /* RouteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRow.swift; sourceTree = "<group>"; };
 		3D3CF7C12BB3BAF60016B916 /* BusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoutesApi.swift; sourceTree = "<group>"; };
+		3D5D74602BCD10320043DB14 /* DetailBuyTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBuyTicket.swift; sourceTree = "<group>"; };
+		3D5D74622BCD27D60043DB14 /* TransactionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionAPI.swift; sourceTree = "<group>"; };
+		3D5D74652BCD74D70043DB14 /* CustomCircleCheckmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCircleCheckmark.swift; sourceTree = "<group>"; };
+		3D5D74672BCD84BE0043DB14 /* CircleCheckmarkParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCheckmarkParameters.swift; sourceTree = "<group>"; };
+		3D5D74692BCE8B320043DB14 /* CustomCircleFailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCircleFailed.swift; sourceTree = "<group>"; };
+		3D5D746B2BCEC8FE0043DB14 /* test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
+		3D5D746D2BCECD530043DB14 /* test3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test3.swift; sourceTree = "<group>"; };
+		3D5D746F2BCECD5A0043DB14 /* test4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test4.swift; sourceTree = "<group>"; };
+		3D7522272BCF725A0028178F /* AlertPaymentSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPaymentSuccess.swift; sourceTree = "<group>"; };
+		3D75222A2BD00D7B0028178F /* AlertPaymentFailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPaymentFailed.swift; sourceTree = "<group>"; };
+		3D75222C2BD0151F0028178F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		3D75222E2BD101610028178F /* DetailPaymentHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPaymentHistory.swift; sourceTree = "<group>"; };
+		3D7522302BD155770028178F /* FaceIDAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAuthentication.swift; sourceTree = "<group>"; };
 		3D78A9CC2BB63DD2005ED9B4 /* StopRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopRoute.swift; sourceTree = "<group>"; };
 		3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginApi.swift; sourceTree = "<group>"; };
 		3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDetailApi.swift; sourceTree = "<group>"; };
@@ -170,8 +196,10 @@
 		3D080F552BA016F0009C7D56 /* Bus */ = {
 			isa = PBXGroup;
 			children = (
+				3D7522302BD155770028178F /* FaceIDAuthentication.swift */,
 				3D3CF7B72BB189930016B916 /* Fonts */,
 				3D080F562BA016F0009C7D56 /* BusApp.swift */,
+				3D5D74672BCD84BE0043DB14 /* CircleCheckmarkParameters.swift */,
 				3D080F7A2BA1B5E8009C7D56 /* NavigationManager.swift */,
 				3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */,
 				3D080F6B2BA04450009C7D56 /* Reuseable */,
@@ -195,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				3D78A9CB2BB63DB6005ED9B4 /* navigationScreen */,
+				3D5D74642BCD6B640043DB14 /* TEST */,
 				3D3CF7A62BB1134D0016B916 /* components */,
 				3D080F582BA016F0009C7D56 /* ContentView.swift */,
 				3D080F672BA01A05009C7D56 /* SplashScreen.swift */,
@@ -204,12 +233,12 @@
 				3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */,
 				3D3CF7A72BB113610016B916 /* TabViewNavigation.swift */,
 				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
-				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
 				3D3B3ADD2BBEA06E00627F37 /* Money.swift */,
 				3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */,
 				3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */,
-				3DF940332BC812A100B97C33 /* TEST.swift */,
 				3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */,
+				3D5D74602BCD10320043DB14 /* DetailBuyTicket.swift */,
+				3D75222E2BD101610028178F /* DetailPaymentHistory.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				3DE687E62BBBA09D00C89FE3 /* components */,
+				3D7522292BD00D590028178F /* AlertBuyTicket */,
 				3D080F6E2BA044B0009C7D56 /* ReuseableTextField.swift */,
 				3D080F702BA04E6B009C7D56 /* ReuseableButton.swift */,
 				3D080F782BA1A988009C7D56 /* DateTimePickerTextField.swift */,
@@ -253,6 +283,7 @@
 				3D2732242BC61B7500134467 /* Favorites.swift */,
 				3D2732262BC61E3000134467 /* Database.swift */,
 				3DF940312BC80C0200B97C33 /* PhotoPicker.swift */,
+				3D75222C2BD0151F0028178F /* Transaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -289,8 +320,30 @@
 				3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */,
 				3D3B3AE72BBFFFD000627F37 /* VNPayApi.swift */,
 				3D09F2B72BC6A60800974321 /* UserAPI.swift */,
+				3D5D74622BCD27D60043DB14 /* TransactionAPI.swift */,
 			);
 			path = api;
+			sourceTree = "<group>";
+		};
+		3D5D74642BCD6B640043DB14 /* TEST */ = {
+			isa = PBXGroup;
+			children = (
+				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
+				3DF940332BC812A100B97C33 /* TEST.swift */,
+				3D5D746B2BCEC8FE0043DB14 /* test2.swift */,
+				3D5D746D2BCECD530043DB14 /* test3.swift */,
+				3D5D746F2BCECD5A0043DB14 /* test4.swift */,
+			);
+			path = TEST;
+			sourceTree = "<group>";
+		};
+		3D7522292BD00D590028178F /* AlertBuyTicket */ = {
+			isa = PBXGroup;
+			children = (
+				3D7522272BCF725A0028178F /* AlertPaymentSuccess.swift */,
+				3D75222A2BD00D7B0028178F /* AlertPaymentFailed.swift */,
+			);
+			path = AlertBuyTicket;
 			sourceTree = "<group>";
 		};
 		3D78A9CB2BB63DB6005ED9B4 /* navigationScreen */ = {
@@ -305,6 +358,8 @@
 		3DE687E62BBBA09D00C89FE3 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				3D5D74652BCD74D70043DB14 /* CustomCircleCheckmark.swift */,
+				3D5D74692BCE8B320043DB14 /* CustomCircleFailed.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -394,12 +449,14 @@
 				3D080F682BA01A05009C7D56 /* SplashScreen.swift in Sources */,
 				3D080F592BA016F0009C7D56 /* ContentView.swift in Sources */,
 				3D09F2B82BC6A60800974321 /* UserAPI.swift in Sources */,
+				3D75222D2BD0151F0028178F /* Transaction.swift in Sources */,
 				3D080F872BAC8113009C7D56 /* GenderField.swift in Sources */,
 				3D3CF7B42BB16B620016B916 /* ReusableSearchbar.swift in Sources */,
 				3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */,
 				3DE687EA2BBBF28C00C89FE3 /* BarBackCustom.swift in Sources */,
 				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
 				3D1FB5E22BBE29A8007711FE /* QRCodeFetching.swift in Sources */,
+				3D7522312BD155770028178F /* FaceIDAuthentication.swift in Sources */,
 				3D3CF7B02BB11F320016B916 /* Account.swift in Sources */,
 				3D78A9D32BB7041C005ED9B4 /* BusRouteDetail.swift in Sources */,
 				3D080F572BA016F0009C7D56 /* BusApp.swift in Sources */,
@@ -407,19 +464,23 @@
 				3D080F6F2BA044B0009C7D56 /* ReuseableTextField.swift in Sources */,
 				3D3CF7C52BB3BC7F0016B916 /* BusRoutesApi.swift in Sources */,
 				3D080F832BA9A6A5009C7D56 /* Response.swift in Sources */,
+				3D75222B2BD00D7B0028178F /* AlertPaymentFailed.swift in Sources */,
 				3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */,
 				3DF940322BC80C0200B97C33 /* PhotoPicker.swift in Sources */,
 				3DF940362BC81C5700B97C33 /* TripHistoryRow.swift in Sources */,
 				3DF325D12BB4FA0700BD62A1 /* Balance.swift in Sources */,
 				3DF940342BC812A100B97C33 /* TEST.swift in Sources */,
 				3DE687E82BBBA4E000C89FE3 /* InforRoute.swift in Sources */,
+				3D5D746E2BCECD530043DB14 /* test3.swift in Sources */,
 				3D080F712BA04E6B009C7D56 /* ReuseableButton.swift in Sources */,
 				3DF325D32BB57E7600BD62A1 /* DetailBusRoute.swift in Sources */,
 				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
 				3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */,
 				3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */,
 				3D3CF7A82BB113610016B916 /* TabViewNavigation.swift in Sources */,
+				3D75222F2BD101610028178F /* DetailPaymentHistory.swift in Sources */,
 				3D3B3AE62BBFE8E900627F37 /* HeightSpacer.swift in Sources */,
+				3D5D74682BCD84BE0043DB14 /* CircleCheckmarkParameters.swift in Sources */,
 				3D3B3AE02BBEAAE400627F37 /* Denomination.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
 				3D2732272BC61E3000134467 /* Database.swift in Sources */,
@@ -430,8 +491,10 @@
 				3D3277702BC8D31F0063E1CD /* FavoriteScreen.swift in Sources */,
 				3D3B3AE82BBFFFD000627F37 /* VNPayApi.swift in Sources */,
 				3D080F6A2BA01D47009C7D56 /* Login.swift in Sources */,
+				3D5D746A2BCE8B320043DB14 /* CustomCircleFailed.swift in Sources */,
 				3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */,
 				3D080F7F2BA7E638009C7D56 /* User.swift in Sources */,
+				3D5D74662BCD74D70043DB14 /* CustomCircleCheckmark.swift in Sources */,
 				3D3B3AEA2BC038BD00627F37 /* BuyTicket.swift in Sources */,
 				3DE687EC2BBC010700C89FE3 /* WidthSpacer.swift in Sources */,
 				3DF325D52BB581DD00BD62A1 /* TopTabNavigation.swift in Sources */,
@@ -439,10 +502,15 @@
 				3D3B3AE22BBEF88000627F37 /* PaymentHistory.swift in Sources */,
 				3D09F2B62BC6A42600974321 /* ProfileRow.swift in Sources */,
 				3D3CF7AC2BB11F1C0016B916 /* Payment.swift in Sources */,
+				3D7522282BCF725A0028178F /* AlertPaymentSuccess.swift in Sources */,
 				3D78A9CF2BB6715B005ED9B4 /* LoginApi.swift in Sources */,
+				3D5D746C2BCEC8FE0043DB14 /* test2.swift in Sources */,
 				3D080F852BA9CFC0009C7D56 /* Toast.swift in Sources */,
+				3D5D74612BCD10320043DB14 /* DetailBuyTicket.swift in Sources */,
 				3D3B3ADE2BBEA06E00627F37 /* Money.swift in Sources */,
+				3D5D74702BCECD5A0043DB14 /* test4.swift in Sources */,
 				3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */,
+				3D5D74632BCD27D60043DB14 /* TransactionAPI.swift in Sources */,
 				3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */,
 				3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */,
 			);
@@ -501,7 +569,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -555,7 +623,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -577,6 +645,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bus/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "we need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -608,6 +678,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bus/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "we need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

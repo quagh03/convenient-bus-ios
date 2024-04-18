@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct PaymentHistoryRow: View {
+    @State var imgName: String
+    @State var title: String
+    @State var time: String
+    @State var amount: String
+    @State var status: String
+    @State var color: Color
+    
     var body: some View {
         ZStack{
             Rectangle().fill(.clear)
@@ -19,33 +26,34 @@ struct PaymentHistoryRow: View {
                 .overlay{
                     HStack{
                         // image
-                        Image("addCard")
-                            .renderingMode(.template)
+                        Image(imgName)
+//                            .renderingMode(.template)
                             .resizable()
                             .frame(width: 32, height: 32)
-                            .foregroundColor(.green)
+//                            .foregroundColor(.green)
                             .scaledToFit()
                         
                         WidthSpacer(widthSpacer: 1)
                         
-                        // infot
+                        // info
                         VStack(alignment: .leading, spacing: 6){
-                            Text("Thanh toán vé T4/2024")
+                            Text(title)
                                 .font(.system(size: 18))
-                            Text("9:05 - 28/3/2024")
+                            Text(time)
                                 .font(.system(size: 14))
                         }
                         
                         WidthSpacer(widthSpacer: 1)
+                        Spacer()
                         
                         // pay
                         VStack(alignment: .center, spacing: 6){
-                            Text("-60000 VND").font(.system(size: 18))
-                            Text("Thành công")
+                            Text(amount).font(.system(size: 18))
+                            Text(status)
                                 .font(.system(size: 14))
-                                .foregroundColor(.green)
+                                .foregroundColor(color)
                         }
-                    }
+                    }.padding(.horizontal)
                 }
         }
     }
@@ -53,6 +61,6 @@ struct PaymentHistoryRow: View {
 
 struct PaymentHistoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentHistoryRow()
+        PaymentHistoryRow(imgName: "minusCard", title: "Nap tien", time: "9:05 - 28/3/2024", amount: "-60000 VND", status: "Thành công", color: .green)
     }
 }
