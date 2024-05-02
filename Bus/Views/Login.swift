@@ -28,81 +28,95 @@ struct Login: View {
     var body: some View {
         NavigationView{
             ZStack{
-//                Image("").resizable().ignoresSafeArea()
-//                Image("logo").resizable()
-                VStack{
-                    VStack{
-                        Image("logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 125, height: 125)
-                            .padding(.bottom, 50)
-                        Text("BUS CONVENIENT").font(.system(size: 30)).offset(y:-30)
-                            .foregroundColor(Color("primary"))
-                    }
-                    ReuseableTextField(imageName: "person.fill", placeholder: "Tài khoản" ,txtInput: $username, hasError: isSignUpButtonTapped && username.isEmpty)
-                    ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && password.isEmpty)
-                    
-                    HStack{
-                        ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
-//                            login(username: username, password: password)
-                            login(username: username, password: password)
-                        }
-                        Spacer()
-                        
-                        Button {
-                            faceIDAuth.authenticate()
-                        } label: {
-                            Image(systemName: "faceid")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .foregroundColor(.black)
-                                .offset(x: -2)
-                        }.alert(isPresented: $faceIDAuth.showingAlert) {
-                            Alert(title: Text("Authentication Failed"), message: Text(faceIDAuth.biometricError?.localizedDescription ?? "Unable to authenticate using Face ID."), dismissButton: .default(Text("OK")))
-                        }
-
-                    }
-                    
-                    HStack{
-                        Rectangle()
-                            .foregroundColor(.black)
-                            .frame(height: 1)
-                            .padding(.horizontal,10)
-                        Text("OR")
-                        Rectangle()
-                            .foregroundColor(.black)
-                            .frame(height: 1)
-                            .padding(.horizontal,10)
-                    }.padding(.vertical,10)
-                    
-                    ReuseableButton(red: 255/255, green: 255/255, blue: 255/255, text: "Đăng nhập bằng Google", width: .infinity , imgName: "loginwithgg", textColor: .black) {
-                        isSignUpButtonTapped = true
-                        loginWithGoogle()
-                    }.overlay{
-                        
-                    }
-                    
-                    HStack{
-                        Text("Chưa có tài khoản?").padding(.trailing, 10)
-//                        if !showSignUpView{
-                            NavigationLink(destination: SignUp()){
-                                Text("Đăng Ký").foregroundColor(.blue)
+                ZStack{
+                    ScrollView{
+                        //                Image("").resizable().ignoresSafeArea()
+                        //                Image("logo").resizable()
+                        HeightSpacer(heightSpacer: 20)
+                        VStack{
+                            VStack{
+                                Image("logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 125, height: 125)
+                                    .padding(.bottom, 50)
+                                Text("BUS CONVENIENT").font(.system(size: 30)).offset(y:-30)
+                                    .foregroundColor(Color("primary"))
                             }
-//                        }
-                    }.padding(.vertical, 12)
-                    
-                    if isLogin{
-                        NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
-                            EmptyView()
-                        }
+                            ReuseableTextField(imageName: "person.fill", placeholder: "Tài khoản" ,txtInput: $username, hasError: isSignUpButtonTapped && username.isEmpty)
+                            ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && password.isEmpty)
+                            
+                            HStack{
+                                ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
+                                    //                            login(username: username, password: password)
+                                    login(username: username, password: password)
+                                }
+                                Spacer()
+                                
+                                Button {
+                                    faceIDAuth.authenticate()
+                                } label: {
+                                    Image(systemName: "faceid")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50, height: 50)
+                                        .foregroundColor(.black)
+                                        .offset(x: -2)
+                                }.alert(isPresented: $faceIDAuth.showingAlert) {
+                                    Alert(title: Text("Authentication Failed"), message: Text(faceIDAuth.biometricError?.localizedDescription ?? "Unable to authenticate using Face ID."), dismissButton: .default(Text("OK")))
+                                }
+                                
+                            }
+                            
+                            HStack{
+                                Rectangle()
+                                    .foregroundColor(.black)
+                                    .frame(height: 1)
+                                    .padding(.horizontal,10)
+                                Text("OR")
+                                Rectangle()
+                                    .foregroundColor(.black)
+                                    .frame(height: 1)
+                                    .padding(.horizontal,10)
+                            }.padding(.vertical,10)
+                            
+                            ReuseableButton(red: 255/255, green: 255/255, blue: 255/255, text: "Đăng nhập bằng Google", width: .infinity , imgName: "loginwithgg", textColor: .black) {
+                                isSignUpButtonTapped = true
+                                loginWithGoogle()
+                            }.overlay{
+                                
+                            }
+                            
+                            HStack{
+                                Text("Chưa có tài khoản?").padding(.trailing, 10)
+                                //                        if !showSignUpView{
+                                NavigationLink(destination: SignUp()){
+                                    Text("Đăng Ký").foregroundColor(.blue)
+                                }
+                                //                        }
+                            }.padding(.vertical, 12)
+                            
+                            if isLogin{
+                                NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
+                                    EmptyView()
+                                }
+                            }
+                            
+                        }.padding(.all)
+                        
                     }
-                    
-                }.padding(.all)
+                }
                 
+                // toast
+                ZStack{
+                    if isLogin == false{
+                        ToastM(tint: .clear, title: "Tài khoản hoặc mật khẩu không chính xác")
+                    }
+                }
             }
+            
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func loginBtn(){
@@ -145,7 +159,6 @@ struct Login: View {
             
             if httpResponse.statusCode == 200 {
                 print("Đăng nhập thành công")
-//                isLogin = true
                 
                 //
                 do{
@@ -168,6 +181,7 @@ struct Login: View {
                 
             } else {
                 print("Đăng nhập không thành công!")
+                isLogin = false
             }
         }.resume()
     }

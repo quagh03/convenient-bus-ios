@@ -11,6 +11,12 @@ class UserAPI: ObservableObject {
     @Published var user: User?
     @Published var balance: Float?
     @Published var id : Int?
+    @Published var firstName: String?
+    @Published var lastName: String?
+    @Published var phoneNumber: String?
+    @Published var email: String?
+    @Published var role: String?
+    
 
     func getUser(tokenLogin: String){
         guard let url = URL(string: "http://localhost:8080/api/v1/users/info") else {
@@ -32,6 +38,11 @@ class UserAPI: ObservableObject {
                     self.user = decodedData.data
                     self.balance = decodedData.data.balance
                     self.id = decodedData.data.id
+                    self.firstName = decodedData.data.firstName
+                    self.lastName = decodedData.data.lastName
+                    self.phoneNumber = decodedData.data.phoneNumber
+                    self.email = decodedData.data.email
+                    self.role = decodedData.data.role
                 }
             } catch{
                 print(error)

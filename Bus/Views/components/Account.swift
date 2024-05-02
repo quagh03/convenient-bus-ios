@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct Account: View {
     @ObservedObject var userAPI = UserAPI()
@@ -14,13 +15,19 @@ struct Account: View {
     @State private var isShowingPicker: Bool = false
     @State private var avatarImage = UIImage(named: "default-avatar")!
     
+    @State private var isTripHistoryPressed: Bool = false
+    
+    @State private var showingLogoutAlert = false
+    @Binding var isLogOut: Bool
+    
     let title: [String] = ["Họ", "Tên", "Ngày sinh", "Số điện thoại", "Email", "Giới tính", "Ngày tham gia"]
     
     var body: some View {
-        VStack{
-            ScrollView{
-            ZStack{
-                ReusableImage(color: "primary", height: 166, width: .infinity)
+        NavigationView{
+            VStack{
+                ScrollView{
+                    ZStack{
+                        ReusableImage(color: "primary", height: 166, width: .infinity)
                         ZStack{
                             ZStack{
                                 Image(uiImage: avatarImage)
@@ -36,48 +43,58 @@ struct Account: View {
                                 Text("\(userAPI.user?.firstName ?? "")")
                             }.offset(y:60)
                         }.frame(maxWidth: .infinity)
-                
-            }
-            
-            ForEach(title.indices, id: \.self){index in
-                ProfileRow(title: title[index], infor: userDataForTitle(index))
-            }
-            
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.clear)
-                .frame(height: 56)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color("lightGray"), lineWidth: 1)
-                }
-                .overlay{
-                    Button {
                         
-                    } label: {
-                        HStack{
-                            Text("Lịch sử chuyến đi")
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                            
-                        }.padding(.horizontal).foregroundColor(.black)
                     }
-                }
-                .padding(.top)
-            
-            Button {
-                
-            } label: {
-                HStack{
-                    Text("Đăng xuất").foregroundColor(.red)
-                        .font(.system(size: 20))
+                    
+                    ForEach(title.indices, id: \.self){index in
+                        ProfileRow(title: title[index], infor: userDataForTitle(index))
+                    }
+                    
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(.clear)
+                        .frame(height: 56)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color("lightGray"), lineWidth: 1)
+                        }
+                        .overlay{
+                            Button {
+                                withAnimation {
+                                    isTripHistoryPressed = true
+                                }
+                            } label: {
+                                NavigationLink(destination: TripHistory()){
+                                    HStack{
+                                        //                                    NavigationLink(destination: TripHistory()){
+                                        Text("Lịch sử chuyến đi").foregroundColor(.black)
+                                        //                                    }
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                        
+                                    }.padding(.horizontal).foregroundColor(.black)
+                                }
+                            }
+                        }
+                        .padding(.top)
+                    
+                    NavigationLink(destination: Login(), isActive: $isLogOut) {
+                        EmptyView()
+                    }
+                    Button(action: {
+                        showingLogoutAlert = true
+                    }) {
+                        HStack{
+                            Text("Đăng xuất").foregroundColor(.red)
+                                .font(.system(size: 20))
+                            Spacer()
+                        }.padding(.all)
+                    }
+                    
                     Spacer()
-                }.padding(.horizontal)
-            }.padding(.vertical)
+                }
+            }
             
             
-            
-            Spacer()
-        }
         }
         .onAppear{
             userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
@@ -85,6 +102,17 @@ struct Account: View {
         .sheet(isPresented: $isShowingPicker) {
             PhotoPicker(avatarImage: $avatarImage)
         }
+        .alert(isPresented: $showingLogoutAlert) {
+            Alert(title: Text("Xác nhận"), message: Text("Bạn có chắc chắn muốn đăng xuất?"), primaryButton: .destructive(Text("Đăng xuất"), action: {
+                // Thực hiện việc đăng xuất và chuyển hướng về trang đăng nhập
+                isLogOut = true
+            }), secondaryButton: .cancel())
+        }
+    }
+    
+    //logout
+    func logout(){
+        
     }
     
     //
@@ -97,7 +125,7 @@ struct Account: View {
         case "Ngày sinh":
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-
+            
             if let dateString = userAPI.user?.dob {
                 if let dob = dateFormatter.date(from: dateString) {
                     dateFormatter.dateFormat = "yyyy/MM/dd"
@@ -114,7 +142,7 @@ struct Account: View {
         case "Ngày tham gia":
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-
+            
             if let dateString = userAPI.user?.registeredAt {
                 if let registeredAt = dateFormatter.date(from: dateString) {
                     dateFormatter.dateFormat = "yyyy/MM/dd"
@@ -125,7 +153,7 @@ struct Account: View {
         default:
             return ""
         }
-
+        
     }
     
 }

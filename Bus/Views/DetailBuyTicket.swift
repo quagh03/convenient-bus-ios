@@ -12,6 +12,7 @@ struct DetailBuyTicket: View {
     @EnvironmentObject var dataHolder: DataHolder
     @ObservedObject var userAPI = UserAPI()
     @ObservedObject var transAPI = TransactionAPI()
+    @ObservedObject var ticketAPI = TicketAPI()
     
     @State private var showingSuccessModal = false
     @State private var showingFailedModal = false
@@ -93,15 +94,17 @@ struct DetailBuyTicket: View {
                             Spacer()
                             Text("\(dataHolder.priceTicket! * dataHolder.numOfTicket!)").bold()
                         }.padding(.horizontal)
-                        
-                        ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: "Thanh toán", width: .infinity, imgName: "", textColor: .white) {
-                            transAPI.deposit(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket! * dataHolder.numOfTicket!))
+//                        dataHolder.isExistTicket ? "Gia hạn":
+                        ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: dataHolder.isExistTicket ? "Gia Hạn":"Mua vé", width: .infinity, imgName: "", textColor: .white) {
+                            if dataHolder.isExistTicket {
+                                ticketAPI.exprireTiket(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket!))
+                            } else {
+                                transAPI.deposit(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket! * dataHolder.numOfTicket!))
+                            }
                         }.padding(.bottom,15)
-                            .padding(.horizontal)
+                        .padding(.horizontal)
                     }.padding(.vertical)
-                    
                 }
-                
                 Spacer()
             }
             // alert
@@ -110,10 +113,10 @@ struct DetailBuyTicket: View {
             } else if showingFailedModal{
                 AlertPaymentFailed()
             }
-            
         }
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+//            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+//            ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
             if transAPI.buyTicketSuccess{
                 showingSuccessModal = true
             } else if transAPI.buyTicketFailed{
@@ -131,12 +134,12 @@ struct DetailBuyTicket: View {
     func userDataForTitleInfo(_ index: Int) -> String {
         switch titleInfoIndi[index]{
         case "Họ và tên":
-            return ("\(userAPI.user?.lastName ?? "") \(userAPI.user?.firstName ?? "")")
+            return ("\(dataHolder.lNameUser ?? "") \(dataHolder.fNameUser ?? "")")
         case "Ngày sinh":
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
-            if let dateString = userAPI.user?.dob {
+            if let dateString = dataHolder.dobUser {
                 if let dob = dateFormatter.date(from: dateString) {
                     dateFormatter.dateFormat = "yyyy/MM/dd"
                     return dateFormatter.string(from: dob)
@@ -144,9 +147,9 @@ struct DetailBuyTicket: View {
             }
             return ""
         case "Email":
-            return userAPI.user?.email ?? ""
+            return dataHolder.emailUser ?? ""
         case "Số điện thoại":
-            return userAPI.user?.phoneNumber ?? ""
+            return dataHolder.phoneUser ?? ""
         default:
             return ""
         }

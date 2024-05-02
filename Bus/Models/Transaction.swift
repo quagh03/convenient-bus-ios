@@ -11,6 +11,7 @@ struct Transaction:Codable{
     let id: Int
     let amount: Double
     let type: String
+    let vnpID: String?
     let time: String
     let status: String
     let user: User

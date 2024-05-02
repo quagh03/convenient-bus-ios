@@ -17,11 +17,15 @@ struct BuyTicket: View {
     @State var isPressed: Bool = false
     
     @State private var pressedTime: Date?
+    @ObservedObject var ticketApi = TicketAPI()
+    
     private let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            return formatter
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
     }()
+    
+    @State var isTest: Bool = false
     
     var body: some View {
         ZStack{
@@ -59,11 +63,22 @@ struct BuyTicket: View {
                                             
                                         }.padding(.horizontal)
                                         // end HStack
+//                                        formattedRemainingTime(startDate: ticket.startDate,endDate: ticket.endDate)
+                                        
+                                        HStack{
+                                            if dataHolder.isExistTicket {
+                                                ForEach(ticketApi.ticketForUser, id:\.id){ ticket in
+                                                    let timeString = extractMonthYear(from: ticket.endDate)
+                                                    Text("Vé tháng của bạn còn hạn đến: \(timeString)" ).foregroundColor(.gray)
+                                                }
+                                            } else {
+                                                Text("Bạn chưa có vé tháng!").foregroundColor(.gray)
+                                            }
+                                            Spacer()
+                                        }.padding(.horizontal)
                                         
                                         // line
                                         DottedLine().frame(height: 5 )
-                                        
-
                                         
                                         // table
                                         Rectangle()
@@ -142,6 +157,7 @@ struct BuyTicket: View {
                                         ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: "Tiếp tục", width: .infinity, imgName: "", textColor: .white) {
                                             self.pressedTime = Date()
                                             saveInfo()
+                                            
                                         }.padding(.bottom,15)
                                             .padding(.horizontal)
                                         
@@ -159,10 +175,17 @@ struct BuyTicket: View {
                 }
                 // end ZStack
             }
-        }.fullScreenCover(isPresented: $isPressed) {
+        }
+        .onAppear{
+            ticketApi.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+//            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+//                dataHolder.isExistTicket = ticketApi.isExist
+//            }
+        }
+        .fullScreenCover(isPresented: $isPressed) {
             if isDetailBuyTicketVisible {
-               DetailBuyTicket(isShowDetailBuyTicket: $isDetailBuyTicketVisible)
-           }
+                DetailBuyTicket(isShowDetailBuyTicket: $isDetailBuyTicketVisible)
+            }
         }
         // end
     }
@@ -177,8 +200,31 @@ struct BuyTicket: View {
         isPressed = true
     }
     
-    
-    
+    func extractMonthYear(from date: String) -> String {
+        // Tạo một đối tượng Calendar
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if let date = dateFormatter.date(from: date) {
+            // Tạo một đối tượng Calendar
+            let calendar = Calendar.current
+            
+            // Trích xuất tháng và năm từ đối tượng Date
+            let month = calendar.component(.month, from: date)
+            let year = calendar.component(.year, from: date)
+//            let hour = calendar.component(.hour, from: date)
+//            let min = calendar.component(.minute, from: date)
+            let day = calendar.component(.day, from: date)
+            
+            // Tạo chuỗi tháng và năm
+            let timeString = "\(day)/\(month)/\(year)"
+            
+            return timeString
+        } else {
+            // Xử lý trường hợp không thể chuyển đổi chuỗi thành đối tượng Date
+            return "Không thể phân tích chuỗi thời gian"
+        }
+    }
 }
 
 struct DottedLine: View {
@@ -208,8 +254,8 @@ struct DottedLine: View {
 
 
 
-struct BuyTicket_Previews: PreviewProvider {
-    static var previews: some View {
-        BuyTicket()
-    }
-}
+//struct BuyTicket_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BuyTicket()
+//    }
+//}

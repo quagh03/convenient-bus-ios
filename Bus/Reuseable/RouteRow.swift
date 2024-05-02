@@ -39,7 +39,6 @@ struct RouteRow: View {
                             }
                             HStack(){
                                 Group(){
-                                    
                                     HStack(){
                                         //time
                                         Group{
@@ -78,14 +77,13 @@ struct RouteRow: View {
                             }
                     }.padding(.trailing, 10)
                     
-                    Button {
-                        
-                    } label: {
+//                    Button {
+//                    } label: {
                         Image(systemName: "chevron.right")
                             .resizable()
                             .frame(width: 15, height: 25)
                             .foregroundColor(.black)
-                    }
+//                    }
                     
                     // end hStack 1
                 }

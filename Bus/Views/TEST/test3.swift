@@ -11,35 +11,40 @@ import Combine
 struct test3: View {
     @State var isPress2 : Bool = false
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var toast: Toast
     var body: some View{
-        NavigationView{
-            VStack{
-                Text("Screen 2")
-                Button {
-                    x()
-                } label: {
-                    Text("Press 2")
-                }
+        ZStack {
+//            Button {
                 
-                if isPress2 {
-                    NavigationLink(destination: test4(), isActive: $isPress2) {
-                        EmptyView()
-                    }
-                }
-                
-            }
-        }.navigationTitle("2")
+//            } label: {
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 15, height: 25)
+                    .foregroundColor(.black)
+//            }
+
+        }
+        .padding()
         
     }
     
     func x(){
-        isPress2.toggle()
-        dismiss()
+        DispatchQueue.main.asyncAfter(deadline: .now()+2){
+            withAnimation {
+                isPress2 = false
+            }
+            
+        }
     }
+    
+    
 }
 
 struct test3_Previews: PreviewProvider {
     static var previews: some View {
-        test3()
+        RootView{
+            test3()
+        }
     }
 }
+

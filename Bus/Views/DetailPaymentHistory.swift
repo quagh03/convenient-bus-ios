@@ -17,6 +17,7 @@ struct DetailPaymentHistory: View {
     @State var userName: String
     @State var email:String
     @State var phone: String
+    @State var amount: Double
     
     var body: some View {
         ZStack{
@@ -56,7 +57,7 @@ struct DetailPaymentHistory: View {
                                                 }
                                                 HeightSpacer(heightSpacer: 3)
                                                 //
-                                                Text("+100000").font(.system(size: 20))
+                                                Text(formatter(amount)).font(.system(size: 20))
                                             }
                                             .padding(.vertical)
                                             .padding(.top, 25)
@@ -151,10 +152,20 @@ struct DetailPaymentHistory: View {
             // end VStack
         }
     }
+    
+    func formatter(_ number:Double) -> String{
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 0
+        guard let formattedString = formatter.string(from: NSNumber(value: number)) else {
+                return "Error formatting number."
+            }
+        return formattedString
+    }
 }
 
 struct DetailPaymentHistory_Previews: PreviewProvider {
     static var previews: some View {
-        DetailPaymentHistory(imgName: "addCard", status: "Thành công",txtColor: .green, vnpId: "Trans",time: "4/2042",desc: "Nap tien",userName: "Hieu", email: "hh@gmail.com", phone: "097788723")
+        DetailPaymentHistory(imgName: "addCard", status: "Thành công",txtColor: .green, vnpId: "Trans",time: "4/2042",desc: "Nap tien",userName: "Hieu", email: "hh@gmail.com", phone: "097788723", amount: 200000)
     }
 }

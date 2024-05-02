@@ -18,6 +18,7 @@ struct Home: View {
     
     @EnvironmentObject var dataHolder: DataHolder
     @ObservedObject var userAPI = UserAPI()
+    @ObservedObject var ticketAPI = TicketAPI()
     
     
     var body: some View {
@@ -92,9 +93,19 @@ struct Home: View {
                 Spacer()
             }
         }
-//        .onAppear{
-//            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
-//        }
+        .onAppear{
+            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+                dataHolder.idUser = userAPI.user?.id
+                dataHolder.fNameUser = userAPI.user?.firstName
+                dataHolder.lNameUser = userAPI.user?.lastName
+                dataHolder.phoneUser = userAPI.user?.phoneNumber
+                dataHolder.emailUser = userAPI.user?.email
+                dataHolder.dobUser =  userAPI.user?.dob
+                
+                ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+            }
+        }
         .fullScreenCover(isPresented: $isFavPress) {
             FavoriteScreen()
         }
@@ -105,6 +116,14 @@ struct Home: View {
     
     func buyTicket(){
         isBuyTicketPress = true
+//        ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+//        DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+            if ticketAPI.isExist {
+                dataHolder.isExistTicket = true
+            } else {
+                dataHolder.isExistTicket = false
+            }
+//        }
     }
     
     func favorite(){

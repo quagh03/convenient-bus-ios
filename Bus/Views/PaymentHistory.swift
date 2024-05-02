@@ -41,8 +41,16 @@ struct PaymentHistory: View {
                                               status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
                                               color: trans.status == "COMPLETED" ? .green : .red)
                             .onTapGesture {
+                                dataHolder.time = timeString
+                                dataHolder.type = trans.type
+                                dataHolder.status = trans.status
+                                dataHolder.amount = trans.amount
+                                dataHolder.vnpID = trans.vnpID
+                                dataHolder.firstNamePH = trans.user.firstName
+                                dataHolder.lastNamePH = trans.user.lastName
+                                dataHolder.phoneNumberPH = trans.user.phoneNumber
+                                dataHolder.emailPH = trans.user.email
                                 isTap = true
-                                
                             }
                             
                         }
@@ -77,9 +85,17 @@ struct PaymentHistory: View {
             
         }.onAppear{
             userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
-            DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                transAPI.getAllTransaction(tokenLogin: dataHolder.tokenLogin, userId: userAPI.id!)
-            }
+            transAPI.getAllTransaction(tokenLogin: dataHolder.tokenLogin, userId: dataHolder.idUser!)
+        }
+        .fullScreenCover(isPresented: $isTap) {
+            DetailPaymentHistory(imgName: dataHolder.type == "IN" ? "addCard" : "minusCard",
+                                 status: dataHolder.status == "COMPLETED" ? "Thành công" : "Thất bại",
+                                 txtColor: dataHolder.status == "COMPLETED" ? .green : .red,
+                                 vnpId: dataHolder.vnpID ?? "",
+                                 time: dataHolder.time!,
+                                 desc: dataHolder.type == "IN" ? "Nạp tiền vào ví" : "Thanh toán vé \(String(describing: dataHolder.time!))",
+                                 userName: "\(dataHolder.lastNamePH!) \(dataHolder.firstNamePH!)",
+                                 email: dataHolder.emailPH!, phone: dataHolder.phoneNumberPH!, amount: dataHolder.amount!)
         }
         
     }

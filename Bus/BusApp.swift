@@ -17,10 +17,14 @@ struct BusApp: App {
         WindowGroup {
             //            SplashScreen()
             //            ContentView().environmentObject(navigationManager)
-            ContentView()
-                .environmentObject(navigationManager)
-                .environmentObject(dataHolder)
-                .environmentObject(favorites)
+//            RootView{
+                ContentView()
+                    .environmentObject(navigationManager)
+                    .environmentObject(dataHolder)
+                    .environmentObject(favorites)
+//            }
+            
         }
     }
 }
+

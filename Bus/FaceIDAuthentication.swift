@@ -32,6 +32,7 @@ class FaceIDAuthentication: ObservableObject{
             self.handleAuthenticationError(error: biometricError)
         }
     }
+    
     private func handleAuthenticationError(error: Error?) {
         if let error = error as? LAError {
             switch error.code {

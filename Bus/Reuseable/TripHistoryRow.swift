@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct TripHistoryRow: View {
+    @State var nameRoute: String
+    @State var date: String
+    @State var plateNumber: String
+    
     var body: some View {
         VStack{
             HStack{
@@ -18,9 +22,9 @@ struct TripHistoryRow: View {
                 }
                 Spacer()
                 VStack(alignment: .leading, spacing: 10){
-                    Text("E01")
-                    Text("9:05 -  28/03/2024")
-                    Text("30A-000.01")
+                    Text(nameRoute)
+                    Text(date)
+                    Text(plateNumber)
                 }
             }.padding()
                 .overlay {
@@ -33,6 +37,6 @@ struct TripHistoryRow: View {
 
 struct TripHistoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        TripHistoryRow()
+        TripHistoryRow(nameRoute: "E01", date: "2222", plateNumber: "232103")
     }
 }

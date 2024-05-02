@@ -36,6 +36,9 @@ struct SignUp: View {
     @State private var isShowing = false
     @State private var showToast = false
     
+    @State private var isOTPVerify:Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
     
     
     
@@ -99,31 +102,57 @@ struct SignUp: View {
                     
                 }
                 .padding(.all)
-                
-                               
-                if isSignUpSuccess {
-                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
-                        EmptyView()
-                    }
-                }
-                
-                
-                if(showErrorAlert && showToast && isShowing){
-                    Toast(text: "Vui lòng nhập đầy đủ thông tin", isShowing: isShowing, showToast: $showToast)
+            }
+            
+            
+            ZStack{
+                if(showErrorAlert && showToast){
+                    ToastM(symbol: "", tint: .clear, title: "Vui lòng nhập đầy đủ thông tin!")
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                withAnimation {
+                                    showErrorAlert = false
+                                    showToast = false
+                                }
+                            }
+                        }
                 } else if (showErrorAlertPass && showToast){
-                    Toast(text: "Mật khẩu phải có ít nhất 6 ký tự", isShowing: isShowing, showToast: $showToast)
+                    ToastM(symbol: "", tint: .clear, title: "Mật khẩu phải có ít nhất 8 ký tự!")
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                withAnimation {
+                                    showErrorAlertPass = false
+                                    showToast = false
+                                }
+                            }
+                        }
+                } else if ( showErrorAlertEmail && showToast){
+                    ToastM(symbol: "", tint: .clear, title: "Email không đúng định dạng!")
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                withAnimation {
+                                    showErrorAlertEmail = false
+                                    showToast = false
+                                }
+                            }
+                        }
                 }
-                
-                
-                
             }
             
         }
+        .onAppear{
+            if isOTPVerify{
+                dismiss()
+            }
+        }
+        .sheet(isPresented: $isSignUpSuccess, content: {
+            ConfirmOTPMail(isOTPVerify: $isOTPVerify)
+        })
         .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
     }
     
-    func navigate(){
-        isSignUpSuccess = true
+    func dismiss(){
+        presentationMode.wrappedValue.dismiss()
     }
     
     func signUp(){
@@ -159,8 +188,6 @@ struct SignUp: View {
                 if httpResponse.statusCode == 200 {
                     print("Đăng ký thành công")
                     isSignUpSuccess = true
-//                    showSignUpView = false
-                    
                 } else {
                     print("Đăng ký không thành công!")
                     isSignUpSuccess = false

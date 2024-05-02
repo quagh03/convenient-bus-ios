@@ -19,6 +19,7 @@ struct User:Codable{
     let dob: String
     let registeredAt: String
     let balance: Float
+    let role: String
 }
 
 struct Userdata: Codable{
