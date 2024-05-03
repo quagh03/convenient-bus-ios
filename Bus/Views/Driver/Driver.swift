@@ -15,6 +15,7 @@ struct Driver: View {
     @ObservedObject var busRouteAPI = BusRoutesApi()
     @ObservedObject var vehicleAPI = VehicleAPI()
     @StateObject var dutyAPI = DutyAPI()
+    @State private var bottomPadding: CGFloat = 0
     @State var isStart:Bool = false
     var body: some View {
         VStack {
@@ -101,6 +102,13 @@ struct Driver: View {
                     }
                 }
                 Spacer()
+            }
+        }
+        .edgesIgnoringSafeArea(.top)
+        .padding(.top, bottomPadding)
+        .onAppear{
+            if let window = UIApplication.shared.windows.first {
+                bottomPadding = window.safeAreaInsets.bottom
             }
         }
     }

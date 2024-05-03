@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct Route: View {
     @ObservedObject var viewModel = BusRoutesApi()
@@ -17,6 +18,7 @@ struct Route: View {
     var busRouteDetail: [BusRouteDetail]?
     
     @State var isTap: Bool = false
+    @State private var bottomPadding: CGFloat = 0
     
     var body: some View {
         NavigationView{
@@ -49,11 +51,19 @@ struct Route: View {
                 
                 Spacer()
                 // end VStack 1
-                
-                
-            }
+            }.padding(.top, bottomPadding)
+                .navigationBarHidden(true)
+                .edgesIgnoringSafeArea(.top)
             
-        }.fullScreenCover(isPresented: $isTap) {
+            
+        }
+        .onAppear {
+            // Đặt giá trị cho bottomPadding khi view được hiển thị
+            if let window = UIApplication.shared.windows.first {
+                bottomPadding = window.safeAreaInsets.bottom
+            }
+        }
+        .fullScreenCover(isPresented: $isTap) {
             DetailBusRoute(nameRouteDetail: dataHolder.nameRouteDetail!)
         }
         // end navigationView

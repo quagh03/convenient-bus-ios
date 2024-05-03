@@ -15,63 +15,96 @@ struct TabViewNavigation: View {
     @State private var isPress: Bool = false
     @State private var isLogOut: Bool = false
     var body: some View {
-        ZStack(alignment: .bottom){
-            if userAPI.role == "ROLE_DRIVER" {
-                TabView{
-                    if selectedTabIndex == 0 {
-                        Driver()
-                } else if selectedTabIndex == 1 {
-                    Account(isLogOut: $isLogOut)
+        NavigationView{
+            ZStack(alignment: .bottom){
+                if userAPI.role == "ROLE_DRIVER" {
+                    TabView{
+                        if selectedTabIndex == 0 {
+                            Driver().navigationBarHidden(true)
+                        } else if selectedTabIndex == 1 {
+                            Account(isLogOut: $isLogOut).navigationBarHidden(true)
+                        }
                     }
-                }.navigationBarBackButtonHidden(true).ignoresSafeArea()
-                
-                CustomTabNavDriver(index: $selectedTabIndex, isPress: $isPress).navigationBarBackButtonHidden(true).ignoresSafeArea()
-                
-            } else if userAPI.role == "ROLE_GUEST" {
-                TabView{
-                    Home(selection: $selectedTabIndex)
-                        .tabItem{
-                            Image(systemName: "house.fill")
-                            Text("Home")
-                        }.tag(0)
-                    Payment()
-                        .tabItem{
-                            Image(systemName: "creditcard.fill")
-                            Text("Payment")
-                        }.tag(1)
-                    Route()
-                        .tabItem{
-                            Image(systemName: "map.fill")
-                            Text("Route")
-                        }.tag(2)
-                    Account(isLogOut: $isLogOut)
-                        .tabItem {
-                            Image(systemName: "person.fill")
-                            Text("Account")
-                        }.tag(3)
+                    //                .navigationBarBackButtonHidden(true).ignoresSafeArea()
                     
+                    CustomTabNavDriver(index: $selectedTabIndex, isPress: $isPress).navigationBarHidden(true)
+                    //                    .navigationBarBackButtonHidden(true).ignoresSafeArea()
+                    
+                } else if userAPI.role == "ROLE_GUEST" {
+                    TabView{
+                        Home(selection: $selectedTabIndex).navigationBarHidden(true)
+                            .tabItem{
+                                Image(systemName: "house.fill")
+                                Text("Home")
+                            }.tag(0)
+                        Payment().navigationBarHidden(true).edgesIgnoringSafeArea(.top)
+                            .tabItem{
+                                Image(systemName: "creditcard.fill")
+                                Text("Payment")
+                            }.tag(1)
+                        Route().navigationBarHidden(true)
+                            .tabItem{
+                                Image(systemName: "map.fill")
+                                Text("Route")
+                            }.tag(2)
+                        Account(isLogOut: $isLogOut).navigationBarHidden(true)
+                            .tabItem {
+                                Image(systemName: "person.fill")
+                                Text("Account")
+                            }.tag(3)
+                        
+                    }
+                    //                .navigationBarBackButtonHidden(true)
+                } else {
+                    TabView{
+                        Home(selection: $selectedTabIndex).navigationBarHidden(true)
+                            .tabItem{
+                                Image(systemName: "house.fill")
+                                Text("Home")
+                            }.tag(0)
+                        Payment().navigationBarHidden(true)
+                            .tabItem{
+                                Image(systemName: "creditcard.fill")
+                                Text("Payment")
+                            }.tag(1)
+                        Route().navigationBarHidden(true)
+                            .tabItem{
+                                Image(systemName: "map.fill")
+                                Text("Route")
+                            }.tag(2)
+                        Driver().navigationBarHidden(true)
+                            .tabItem {
+                                Image(systemName: "car.fill")
+                                Text("Driver")
+                            }.tag(3)
+                        Account(isLogOut: $isLogOut).navigationBarHidden(true)
+                            .tabItem {
+                                Image(systemName: "person.fill")
+                                Text("Account")
+                            }.tag(4)
+                    }
                 }
-                .navigationBarBackButtonHidden(true)
             }
-        }
-//        .onChange(of: $isLogOut) { newValue in
-//            if newValue {
-//                NavigationLink(destination: Login(), isActive: $isLogOut) {
-//                    EmptyView()
-//                }
-//            }
-//        }
+            //        .onChange(of: $isLogOut) { newValue in
+            //            if newValue {
+            //                NavigationLink(destination: Login(), isActive: $isLogOut) {
+            //                    EmptyView()
+            //                }
+            //            }
+            //        }
+        }.navigationBarHidden(true)
         .onAppear{
             userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
         }
         .fullScreenCover(isPresented: $isPress) {
             ScannerView()
         }
-        .ignoresSafeArea()
+//        .edgesIgnoringSafeArea(.top)
+//        .ignoresSafeArea()
         .background(
             NavigationLink(destination: Login(), isActive: $isLogOut) {
-                               EmptyView()
-                           }
+                EmptyView()
+            }
         )
     }
 }

@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 class DataHolder : ObservableObject{
+    // url
+    static let url: String = "http://103.170.123.135:8080"
     // userPresemt
     @Published var idUser: Int?
     @Published var fNameUser: String?

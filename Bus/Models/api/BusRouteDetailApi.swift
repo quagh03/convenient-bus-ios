@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 class BusRoutesDetailApi:ObservableObject{
+    @EnvironmentObject var dataHolder: DataHolder
     
     @Published var busRouteDetail: [BusRouteDetail] = []
     
@@ -16,14 +18,10 @@ class BusRoutesDetailApi:ObservableObject{
     @Published var inforDeparture: [BusRouteDetail] = []
     @Published var inforReturn: [BusRouteDetail] = []
     
-    //    var dataHolder: DataHolder
-    //
-    //    init(dataHolder: DataHolder) {
-    //       self.dataHolder = dataHolder
-    //    }
+    
     
     func fetchData(nameRoute: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/route_details/route?name=\(nameRoute)") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/route_details/route?name=\(nameRoute)") else {
             print("Invalid url")
             return
         }

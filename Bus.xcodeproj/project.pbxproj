@@ -86,7 +86,6 @@
 		3D78A9D12BB70302005ED9B4 /* BusRouteDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */; };
 		3D78A9D32BB7041C005ED9B4 /* BusRouteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */; };
 		3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */; };
-		3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */; };
 		3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */; };
 		3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9DA2BB97355005ED9B4 /* demoView.swift */; };
 		3DA458102BDBF41E0032D811 /* TripHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4580F2BDBF41E0032D811 /* TripHistory.swift */; };
@@ -197,7 +196,6 @@
 		3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDetailApi.swift; sourceTree = "<group>"; };
 		3D78A9D22BB7041C005ED9B4 /* BusRouteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteDetail.swift; sourceTree = "<group>"; };
 		3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
-		3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteViewModel.swift; sourceTree = "<group>"; };
 		3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedBusRoutesAPI.swift; sourceTree = "<group>"; };
 		3D78A9DA2BB97355005ED9B4 /* demoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoView.swift; sourceTree = "<group>"; };
 		3DA4580F2BDBF41E0032D811 /* TripHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripHistory.swift; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 				3D3CF7C42BB3BC7F0016B916 /* BusRoutesApi.swift */,
 				3D78A9CE2BB6715B005ED9B4 /* LoginApi.swift */,
 				3D78A9D02BB70302005ED9B4 /* BusRouteDetailApi.swift */,
-				3D78A9D62BB92ADA005ED9B4 /* BusRouteViewModel.swift */,
 				3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */,
 				3D3B3AE72BBFFFD000627F37 /* VNPayApi.swift */,
 				3D09F2B72BC6A60800974321 /* UserAPI.swift */,
@@ -696,7 +693,6 @@
 				3D3CF7AE2BB11F290016B916 /* Route.swift in Sources */,
 				3D5D74632BCD27D60043DB14 /* TransactionAPI.swift in Sources */,
 				3D3CF7B62BB17B640016B916 /* ReusableFunc.swift in Sources */,
-				3D78A9D72BB92ADA005ED9B4 /* BusRouteViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

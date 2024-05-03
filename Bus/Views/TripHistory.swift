@@ -10,20 +10,29 @@ import SwiftUI
 struct TripHistory: View {
     @ObservedObject var tripAPI = TripAPI()
     @EnvironmentObject var dataHolder: DataHolder
+    @State private var isLoading = true
     
     var body: some View {
-        NavigationView {
-            VStack{
-                ForEach(tripAPI.trip, id: \.id){ trip in
-                    let timeString = extractMonthYear(from: trip.date)
-                    TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
-                }
-                
-                Spacer()
+        VStack{
+            BarBackCustom(back: "", color: .black, nameRoute: "Lịch sử chuyến đi").padding(.horizontal)
+            HeightSpacer(heightSpacer: 10)
+            ScrollView{
+                VStack{
+                    //                    ForEach(tripAPI.trip, id: \.id){ trip in
+                    //                        let timeString = extractMonthYear(from: trip.date)
+                    //                        TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
+                    //                    }
+                    
+                    ForEach(1..<200){ trip in
+                        Text("\(trip)")
+                    }
+                    
+                    Spacer()
+                }.frame(maxWidth: .infinity)
             }
-        }.navigationBarHidden(false).navigationBarBackButtonHidden(false).navigationBarHidden(false).navigationTitle("Lịch sử chuyến đi")
+        }
             .onAppear{
-                tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
+//                tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
             }
     }
     

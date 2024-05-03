@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 class VehicleAPI:ObservableObject{
     @Published var allVehicle: [Vehicle] = []
+    
     func getAllVehicle(tokenLogin: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/vehicles") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/vehicles") else {
             print("Invalid url vehicle")
             return
         }

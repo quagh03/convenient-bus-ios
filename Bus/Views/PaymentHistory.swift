@@ -11,8 +11,11 @@ import SlidingTabView
 struct PaymentHistory: View {
     @State private var selectedTab = 0
     @ObservedObject var transAPI = TransactionAPI()
-    @ObservedObject var userAPI = UserAPI()
     @EnvironmentObject var dataHolder: DataHolder
+    @ObservedObject var userAPI = UserAPI()
+    
+   
+    
     @State var isTap:Bool = false
     var body: some View {
         VStack{

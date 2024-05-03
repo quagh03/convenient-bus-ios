@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TicketAPI:ObservableObject{
     @Published var ticket: [Ticket] = []
     @Published var ticketForUser: [Ticket] = []
     @Published var isExist: Bool = false
     
+    
+    
     func getAllTicket(tokenLogin: String, userID: Int){
-        guard let url = URL(string: "http://localhost:8080/api/v1/tickets") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/tickets") else {
             return
         }
         
@@ -45,7 +48,7 @@ class TicketAPI:ObservableObject{
     
     // gia han
     func exprireTiket(tokenLogin: String, startDate: String, periods: Int, price: Double){
-        guard let url = URL(string: "http://localhost8080/api/v1/tickets/extend") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/tickets/extend") else {
             print("Invalid url expire ticket")
             return
         }

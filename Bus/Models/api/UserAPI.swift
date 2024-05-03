@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 class UserAPI: ObservableObject {
+    
     @Published var user: User?
     @Published var balance: Float?
     @Published var id : Int?
@@ -17,9 +19,17 @@ class UserAPI: ObservableObject {
     @Published var email: String?
     @Published var role: String?
     
+//    var dataHolder: DataHolder // Khai báo một biến để lưu trữ DataHolder
+//
+//    init(dataHolder: DataHolder) { // Khởi tạo dataHolder từ bên ngoài
+//        self.dataHolder = dataHolder
+//    }
+
+  
+    
 
     func getUser(tokenLogin: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/users/info") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/info") else {
             return
         }
         

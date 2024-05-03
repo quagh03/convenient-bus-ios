@@ -17,6 +17,7 @@ struct ConfirmOTPMail: View {
     
     @Binding var isOTPVerify: Bool
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var dataHolder: DataHolder
     
     
     var body: some View {
@@ -111,7 +112,7 @@ struct ConfirmOTPMail: View {
     func verifyOTP(){
                 let enteredOtp = otp.joined()
         
-                guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/verify?code=\(enteredOtp)") else {
                     print("Invalid url")
                     return
                 }

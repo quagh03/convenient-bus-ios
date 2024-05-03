@@ -14,6 +14,7 @@ struct CameraView: UIViewRepresentable {
     /// Camera Session
     @Binding var session: AVCaptureSession
     @Binding var orientation: UIDeviceOrientation
+    
     func makeUIView(context: Context) -> UIView {
         /// Defining Camera Frame Size
         let view = UIViewType(frame: CGRect(origin: .zero, size: frameSize))

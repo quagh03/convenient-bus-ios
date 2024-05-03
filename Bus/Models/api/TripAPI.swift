@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TripAPI: ObservableObject{
+    
     @Published var trip: [Trip] = []
     
+    
     func getTripForUser(tokenLogin: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/trip_history/user") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/trip_history/user") else {
             print("Invalid url")
             return
         }

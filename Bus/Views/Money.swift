@@ -30,6 +30,7 @@ struct Money: View {
     @ObservedObject var userAPI = UserAPI()
     
     
+    
     //    let amounts: [Float] = [20000, 50000, 100000, 200000, 300000, 500000]
     let amounts: [String] = ["20000", "50000", "100000", "200000", "300000", "500000"]
     var body: some View {
@@ -236,7 +237,7 @@ struct Money: View {
     
     func submitOrder(amount: Int, orderInfo: String) {
         
-        guard let url = URL(string: "http://localhost:8080/api/v1/vnpay/submitOrder?amount=\(amount*100)&orderInfo=\(orderInfo)") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/vnpay/submitOrder?amount=\(amount*100)&orderInfo=\(orderInfo)") else {
             print("Invalid URL")
             return
         }

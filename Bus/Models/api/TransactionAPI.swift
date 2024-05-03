@@ -16,8 +16,9 @@ class TransactionAPI: ObservableObject {
     @Published var inTrans: [Transaction] = []
     @Published var outTrans: [Transaction] = []
     
+    
     func deposit(tokenLogin: String, startDate: String, periods: Int, price: Double){
-        guard let url = URL(string: "http://localhost:8080/api/v1/tickets") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/tickets") else {
             return
         }
         
@@ -54,7 +55,7 @@ class TransactionAPI: ObservableObject {
     }
     
     func getAllTransaction(tokenLogin: String, userId: Int){
-        guard let url = URL(string: "http://localhost:8080/api/v1/transactions") else { return }
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/transactions") else { return }
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(tokenLogin)", forHTTPHeaderField: "Authorization")

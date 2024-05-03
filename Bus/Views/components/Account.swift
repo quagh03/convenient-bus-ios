@@ -24,7 +24,7 @@ struct Account: View {
     
     var body: some View {
         NavigationView{
-            VStack{
+//            VStack{
                 ScrollView{
                     ZStack{
                         ReusableImage(color: "primary", height: 166, width: .infinity)
@@ -63,23 +63,26 @@ struct Account: View {
                                     isTripHistoryPressed = true
                                 }
                             } label: {
-                                NavigationLink(destination: TripHistory()){
+//                                NavigationLink(destination: TripHistory().navigationTitle("Lịch sử chuyến đi").navigationBarTitleDisplayMode(.inline)){
                                     HStack{
-                                        //                                    NavigationLink(destination: TripHistory()){
                                         Text("Lịch sử chuyến đi").foregroundColor(.black)
-                                        //                                    }
                                         Spacer()
                                         Image(systemName: "chevron.right")
-                                        
+
                                     }.padding(.horizontal).foregroundColor(.black)
-                                }
+//                                }
                             }
                         }
                         .padding(.top)
                     
+//                    NavigationLink(destination: TripHistory().navigationTitle("lịch sử chuyến đi"), isActive: $isTripHistoryPressed) {
+//                        EmptyView()
+//                    }
+                    
                     NavigationLink(destination: Login(), isActive: $isLogOut) {
                         EmptyView()
                     }
+                    HeightSpacer(heightSpacer: 10)
                     Button(action: {
                         showingLogoutAlert = true
                     }) {
@@ -92,10 +95,15 @@ struct Account: View {
                     
                     Spacer()
                 }
-            }
+                .navigationBarHidden(true)
+                .edgesIgnoringSafeArea(.top)
+//            }
             
             
         }
+        .fullScreenCover(isPresented: $isTripHistoryPressed, content: {
+            TripHistory()
+        })
         .onAppear{
             userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
         }

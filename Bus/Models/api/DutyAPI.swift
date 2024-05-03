@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
 class DutyAPI:ObservableObject{
-    
     @Published var sessionId: Int?
     
     @Published var isStart: Bool = false
 //    @Published var sessionID: Int?
     
+    
     func startSession(driverID:Int, routeID: Int, vehicleID:Int, tokenLogin: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/duty_sessions") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/duty_sessions") else {
             print("Invalid url")
             return
         }
@@ -62,7 +63,7 @@ class DutyAPI:ObservableObject{
     }
     
     func finishSession(id:Int, tokenLogin: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/duty_sessions/end?id=\(id)") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/duty_sessions/end?id=\(id)") else {
             print("Invalid url")
             return
         }

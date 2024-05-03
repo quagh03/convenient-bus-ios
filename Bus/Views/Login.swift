@@ -19,6 +19,7 @@ struct Login: View {
     @EnvironmentObject var dataHolder:  DataHolder
 //    @Published var userLog: user?
     @State private var isLogin: Bool = false
+    @State private var isShowing: Bool = false
     
     @State var showSignUpView: Bool = false
 //    let busRouteDetail: BusRouteDetail
@@ -26,13 +27,13 @@ struct Login: View {
     @ObservedObject var faceIDAuth = FaceIDAuthentication()
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             ZStack{
                 ZStack{
                     ScrollView{
                         //                Image("").resizable().ignoresSafeArea()
                         //                Image("logo").resizable()
-                        HeightSpacer(heightSpacer: 20)
+                        HeightSpacer(heightSpacer: 25)
                         VStack{
                             VStack{
                                 Image("logo")
@@ -47,10 +48,18 @@ struct Login: View {
                             ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && password.isEmpty)
                             
                             HStack{
-                                ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
-                                    //                            login(username: username, password: password)
-                                    login(username: username, password: password)
+                                NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
+                                    ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
+                                        //                            login(username: username, password: password)
+                                        login(username: username, password: password)
+                                    }
                                 }
+                                //                                ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng nhập", width: 280,imgName: "", textColor: .white) {
+                                //                                    //                            login(username: username, password: password)
+                                //                                    login(username: username, password: password)
+                                //                                }
+                                
+                                
                                 Spacer()
                                 
                                 Button {
@@ -96,11 +105,11 @@ struct Login: View {
                                 //                        }
                             }.padding(.vertical, 12)
                             
-                            if isLogin{
-                                NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
-                                    EmptyView()
-                                }
-                            }
+                            //                            if isLogin{
+                            //                                NavigationLink(destination: TabViewNavigation(), isActive: $isLogin) {
+                            //                                    EmptyView()
+                            //                                }
+                            //                            }
                             
                         }.padding(.all)
                         
@@ -109,14 +118,19 @@ struct Login: View {
                 
                 // toast
                 ZStack{
-                    if isLogin == false{
+                    if (isLogin == false && isShowing == true){
                         ToastM(tint: .clear, title: "Tài khoản hoặc mật khẩu không chính xác")
                     }
                 }
-            }
-            
-        }
-        .navigationBarBackButtonHidden(true)
+                //            }
+                
+            }.navigationBarHidden(true)
+//        }.navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
+//        .navigationBarHidden(true)
+//        .navigationbarH
+//            .navigationBarHidden(true).navigationTitle("")
+//        .edgesIgnoringSafeArea(.top)
     }
     
     func loginBtn(){
@@ -125,7 +139,7 @@ struct Login: View {
     
     
     func login(username: String, password: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/users/login") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/login") else {
             print("Invalid url")
             return
         }
@@ -182,6 +196,7 @@ struct Login: View {
             } else {
                 print("Đăng nhập không thành công!")
                 isLogin = false
+                isShowing = true
             }
         }.resume()
     }
@@ -190,7 +205,6 @@ struct Login: View {
     func loginWithGoogle(){
         
     }
-    
 }
 
 struct Login_Previews: PreviewProvider {
