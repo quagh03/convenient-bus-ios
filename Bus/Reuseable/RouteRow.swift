@@ -12,17 +12,18 @@ struct RouteRow: View {
 //    let busRouteCombine: CombinedBusRoute
 //    let onTap: ()->Void
 //    @Binding var name: String?
-    @EnvironmentObject var dataHolder: DataHolder
+//    @EnvironmentObject var dataHolder: DataHolder
+    
+    @EnvironmentObject private var favorite: Favotites
     
 //    let busRouteDetail : BusRouteDetail
     
     @State private var isPressRow: Bool = false
+    
+    @State private var isFaved: Bool = false
     var body: some View {
             ZStack(alignment:.bottom){
                 HStack{
-                    // infor
-//                    Button {
-//                    } label: {
                         VStack(alignment: .leading){
                             Group{
                                 Text(busRoute.routeName)
@@ -38,7 +39,6 @@ struct RouteRow: View {
                             }
                             HStack(){
                                 Group(){
-                                    
                                     HStack(){
                                         //time
                                         Group{
@@ -65,24 +65,25 @@ struct RouteRow: View {
                     Spacer()
                     // favorite
                     Button(action: {
-                        
+                        favorite.toggleFavs(busRoute: busRoute)
                     }){
                         Rectangle()
                             .fill(.clear)
                             .frame(width: 28, height: 28)
                             .overlay {
-                                Image(systemName: "heart").resizable().frame(width: 28, height: 28).foregroundColor(.black)
+                                Image(systemName: favorite.contains(busRoute)
+                                      ? "heart.fill" : "heart"
+                                ).resizable().frame(width: 28, height: 28).foregroundColor(favorite.contains(busRoute) ? Color.red : Color.black)
                             }
                     }.padding(.trailing, 10)
                     
-                    Button {
-                        
-                    } label: {
+//                    Button {
+//                    } label: {
                         Image(systemName: "chevron.right")
                             .resizable()
                             .frame(width: 15, height: 25)
                             .foregroundColor(.black)
-                    }
+//                    }
                     
                     // end hStack 1
                 }

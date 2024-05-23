@@ -8,7 +8,7 @@
 import Foundation
 
 class LoginApi: ObservableObject {
-    @Published var userLog: user?
+    @Published var userLog: User?
     @Published var qrCode: QRCode?
     var tokenLogin: String?
     var code: String?

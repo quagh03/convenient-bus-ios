@@ -7,11 +7,6 @@
 
 import Foundation
 
-//struct BusRoute : Codable{
-//    let id = UUID()
-//    let data: [BusRouteData]
-//}
-
 struct BusRoute : Codable{
     let id: Int
     let routeName: String
@@ -23,11 +18,6 @@ struct StopPoint: Codable{
     let id: Int
     let stopPoint: String
 }
-
-//struct RouteStop: Codable {
-//    let id: Int
-//    let stopPoint: String
-//}
 
 struct BusRouteData:Codable{
     let data: [BusRoute]

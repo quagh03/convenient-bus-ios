@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 //class CombinedBusRoutesApi: ObservableObject {
 //    @Published var combinedBusRoutes: [CombinedBusRoute] = []
@@ -68,9 +69,11 @@ import Foundation
 class CombinedBusRoutesApi: ObservableObject {
     @Published var combinedBusRoutes: [CombinedBusRoute] = []
     
+//    @EnvironmentObject var dataHolder: DataHolder
+    
     func fetchData(nameRoute: String) {
-        let busRouteUrl = URL(string: "http://localhost:8080/api/v1/bus_routes/all")
-        let busRouteDetailUrl = URL(string: "http://localhost:8080/api/v1/route_details/route?name=\(nameRoute)")
+        let busRouteUrl = URL(string: "\(DataHolder.url)/api/v1/bus_routes/all")
+        let busRouteDetailUrl = URL(string: "\(DataHolder.url)/api/v1/route_details/route?name=\(nameRoute)")
         
         let busRouteDataTask = URLSession.shared.dataTask(with: busRouteUrl!) { data, response, error in
             guard let data = data, error == nil else {

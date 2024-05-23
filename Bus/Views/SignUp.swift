@@ -19,7 +19,8 @@ struct SignUp: View {
     @State private var birth: Date?
     
     @State private var isSignUpActive = false
-    @EnvironmentObject var navigationManager: NavigationManager
+//    @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var dataHolder: DataHolder
     @State private var selectedGenderIndex = 0
     
     //    @State private var otpCode: String
@@ -36,41 +37,45 @@ struct SignUp: View {
     @State private var isShowing = false
     @State private var showToast = false
     
+    @State private var isOTPVerify:Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
     
     
     
     var body: some View {
         NavigationView {
             ZStack{
-                ScrollView{
-                    VStack {
-                        ReuseableTextField(imageName: "person.fill", placeholder: "Họ" ,txtInput: $lastName, hasError: isSignUpButtonTapped && lastName.isEmpty)
-                        ReuseableTextField(imageName: "person.fill", placeholder: "Tên" ,txtInput: $firstName, hasError: isSignUpButtonTapped && firstName.isEmpty)
-                        ReuseableTextField(imageName: "person.fill", placeholder: "Tài khoản" ,txtInput: $username, hasError: isSignUpButtonTapped && firstName.isEmpty)
-                        ReuseableTextField(imageName: "mail.fill", placeholder: "Email" ,txtInput: $email, hasError: isSignUpButtonTapped && (email.isEmpty || !isValidEmail(email)))
-                        ReuseableTextField(imageName: "phone.fill", placeholder: "Điện thoại" ,txtInput: $phone, hasError: isSignUpButtonTapped && phone.isEmpty)
-                        GenderField(imageName: "figure.stand", chooseGender: $chooseGender)
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.clear)
-                            .frame(height: 50)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(isSignUpButtonTapped && birth==nil ? Color.red:Color.black, lineWidth: 1)
-                                    .frame(height: 50)
-                            )
-                            .overlay(
-                                HStack{
-                                    Image(systemName: "calendar")
-                                    DateTimePickerTextField(placeholder: "Ngày Sinh", date: $birth)
-                                }
-                                    .padding(.all)
-                            )
-                            .padding(.bottom, 12)
-                            .padding(.top, 12)
-                        ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && (password.isEmpty || !isPasswordValid(password)) )
-                        ReuseableTextField(imageName: "lock.fill", placeholder: "Xác nhận mật khẩu" ,txtInput: $confirmPassword, hasError: isSignUpButtonTapped && (confirmPassword.isEmpty || !isPasswordValid(confirmPassword)))
-                        
-//                        NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
+                ZStack{
+                    ScrollView{
+                        VStack {
+                            ReuseableTextField(imageName: "person.fill", placeholder: "Họ" ,txtInput: $lastName, hasError: isSignUpButtonTapped && lastName.isEmpty)
+                            ReuseableTextField(imageName: "person.fill", placeholder: "Tên" ,txtInput: $firstName, hasError: isSignUpButtonTapped && firstName.isEmpty)
+                            ReuseableTextField(imageName: "person.fill", placeholder: "Tài khoản" ,txtInput: $username, hasError: isSignUpButtonTapped && firstName.isEmpty)
+                            ReuseableTextField(imageName: "mail.fill", placeholder: "Email" ,txtInput: $email, hasError: isSignUpButtonTapped && (email.isEmpty || !isValidEmail(email)))
+                            ReuseableTextField(imageName: "phone.fill", placeholder: "Điện thoại" ,txtInput: $phone, hasError: isSignUpButtonTapped && phone.isEmpty)
+                            GenderField(imageName: "figure.stand", chooseGender: $chooseGender)
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.clear)
+                                .frame(height: 50)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(isSignUpButtonTapped && birth==nil ? Color.red:Color.black, lineWidth: 1)
+                                        .frame(height: 50)
+                                )
+                                .overlay(
+                                    HStack{
+                                        Image(systemName: "calendar")
+                                        DateTimePickerTextField(placeholder: "Ngày Sinh", date: $birth)
+                                    }
+                                        .padding(.all)
+                                )
+                                .padding(.bottom, 12)
+                                .padding(.top, 12)
+                            ReuseableTextField(imageName: "lock.fill", placeholder: "Mật khẩu" ,txtInput: $password, hasError: isSignUpButtonTapped && (password.isEmpty || !isPasswordValid(password)) )
+                            ReuseableTextField(imageName: "lock.fill", placeholder: "Xác nhận mật khẩu" ,txtInput: $confirmPassword, hasError: isSignUpButtonTapped && (confirmPassword.isEmpty || !isPasswordValid(confirmPassword)))
+                            
+                            //                        NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
                             ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng ký", width: .infinity,imgName: "", textColor: .white) {
                                 isSignUpButtonTapped = true
                                 if allFieldsFilled() {
@@ -93,37 +98,67 @@ struct SignUp: View {
                                     showErrorAlert = true
                                 }
                             }.padding(.top, 10)
-//                        }
+                            //                        }
+                            
+                        }
                         
                     }
+                    .padding(.all)
                     
                 }
-                .padding(.all)
                 
-                                if isSignUpSuccess {
-                                    NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
-                                        EmptyView()
+                
+                ZStack{
+                    if(showErrorAlert && showToast){
+                        ToastM(symbol: "", tint: .clear, title: "Vui lòng nhập đầy đủ thông tin!")
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                    withAnimation {
+                                        showErrorAlert = false
+                                        showToast = false
                                     }
                                 }
-                
-                
-                
-                if(showErrorAlert && showToast && isShowing){
-                    Toast(text: "Vui lòng nhập đầy đủ thông tin", isShowing: isShowing, showToast: $showToast)
-                } else if (showErrorAlertPass && showToast){
-                    Toast(text: "Mật khẩu phải có ít nhất 6 ký tự", isShowing: isShowing, showToast: $showToast)
+                            }
+                    } else if (showErrorAlertPass && showToast){
+                        ToastM(symbol: "", tint: .clear, title: "Mật khẩu phải có ít nhất 8 ký tự!")
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                    withAnimation {
+                                        showErrorAlertPass = false
+                                        showToast = false
+                                    }
+                                }
+                            }
+                    } else if ( showErrorAlertEmail && showToast){
+                        ToastM(symbol: "", tint: .clear, title: "Email không đúng định dạng!")
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                    withAnimation {
+                                        showErrorAlertEmail = false
+                                        showToast = false
+                                    }
+                                }
+                            }
+                    }
                 }
-                
-                
-                
             }
-            
+                .navigationBarHidden(true)
         }
-        .navigationTitle("Đăng ký").navigationBarTitleDisplayMode(.inline).navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
+        .onAppear{
+            if isOTPVerify{
+                dismiss()
+            }
+        }
+        .sheet(isPresented: $isSignUpSuccess, content: {
+            ConfirmOTPMail(isOTPVerify: $isOTPVerify)
+        })
+        .navigationTitle("Đăng ký")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
     }
     
-    func navigate(){
-        isSignUpSuccess = true
+    func dismiss(){
+        presentationMode.wrappedValue.dismiss()
     }
     
     func signUp(){
@@ -131,7 +166,7 @@ struct SignUp: View {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: birth!)
         
-        guard let url = URL(string: "http://localhost:8080/api/v1/users/register") else {return}
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/register") else {return}
         let registrationData: [String: Any] = [
             "first_name": firstName,
             "last_name": lastName,
@@ -159,7 +194,6 @@ struct SignUp: View {
                 if httpResponse.statusCode == 200 {
                     print("Đăng ký thành công")
                     isSignUpSuccess = true
-                    print(isSignUpSuccess)
                 } else {
                     print("Đăng ký không thành công!")
                     isSignUpSuccess = false
@@ -174,7 +208,7 @@ struct SignUp: View {
     
     
     func navigateToConfirmOTP(){
-        guard let url = URL(string: "http://localhost:8080/api/v1/mail/sendVerificationEmail") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/mail/sendVerificationEmail") else {
             print("Invalid url")
             return
         }
@@ -229,3 +263,4 @@ struct SignUp_Previews: PreviewProvider {
         SignUp()
     }
 }
+

@@ -7,14 +7,21 @@
 
 import Foundation
 
-struct user:Codable{
+struct User:Codable{
     let id: Int
     let firstName: String
     let lastName: String
-    let phone: String
-    let userName: String
+    let phoneNumber: String
+    let username: String
     let password: String
     let email: String
-    let chooseGender: String
-    let birth: Date
+    let gender: String
+    let dob: String
+    let registeredAt: String
+    let balance: Float
+    let role: String
+}
+
+struct Userdata: Codable{
+    let data: User
 }

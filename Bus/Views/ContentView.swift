@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var dataHolder = DataHolder()
     var body: some View {
-        Login()
+        ZStack{
+            SplashScreen()
+        }
     }
 }
 
@@ -17,4 +20,4 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
+} 

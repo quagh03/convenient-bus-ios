@@ -15,76 +15,68 @@ struct ConfirmOTPMail: View {
     
     @FocusState private var fieldFocus:Int?
     
-    @State private var isOTPVerify: Bool = false
+    @Binding var isOTPVerify: Bool
     @Environment(\.presentationMode) var presentationMode
-    
-//    @State private var lastFocusedIndex: Int?
-//    @State private var otpEntered = Array(repeating: false, count: 6)
-//    @State private var checkIx: Bool = false
-    
-    //    @Binding var username: String
-    //    @Binding var password: String
-    //    @Binding var firstName: String
-    //    @Binding var lastName: String
-    //    @Binding var phone: String
-    //    @Binding var email: String
-    //    @Binding var chooseGender: String
-    //    @Binding var birth: Date?
-    
-    //    @Binding var otpCode: String
-    
-    //    @Binding var isSignUpSuccess: Bool
-    //    @State private var showToast: Bool = false
+    @EnvironmentObject var dataHolder: DataHolder
     
     
     var body: some View {
         NavigationView{
-            VStack {
-                Text("OTP đã được gửi đến ")
-                HStack(spacing: 20) {
-                    ForEach(0..<6, id: \.self) { index in
-                        TextField("", text: $otp[index])
-                            .keyboardType(.numberPad)
-                            .frame(width: 40, height: 40)
-                            .multilineTextAlignment(.center)
-                            .font(.title)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1)
-                                    .padding(.top, 40)
-                                    .foregroundColor(.blue)
-                            )
-                            .focused($fieldFocus, equals: index)
-                            .tag(index)
-                            .onChange(of: otp[index]) { newValue in
-                                if !newValue.isEmpty{
-                                    if index == 5{
-                                        fieldFocus = nil
-                                    }else {
-                                        fieldFocus = (fieldFocus ?? 0) + 1
+            ZStack{
+                VStack {
+                    Text("OTP đã được gửi đến email của bạn!")
+                    HStack(spacing: 20) {
+                        ForEach(0..<6, id: \.self) { index in
+                            TextField("", text: $otp[index])
+                                .keyboardType(.numberPad)
+                                .frame(width: 40, height: 40)
+                                .multilineTextAlignment(.center)
+                                .font(.title)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .overlay(
+                                    Rectangle()
+                                        .frame(height: 1)
+                                        .padding(.top, 40)
+                                        .foregroundColor(.blue)
+                                )
+                                .focused($fieldFocus, equals: index)
+                                .tag(index)
+                                .onChange(of: otp[index]) { newValue in
+                                    if !newValue.isEmpty{
+                                        if index == 5{
+                                            fieldFocus = nil
+                                        }else {
+                                            fieldFocus = (fieldFocus ?? 0) + 1
+                                        }
+                                    }else{
+                                        fieldFocus = (fieldFocus ?? 0) - 1
                                     }
-                                }else{
-                                    fieldFocus = (fieldFocus ?? 0) - 1
                                 }
-                            }
+                        }
                     }
-                }
-                .padding()
-                
-                ReuseableButton(red: 8/255, green: 141/255, blue: 224/255, text: "Xác nhận", width: .infinity, imgName: "", textColor: .white) {
-                    verifyOTP()
-                }.padding(.all)
-                
-                
-                NavigationLink(destination: TabViewNavigation().navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $isOTPVerify) {
-                    EmptyView()
-                }.isDetailLink(false)
-                    .hidden()
-                
-                Spacer()
-                
+                    .padding()
+                    
+                    ReuseableButton(red: 8/255, green: 141/255, blue: 224/255, text: "Xác nhận", width: .infinity, imgName: "", textColor: .white) {
+                        verifyOTP()
+                    }.padding(.all)
+                    
+                    
+                    NavigationLink(destination: Login().navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $isOTPVerify) {
+                        EmptyView()
+                    }.isDetailLink(false)
+                        .hidden()
+                    
+                    Spacer()
+                    
+                }.padding(.vertical)
             }
+            
+            ZStack{
+                if !isOTPVerify {
+                    ToastM(tint: .clear, title: "Mã OTP không chính xác. Xin vui lòng nhập lại")
+                }
+            }
+            
         }
         .navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea().navigationBarBackButtonHidden(true).navigationBarHidden(isOTPVerify)
     }
@@ -120,7 +112,7 @@ struct ConfirmOTPMail: View {
     func verifyOTP(){
                 let enteredOtp = otp.joined()
         
-                guard let url = URL(string: "http://localhost:8080/api/v1/users/verify?code=\(enteredOtp)") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/verify?code=\(enteredOtp)") else {
                     print("Invalid url")
                     return
                 }
@@ -139,8 +131,10 @@ struct ConfirmOTPMail: View {
                     if httpResponse.statusCode == 200 {
                         print("success!!")
                         isOTPVerify = true
+                        presentationMode.wrappedValue.dismiss()
                     } else {
                         print("error")
+//                        isOTPVerify = false
                     }
                 }.resume()
     }
@@ -151,6 +145,6 @@ struct ConfirmOTPMail: View {
 
 struct ConfirmOTPMail_Preview: PreviewProvider {
     static var previews: some View {
-        ConfirmOTPMail()
+        ConfirmOTPMail(isOTPVerify: .constant(false))
     }
 }

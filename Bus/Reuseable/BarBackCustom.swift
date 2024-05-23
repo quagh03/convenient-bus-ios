@@ -9,6 +9,10 @@ import SwiftUI
 
 struct BarBackCustom: View {
     @Environment(\.presentationMode) var presentationMode
+    var back: String
+    
+    var color: Color
+    
     var nameRoute: String
     var body: some View {
         ZStack(alignment:.leading){
@@ -17,20 +21,20 @@ struct BarBackCustom: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
-                    Text("Back")
-                }
+                    Text(back)
+                }.foregroundColor(color)
                 Spacer()
             }
             
         }.frame(maxWidth: .infinity)
             .overlay{
-                Text(nameRoute).bold().font(.system(size: 18)).foregroundColor(.blue)
+                Text(nameRoute).bold().font(.system(size: 18)).foregroundColor(color)
             }
     }
 }
 
 struct BarBackCustom_Previews: PreviewProvider {
     static var previews: some View {
-        BarBackCustom(nameRoute: "E01")
+        BarBackCustom(back: "",color: Color.blue, nameRoute: "E01")
     }
 }

@@ -15,132 +15,158 @@ struct Payment: View {
     @State var code: String = ""
     
     @State var isTap: Bool = false
+    @State var isPaymentHistory: Bool = false
+    @State private var bottomPadding: CGFloat = 0
+    @ObservedObject var userAPI = UserAPI()
     
     var body: some View {
-        VStack{
-            ZStack(){
-                ReusableImage(color: "primary", height: 60,width: .infinity)
-                Text("Thanh toán").foregroundColor(.white)
-                    .bold()
-                    .font(.system(size: 25))
-            }.padding(.bottom,18)
-            
-            Rectangle()
-                .frame(height: 101)
-                .padding(.horizontal)
-                .foregroundColor(.clear)
-                .overlay{
-                    Rectangle()
-                        .stroke(Color.gray, lineWidth: 2).padding(.horizontal)
-                }
-                .overlay {
-                    HStack{
-                        VStack(alignment:.leading){
-                            Text("Số dư của bạn:")
-                            Text("")
-                            HStack{
-                                //                                Text( isPress ? "100000000": "********")
-                                ZStack(alignment:.leading){
-                                    Text("********")
-                                        .opacity(isPress ? 0 : 1)
-                                    Text("100000000")
-                                        .opacity(isPress ? 1 : 0)
-                                }
-                                Button(action: {
-                                    isPress.toggle()
-                                }) {
-                                    Image(systemName: "eye.fill").foregroundColor(.black)
-                                        .padding(.leading,16)
+        NavigationView{
+            VStack{
+                ZStack(){
+                    ReusableImage(color: "primary", height: 60,width: .infinity)
+                    Text("Thanh toán").foregroundColor(.white)
+                        .bold()
+                        .font(.system(size: 25))
+                }.padding(.bottom,18)
+                
+                Rectangle()
+                    .frame(height: 101)
+                    .padding(.horizontal)
+                    .foregroundColor(.clear)
+                    .overlay{
+                        Rectangle()
+                            .stroke(Color.gray, lineWidth: 2).padding(.horizontal)
+                    }
+                    .overlay {
+                        HStack{
+                            VStack(alignment:.leading){
+                                Text("Số dư của bạn:")
+                                Text("")
+                                HStack{
+                                    //                                Text( isPress ? "100000000": "********")
+                                    ZStack(alignment:.leading){
+                                        Text("********")
+                                            .opacity(isPress ? 0 : 1)
+                                        Text(formatBalance())
+                                            .opacity(isPress ? 1 : 0)
+                                    }
+                                    Button(action: {
+                                        isPress.toggle()
+                                    }) {
+                                        Image(systemName: "eye.fill").foregroundColor(.black)
+                                            .padding(.leading,16)
+                                    }
                                 }
                             }
+                            // end VStack
+                            WidthSpacer(widthSpacer: 12)
+                            
+                            // button nap tien
+                            Button {
+                                isTap = true
+                            } label: {
+                                ReusableImage(color: "primary", height: 50,width: 128)
+                                    .overlay{
+                                        Text("Nạp tiền").foregroundColor(.white).font(.system(size: 20)).bold()
+                                    }
+                            }
+                            // end btn
                         }
-                        // end VStack
-                        WidthSpacer(widthSpacer: 12)
-                        
-                        // button nap tien
-                        Button {
-                            isTap = true
-                        } label: {
-                            ReusableImage(color: "primary", height: 50,width: 128)
-                                .overlay{
-                                    Text("Nạp tiền").foregroundColor(.white).font(.system(size: 20)).bold()
-                                }
-                        }
-                        // end btn
                     }
-                }
-            // end overlay
-            
-            
-            Rectangle().frame(width: 360, height: 360)
-                .padding(.vertical)
-                .foregroundColor(.white)
-                .overlay{
-                    Rectangle()
-                        .stroke(.gray ,lineWidth: 1)
-                        .frame(width: 360, height: 360)
-                    
-                }
-                .overlay{
-                    VStack{
-                        HStack{
-                            Text("Mã QR").padding(.horizontal)
-                            Spacer()
-                        }
-                        AsyncImage(url: URL(string : code)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        } placeholder: {
-                            Image(systemName: "photo")
-                                .imageScale(.large)
-                                .foregroundColor(.gray)
-                        }
-                        .ignoresSafeArea()
-                        .frame(width: 300, height: 300)
-                        
-                    }
-                }
-            
-            
-            // history
-            Button {
+                // end overlay
                 
-            } label: {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.clear)
-                    .frame(height: 56)
+                
+                Rectangle().frame(width: 360, height: 360)
+                    .padding(.vertical)
+                    .foregroundColor(.white)
                     .overlay{
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(.gray,lineWidth: 1)
+                        Rectangle()
+                            .stroke(.gray ,lineWidth: 1)
+                            .frame(width: 360, height: 360)
+                        
                     }
                     .overlay{
-                        HStack{
-                            Text("Lịch sử giao dịch").foregroundColor(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.black)
+                        VStack{
+                            HStack{
+                                Text("Mã QR").padding(.horizontal)
+                                Spacer()
+                            }
+                            AsyncImage(url: URL(string : code)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                Image(systemName: "photo")
+                                    .imageScale(.large)
+                                    .foregroundColor(.gray)
+                            }
+                            .ignoresSafeArea()
+                            .frame(width: 300, height: 300)
+                            
+                        }
+                    }
+                
+                
+                // history
+                Button {
+                    isPaymentHistory = true
+                } label: {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.clear)
+                        .frame(height: 56)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(.gray,lineWidth: 1)
+                        }
+                        .overlay{
+                            HStack{
+                                Text("Lịch sử giao dịch").foregroundColor(.black)
+                                Spacer()
+                                Image(systemName: "chevron.right").foregroundColor(.black)
+                            }
+                            .padding(.horizontal)
                         }
                         .padding(.horizontal)
-                    }
-                    .padding(.horizontal)
-                
-            }
+                    
+                }
+                Spacer()
+            }.padding(.top, bottomPadding)
+            .navigationBarHidden(true)
+            .edgesIgnoringSafeArea(.top)
             
-            
-            
-            Spacer()
         }
         .onAppear{
+            if let window = UIApplication.shared.windows.first {
+                bottomPadding = window.safeAreaInsets.bottom
+            }
             fetchQRCode(token: dataHolder.tokenLogin)
+            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
         }
         .fullScreenCover(isPresented: $isTap) {
             Money()
         }
+        .fullScreenCover(isPresented: $isPaymentHistory) {
+            PaymentHistory()
+        }
         /// end VStack
     }
     
+    func formatBalance() -> String{
+        if let balance = userAPI.balance {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.maximumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            numberFormatter.minimumFractionDigits = 0 // Số lẻ sau dấu phẩy
+            if let formattedBalance = numberFormatter.string(from: NSNumber(value: balance)) {
+                return formattedBalance
+            }
+        }
+        return "0"
+        
+    }
+    
     func fetchQRCode(token: String){
-        guard let url = URL(string: "http://localhost:8080/api/v1/users/QRCode") else {
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/QRCode") else {
             print("Invalid url")
             return
         }
@@ -170,8 +196,3 @@ struct Payment: View {
     }
 }
 
-//struct Payment_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Payment()
-//    }
-//}
