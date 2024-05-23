@@ -92,9 +92,7 @@
 		3DA458122BDCEE070032D811 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA458112BDCEE070032D811 /* Session.swift */; };
 		3DA458152BDD37B00032D811 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA458142BDD37B00032D811 /* Toast.swift */; };
 		3DB949002BD3EFDF00144D04 /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB948FF2BD3EFDF00144D04 /* Driver.swift */; };
-		3DB949022BD3F99F00144D04 /* wheel.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3DB949012BD3F99F00144D04 /* wheel.gif */; };
 		3DB949052BD3FAE100144D04 /* GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB949042BD3FAE100144D04 /* GIF.swift */; };
-		3DB949072BD3FE1700144D04 /* mechanics.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3DB949062BD3FE1600144D04 /* mechanics.gif */; };
 		3DB949092BD4D6AC00144D04 /* DutyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB949082BD4D6AC00144D04 /* DutyAPI.swift */; };
 		3DB9490B2BD4D74400144D04 /* DutySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9490A2BD4D74400144D04 /* DutySession.swift */; };
 		3DB9490D2BD68FA000144D04 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9490C2BD68FA000144D04 /* Ticket.swift */; };
@@ -202,9 +200,7 @@
 		3DA458112BDCEE070032D811 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3DA458142BDD37B00032D811 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		3DB948FF2BD3EFDF00144D04 /* Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
-		3DB949012BD3F99F00144D04 /* wheel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wheel.gif; sourceTree = "<group>"; };
 		3DB949042BD3FAE100144D04 /* GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF.swift; sourceTree = "<group>"; };
-		3DB949062BD3FE1600144D04 /* mechanics.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = mechanics.gif; sourceTree = "<group>"; };
 		3DB949082BD4D6AC00144D04 /* DutyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutyAPI.swift; sourceTree = "<group>"; };
 		3DB9490A2BD4D74400144D04 /* DutySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutySession.swift; sourceTree = "<group>"; };
 		3DB9490C2BD68FA000144D04 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
@@ -267,7 +263,6 @@
 				3D080F7D2BA7E5BD009C7D56 /* Models */,
 				3D080F5A2BA016F2009C7D56 /* Assets.xcassets */,
 				3D080F5C2BA016F2009C7D56 /* Preview Content */,
-				3DB949062BD3FE1600144D04 /* mechanics.gif */,
 			);
 			path = Bus;
 			sourceTree = "<group>";
@@ -293,18 +288,17 @@
 				3D3CF7A62BB1134D0016B916 /* components */,
 				3D080F692BA01D47009C7D56 /* Login.swift */,
 				3D080F722BA095AC009C7D56 /* SignUp.swift */,
-				3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */,
 				3D080F802BA948CB009C7D56 /* ConfirmOTPMail.swift */,
-				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
-				3D3B3ADD2BBEA06E00627F37 /* Money.swift */,
-				3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */,
 				3D3B3AE92BC038BD00627F37 /* BuyTicket.swift */,
-				3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */,
+				3D3B3ADD2BBEA06E00627F37 /* Money.swift */,
 				3D5D74602BCD10320043DB14 /* DetailBuyTicket.swift */,
+				3D32776F2BC8D31F0063E1CD /* FavoriteScreen.swift */,
+				3DF325D22BB57E7600BD62A1 /* DetailBusRoute.swift */,
+				3D3B3AE12BBEF88000627F37 /* PaymentHistory.swift */,
 				3D75222E2BD101610028178F /* DetailPaymentHistory.swift */,
 				3DD1B7192BD7F7C300BEFDF2 /* CheckNetwork.swift */,
-				3DB949012BD3F99F00144D04 /* wheel.gif */,
 				3DA4580F2BDBF41E0032D811 /* TripHistory.swift */,
+				3D080F742BA0AE0B009C7D56 /* FillInInformation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,7 +547,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "Bus" */;
+			buildConfigurationList = 3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "ConvenientBus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -579,10 +573,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DB949072BD3FE1700144D04 /* mechanics.gif in Resources */,
 				3D3CF7BC2BB190EE0016B916 /* PlayfairDisplay-Regular.ttf in Resources */,
 				3D080F5E2BA016F2009C7D56 /* Preview Assets.xcassets in Resources */,
-				3DB949022BD3F99F00144D04 /* wheel.gif in Resources */,
 				3D3CF7BE2BB1917D0016B916 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				3D080F5B2BA016F2009C7D56 /* Assets.xcassets in Resources */,
 				3D3CF7BA2BB18F4A0016B916 /* NotoSerifDisplay-VariableFont_wdth,wght.ttf in Resources */,
@@ -819,6 +811,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bus/Preview Content\"";
@@ -826,6 +819,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ConvenientBus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "we need to unlock your data";
@@ -840,8 +834,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhh.Bus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhh.BusC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -854,6 +849,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bus/Preview Content\"";
@@ -861,6 +857,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ConvenientBus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "we need to unlock your data";
@@ -875,8 +872,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nhh.Bus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nhh.BusC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -886,7 +884,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "Bus" */ = {
+		3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "ConvenientBus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D080F5F2BA016F2009C7D56 /* Debug */,
