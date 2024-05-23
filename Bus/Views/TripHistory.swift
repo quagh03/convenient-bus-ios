@@ -17,24 +17,53 @@ struct TripHistory: View {
             BarBackCustom(back: "", color: .black, nameRoute: "Lịch sử chuyến đi").padding(.horizontal)
             HeightSpacer(heightSpacer: 10)
             ScrollView{
-                VStack{
-                    //                    ForEach(tripAPI.trip, id: \.id){ trip in
-                    //                        let timeString = extractMonthYear(from: trip.date)
-                    //                        TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
-                    //                    }
-                    
-                    ForEach(1..<200){ trip in
-                        Text("\(trip)")
-                    }
-                    
-                    Spacer()
-                }.frame(maxWidth: .infinity)
+                if tripAPI.trip.isEmpty{
+                    VStack{
+                        Text("Chưa có dữ liệu")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 18))
+                    }.offset(y: 20)
+                }else {
+                    VStack{
+//                        ForEach(tripAPI.trip, id: \.id){ trip in
+//                            let timeString = extractMonthYear(from: trip.date)
+//                            TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
+//                        }
+                        ForEach(groupedTrips, id: \.0) { month, tripsInMonth in
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(month)
+                                    .font(.headline)
+                                    .padding(.leading)
+                                ForEach(tripsInMonth.sorted(by: { $0.date > $1.date }), id: \.id) { trip in
+                                    let timeString = extractMonthYear(from: trip.date)
+                                    TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
+                                }
+                            }
+                        }
+                       Spacer()
+                    }.frame(maxWidth: .infinity)
+                }
             }
         }
             .onAppear{
-//                tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
+                tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
             }
     }
+    
+    var groupedTrips: [(String, [Trip])] {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            
+            let tripsByMonth = Dictionary(grouping: tripAPI.trip) { trip in
+                let date = dateFormatter.date(from: trip.date)!
+                let calendar = Calendar.current
+                let month = calendar.component(.month, from: date)
+                let year = calendar.component(.year, from: date)
+                return "Tháng \(month) - \(year)"
+            }
+            
+            return tripsByMonth.sorted { $0.key > $1.key }
+        }
     
     
     func extractMonthYear(from date: String) -> String {

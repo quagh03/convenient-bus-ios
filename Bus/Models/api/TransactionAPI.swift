@@ -9,15 +9,16 @@ import Foundation
 import SwiftUI
 
 class TransactionAPI: ObservableObject {
-    @Published var buyTicketSuccess: Bool = false
-    @Published var buyTicketFailed: Bool = false
+    @Published var buyTicketSuccess: Bool?
+    @Published var buyTicketFailed: Bool?
+    @Published var isShow: Bool = false
     
     @Published var allTransactions: [Transaction] = []
     @Published var inTrans: [Transaction] = []
     @Published var outTrans: [Transaction] = []
     
     
-    func deposit(tokenLogin: String, startDate: String, periods: Int, price: Double){
+    func deposit(tokenLogin: String, startDate: String, periods: Int, price: Double) async throws{
         guard let url = URL(string: "\(DataHolder.url)/api/v1/tickets") else {
             return
         }
@@ -36,19 +37,42 @@ class TransactionAPI: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-type")
             request.httpBody = jsonData
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Invalid response")
-                    return
-                }
-                if httpResponse.statusCode == 200 {
-                    print("Mua vé thành công")
+//            URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let httpResponse = response as? HTTPURLResponse else {
+//                    print("Invalid response")
+//                    return
+//                }
+//                if httpResponse.statusCode == 200 {
+//                    print("Mua vé thành công")
+//                    self.buyTicketSuccess = true
+//                    self.isShow = true
+//                } else {
+//                    print("Mua vé không thành công")
+//                    self.buyTicketSuccess = false
+//                    self.isShow = false
+//                }
+//            }.resume()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                print("Mua vé thành công")
+                DispatchQueue.main.async {
                     self.buyTicketSuccess = true
-                } else {
-                    print("Mua vé không thành công")
-                    self.buyTicketFailed = true
+                    self.isShow = true
                 }
-            }.resume()
+            } else {
+                print("Mua vé không thành công")
+                DispatchQueue.main.async {
+                    self.buyTicketSuccess = false
+                    self.isShow = false
+                }
+            }
         }catch{
             print("error")
         }

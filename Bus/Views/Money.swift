@@ -125,7 +125,7 @@ struct Money: View {
                                                 }
                                                 .overlay{
                                                     Button(action: {
-                                                        isChoose.toggle()
+//                                                        isChoose.toggle()
                                                     }){
                                                         HStack{
                                                             Text("Nạp tiền qua").font(.system(size: 20))
@@ -191,7 +191,14 @@ struct Money: View {
 //            }
         }
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            Task{
+                do{
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
         }
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.keyboardHeight = keyboardHeight
@@ -206,12 +213,26 @@ struct Money: View {
 //            }
             VStack {
                 WebView(url: dataHolder.webViewUrl!, webViewNavigated: $webViewNavigated) {
-                    userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                    Task{
+                        do{
+                            try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                        }catch{
+                            print("Error fetching user data: \(error)")
+                        }
+                       
+                    }
                 }
                 if webViewNavigated{
                     Button("Quay lại") {
                         self.isShowingWebView = false
-                        userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                        Task{
+                            do{
+                                try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                            }catch{
+                                print("Error fetching user data: \(error)")
+                            }
+                           
+                        }
                     }
                 }
             }

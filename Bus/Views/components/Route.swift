@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct Route: View {
-    @ObservedObject var viewModel = BusRoutesApi()
+    @StateObject var viewModel = BusRoutesApi()
     @ObservedObject var viewModelDetail = BusRoutesDetailApi()
     
     @EnvironmentObject var dataHolder: DataHolder
@@ -19,6 +19,7 @@ struct Route: View {
     
     @State var isTap: Bool = false
     @State private var bottomPadding: CGFloat = 0
+    @State private var favoriteChanged: Bool = false
     
     var body: some View {
         NavigationView{
@@ -35,7 +36,7 @@ struct Route: View {
                 
                 VStack {
                     ForEach(viewModel.busRoutes, id: \.id) { busRoute in
-                        RouteRow(busRoute: busRoute)
+                        RouteRow(busRoute: busRoute, favoriteChanged: $favoriteChanged )
                             .onTapGesture {
                                 print(busRoute.routeName)
                                 dataHolder.nameRouteDetail = busRoute.routeName

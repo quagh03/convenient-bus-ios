@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct BuyTicket: View {
     @EnvironmentObject var dataHolder: DataHolder
@@ -26,6 +27,9 @@ struct BuyTicket: View {
     }()
     
     @State var isTest: Bool = false
+    
+    @State private var check:Bool = false
+    @State private var isReturn:Bool = false
     
     var body: some View {
         ZStack{
@@ -66,13 +70,22 @@ struct BuyTicket: View {
 //                                        formattedRemainingTime(startDate: ticket.startDate,endDate: ticket.endDate)
                                         
                                         HStack{
-                                            if dataHolder.isExistTicket {
-                                                ForEach(ticketApi.ticketForUser, id:\.id){ ticket in
-                                                    let timeString = extractMonthYear(from: ticket.endDate)
-                                                    Text("Vé tháng của bạn còn hạn đến: \(timeString)" ).foregroundColor(.gray)
+                                            if let userDob = dataHolder.dobUser, let age = calculateAge(from: userDob){
+                                                if age >= 60 {
+                                                    Text("Bạn đã có vé")
+                                                } else {
+                                                    if dataHolder.isExistTicket {
+                                                        ForEach(ticketApi.ticketForUser, id:\.id){ ticket in
+                                                            let timeString = extractMonthYear(from: ticket.endDate)
+                                                            Text("Vé tháng của bạn còn hạn đến: \(timeString)" ).foregroundColor(.gray)
+                                                        }
+                                                    } else {
+                                                        Text("Bạn chưa có vé tháng!").foregroundColor(.gray)
+                                                    }
+                                                    
                                                 }
                                             } else {
-                                                Text("Bạn chưa có vé tháng!").foregroundColor(.gray)
+                                                EmptyView()
                                             }
                                             Spacer()
                                         }.padding(.horizontal)
@@ -177,14 +190,41 @@ struct BuyTicket: View {
             }
         }
         .onAppear{
-            ticketApi.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+            Task{
+                do{
+                    try await ticketApi.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+                    DispatchQueue.main.async{
+                        dataHolder.isExistTicket = ticketApi.isExist
+                    }
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
+//            ticketApi.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
 //            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
 //                dataHolder.isExistTicket = ticketApi.isExist
 //            }
         }
+        .onReceive(Just(isReturn)){ success in
+            if success {
+                Task{
+                    do{
+                        try await ticketApi.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+                        DispatchQueue.main.async{
+                            dataHolder.isExistTicket = ticketApi.isExist
+                        }
+                    }catch{
+                        print("Error fetching user data: \(error)")
+                    }
+                   
+                }
+            }
+            isReturn = false
+        }
         .fullScreenCover(isPresented: $isPressed) {
             if isDetailBuyTicketVisible {
-                DetailBuyTicket(isShowDetailBuyTicket: $isDetailBuyTicketVisible)
+                DetailBuyTicket(isShowDetailBuyTicket: $isDetailBuyTicketVisible, check: $check, isReturn: $isReturn)
             }
         }
         // end
@@ -224,6 +264,18 @@ struct BuyTicket: View {
             // Xử lý trường hợp không thể chuyển đổi chuỗi thành đối tượng Date
             return "Không thể phân tích chuỗi thời gian"
         }
+    }
+    
+    func calculateAge(from dateString: String) -> Int? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let date = formatter.date(from: dateString) {
+            let now = Date()
+            let calendar = Calendar.current
+            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
+            return ageComponents.year
+        }
+        return nil
     }
 }
 

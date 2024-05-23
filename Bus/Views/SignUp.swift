@@ -23,12 +23,15 @@ struct SignUp: View {
     @EnvironmentObject var dataHolder: DataHolder
     @State private var selectedGenderIndex = 0
     
-    //    @State private var otpCode: String
+    @ObservedObject var userAPI = UserAPI()
     
     @State private var errorAlert = false
     @State private var showErrorAlert = false
     @State private var showErrorAlertPass = false
     @State private var showErrorAlertEmail = false
+    @State private var showErrorAlertUsername = false
+    @State private var showErrorAlertEmailExist = false
+    
     @State private var errorMessage = ""
     @State private var isSignUpButtonTapped = false
     
@@ -38,8 +41,8 @@ struct SignUp: View {
     @State private var showToast = false
     
     @State private var isOTPVerify:Bool = false
+    @State private var isSignUpLoad:Bool = false
     @Environment(\.presentationMode) var presentationMode
-    
     
     
     
@@ -76,8 +79,9 @@ struct SignUp: View {
                             ReuseableTextField(imageName: "lock.fill", placeholder: "Xác nhận mật khẩu" ,txtInput: $confirmPassword, hasError: isSignUpButtonTapped && (confirmPassword.isEmpty || !isPasswordValid(confirmPassword)))
                             
                             //                        NavigationLink(destination: ConfirmOTPMail(), isActive: $isSignUpSuccess) {
-                            ReuseableButton(red: 8/255,green: 141/255,blue: 224/255,text: "Đăng ký", width: .infinity,imgName: "", textColor: .white) {
+                            ReuseableButton(red: isSignUpLoad ? 211/255 : 8/255,green: isSignUpLoad ? 211/255 : 141/255,blue: isSignUpLoad ? 211/255 : 224/255,text: isSignUpLoad ? "Loading..." : "Đăng ký", width: .infinity,imgName: "", textColor: .white) {
                                 isSignUpButtonTapped = true
+                                isSignUpLoad = true
                                 if allFieldsFilled() {
                                     if !isValidEmail(email) {
                                         showToast = true
@@ -90,7 +94,23 @@ struct SignUp: View {
                                         showErrorAlertPass = true
                                         showErrorAlertEmail = false
                                     } else {
-                                        signUp()
+                                        let emailExists = userAPI.allUser.contains { user in
+                                            return user.email == email
+                                        }
+                                        let usernameExists = userAPI.allUser.contains { user in
+                                            return user.username == username
+                                        }
+                                        if emailExists {
+                                            showToast = true
+                                            isShowing = true
+                                            showErrorAlertEmailExist = true
+                                        } else if usernameExists {
+                                            showToast = true
+                                            isShowing = true
+                                            showErrorAlertUsername = true
+                                        } else {
+                                            signUp()
+                                        }
                                     }
                                 } else {
                                     showToast = true
@@ -98,6 +118,7 @@ struct SignUp: View {
                                     showErrorAlert = true
                                 }
                             }.padding(.top, 10)
+                            .disabled(isSignUpLoad)
                             //                        }
                             
                         }
@@ -139,19 +160,49 @@ struct SignUp: View {
                                     }
                                 }
                             }
+                    } else if (showErrorAlertEmailExist && showToast){
+                        ToastM(symbol: "", tint: .clear, title: "Email đã tồn tại!")
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                    withAnimation {
+                                        showErrorAlertEmail = false
+                                        showToast = false
+                                    }
+                                }
+                            }
+                    } else if (showErrorAlertUsername && showToast){
+                        ToastM(symbol: "", tint: .clear, title: "Username đã tồn tại!")
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                                    withAnimation {
+                                        showErrorAlertEmail = false
+                                        showToast = false
+                                    }
+                                }
+                            }
                     }
                 }
             }
                 .navigationBarHidden(true)
         }
         .onAppear{
-            if isOTPVerify{
-                dismiss()
-            }
+            userAPI.getAllUser()
         }
-        .sheet(isPresented: $isSignUpSuccess, content: {
+        .sheet(isPresented: $isSignUpSuccess, onDismiss: {
+            if isOTPVerify{
+                presentationMode.wrappedValue.dismiss()
+            }
+        }) {
             ConfirmOTPMail(isOTPVerify: $isOTPVerify)
-        })
+        }
+//        .sheet(isPresented: $isSignUpSuccess, content: {
+//            ConfirmOTPMail(isOTPVerify: $isOTPVerify)
+//                .onChange(of: isOTPVerify) { newValue in
+//                    if newValue {
+//                        dismiss()
+//                    }
+//                }
+//        })
         .navigationTitle("Đăng ký")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
@@ -194,9 +245,11 @@ struct SignUp: View {
                 if httpResponse.statusCode == 200 {
                     print("Đăng ký thành công")
                     isSignUpSuccess = true
+                    isSignUpLoad = false
                 } else {
                     print("Đăng ký không thành công!")
                     isSignUpSuccess = false
+                    isSignUpLoad = false
                 }
             }.resume()
             

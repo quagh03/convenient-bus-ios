@@ -14,88 +14,98 @@ struct CustomTabNavDriver: View {
     @ObservedObject var userAPI = UserAPI()
     @State private var showAlert = false
     
+    
     var body: some View {
-        HStack{
-            Spacer()
-            // home
-            Button {
-                self.index = 0
-            } label: {
-                VStack{
-                    Image(systemName: "car.fill")
-                    HeightSpacer(heightSpacer: 1)
-                    Text("Driver")
+        VStack{
+            HStack{
+                Spacer()
+                // home
+                Button {
+                    self.index = 0
+                } label: {
+                    VStack{
+                        Image(systemName: "car.fill")
+                        HeightSpacer(heightSpacer: 1)
+                        Text("Driver")
+                    }
+                    
+                }.frame(maxWidth: .infinity)
+                    .foregroundColor(.black.opacity(self.index == 0 ? 1 : 0.4)).edgesIgnoringSafeArea(.top)
+                
+                Spacer()
+                
+                
+                //            if dutyAPI.isStart {
+                Button {
+                    if dataHolder.isStartSession{
+                        isPress = true
+                        showAlert = false
+                    } else {
+                        showAlert = true
+                    }
+                } label: {
+                    ZStack{
+                        Image(systemName: "qrcode.viewfinder")
+                            .resizable()
+                            .frame(maxWidth: 35, maxHeight:35)
+                            .foregroundColor(.blue)
+                            .padding(10) // Add some padding to increase tap area
+                            .background(
+                                Circle()
+                                    .fill(Color.white) // Add a white background
+                                //.shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 2) // Add shadow
+                            )
+                    }
+                }
+                .foregroundColor(.blue)
+                .offset(y: -25)
+                .alert(isPresented: $showAlert){
+                    Alert(
+                        title: Text("Thông báo"),
+                        message: Text("Bạn phải bắt đầu chuyến đi."),
+                        dismissButton: .default(Text("OK"))
+                    )
                 }
                 
-            }.frame(maxWidth: .infinity)
-                .foregroundColor(.black.opacity(self.index == 0 ? 1 : 0.4)).edgesIgnoringSafeArea(.top)
-            
-            Spacer()
-            
-            
-            //            if dutyAPI.isStart {
-            Button {
-                if dataHolder.isStartSession{
-                    isPress = true
-                    showAlert = false
-                } else {
-                    showAlert = true
-                }
-            } label: {
-                ZStack{
-                    Image(systemName: "qrcode.viewfinder")
-                        .resizable()
-                        .frame(maxWidth: 35, maxHeight:35)
-                        .foregroundColor(.blue)
-                        .padding(10) // Add some padding to increase tap area
-                        .background(
-                            Circle()
-                                .fill(Color.white) // Add a white background
-                            //                                .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 2) // Add shadow
-                        )
-                }
-            }
-            .foregroundColor(.blue)
-            .offset(y: -25)
-            .alert(isPresented: $showAlert){
-                Alert(
-                    title: Text("Thông báo"),
-                    message: Text("Bạn phải bắt đầu chuyến đi."),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            
-            
-            Spacer()
-            // account
-            Button {
-                self.index = 1
-            } label: {
-                VStack{
-                    Image(systemName: "person.fill")
-                    HeightSpacer(heightSpacer: 1)
-                    Text("Account")
-                }
-            }.frame(maxWidth: .infinity)
-                .foregroundColor(.black.opacity(self.index == 1 ? 1 : 0.4)).edgesIgnoringSafeArea(.top)
-            
-            Spacer()
+                
+                Spacer()
+                // account
+                Button {
+                    self.index = 1
+                } label: {
+                    VStack{
+                        Image(systemName: "person.fill")
+                        HeightSpacer(heightSpacer: 1)
+                        Text("Account")
+                    }
+                }.frame(maxWidth: .infinity)
+                    .foregroundColor(.black.opacity(self.index == 1 ? 1 : 0.4)).edgesIgnoringSafeArea(.top)
+                
+                Spacer()
+            }.edgesIgnoringSafeArea(.bottom)
         }
-        .ignoresSafeArea()
+        .edgesIgnoringSafeArea(.bottom)
         .background(Color.white)
         //        .padding(.horizontal,35)
         //        .padding(.top, 35)
-        .padding(.vertical)
+//        .padding(.vertical)
         .clipShape(CShape())
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
-                dataHolder.idUser = userAPI.user?.id
-                dataHolder.fNameUser = userAPI.user?.firstName
-                dataHolder.lNameUser = userAPI.user?.lastName
-                dataHolder.phoneUser = userAPI.user?.phoneNumber
-                dataHolder.emailUser = userAPI.user?.email
-                dataHolder.dobUser =  userAPI.user?.dob
+            Task {
+                do {
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                    
+                    DispatchQueue.main.async {
+                        dataHolder.idUser = userAPI.user?.id
+                        dataHolder.fNameUser = userAPI.user?.firstName
+                        dataHolder.lNameUser = userAPI.user?.lastName
+                        dataHolder.phoneUser = userAPI.user?.phoneNumber
+                        dataHolder.emailUser = userAPI.user?.email
+                        dataHolder.dobUser = userAPI.user?.dob
+                    }
+                } catch {
+                    print("Error fetching user data: \(error)")
+                }
             }
         }
     }

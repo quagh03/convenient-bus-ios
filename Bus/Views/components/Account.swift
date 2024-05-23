@@ -19,6 +19,7 @@ struct Account: View {
     
     @State private var showingLogoutAlert = false
     @Binding var isLogOut: Bool
+    @ObservedObject var faceIDAuth = FaceIDAuthentication()
     
     let title: [String] = ["Họ", "Tên", "Ngày sinh", "Số điện thoại", "Email", "Giới tính", "Ngày tham gia"]
     
@@ -36,7 +37,7 @@ struct Account: View {
                                     .frame(width: 80, height: 80)
                             }
                             .onTapGesture {
-                                isShowingPicker = true
+//                                isShowingPicker = true
                             }
                             HStack{
                                 Text("\(userAPI.user?.lastName ?? "")")
@@ -50,38 +51,35 @@ struct Account: View {
                         ProfileRow(title: title[index], infor: userDataForTitle(index))
                     }
                     
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.clear)
-                        .frame(height: 56)
-                        .overlay{
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color("lightGray"), lineWidth: 1)
-                        }
-                        .overlay{
-                            Button {
-                                withAnimation {
-                                    isTripHistoryPressed = true
-                                }
-                            } label: {
-//                                NavigationLink(destination: TripHistory().navigationTitle("Lịch sử chuyến đi").navigationBarTitleDisplayMode(.inline)){
+                    if userAPI.user?.role == "ROLE_GUEST"{
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(.clear)
+                            .frame(height: 56)
+                            .overlay{
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color("lightGray"), lineWidth: 1)
+                            }
+                            .overlay{
+                                Button {
+                                    withAnimation {
+                                        isTripHistoryPressed = true
+                                    }
+                                } label: {
                                     HStack{
                                         Text("Lịch sử chuyến đi").foregroundColor(.black)
                                         Spacer()
                                         Image(systemName: "chevron.right")
-
+                                        
                                     }.padding(.horizontal).foregroundColor(.black)
-//                                }
+                                }
                             }
-                        }
-                        .padding(.top)
+                            .padding(.top)
+                    }
                     
-//                    NavigationLink(destination: TripHistory().navigationTitle("lịch sử chuyến đi"), isActive: $isTripHistoryPressed) {
+//                    NavigationLink(destination: Login().navigationBarHidden(true).navigationBarBackButtonHidden(true), isActive: $isLogOut) {
 //                        EmptyView()
 //                    }
                     
-                    NavigationLink(destination: Login(), isActive: $isLogOut) {
-                        EmptyView()
-                    }
                     HeightSpacer(heightSpacer: 10)
                     Button(action: {
                         showingLogoutAlert = true
@@ -92,6 +90,10 @@ struct Account: View {
                             Spacer()
                         }.padding(.all)
                     }
+                    
+//                    NavigationLink(destination: Login().navigationBarHidden(true).navigationBarBackButtonHidden(true), isActive: $isLogOut) {
+//                        EmptyView()
+//                    }
                     
                     Spacer()
                 }
@@ -105,7 +107,14 @@ struct Account: View {
             TripHistory()
         })
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            Task{
+                do{
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
         }
         .sheet(isPresented: $isShowingPicker) {
             PhotoPicker(avatarImage: $avatarImage)
@@ -113,14 +122,35 @@ struct Account: View {
         .alert(isPresented: $showingLogoutAlert) {
             Alert(title: Text("Xác nhận"), message: Text("Bạn có chắc chắn muốn đăng xuất?"), primaryButton: .destructive(Text("Đăng xuất"), action: {
                 // Thực hiện việc đăng xuất và chuyển hướng về trang đăng nhập
-                isLogOut = true
+                withAnimation {
+                    isLogOut = true
+                    restartApplication()
+                    
+                }
             }), secondaryButton: .cancel())
         }
     }
     
     //logout
-    func logout(){
-        
+    func restartApplication() {
+//        DispatchQueue.main.asyncAfter(deadline: .now()) {
+//            if let window = UIApplication.shared.windows.first {
+//                // Khởi tạo lại giao diện người dùng với ContentView là màn hình khởi đầu
+//                dataHolder.logout()
+//                window.rootViewController = UIHostingController(rootView: Login().environmentObject(dataHolder))
+//            }
+//        }
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            if let windowScene = UIApplication.shared.connectedScenes
+                .first(where: { $0 is UIWindowScene }) as? UIWindowScene {
+                if let window = windowScene.windows.first {
+                    // Khởi tạo lại giao diện người dùng với ContentView là màn hình khởi đầu
+                    dataHolder.logout()
+                    faceIDAuth.logOut()
+                    window.rootViewController = UIHostingController(rootView: Login().environmentObject(dataHolder))
+                }
+            }
+        }
     }
     
     //

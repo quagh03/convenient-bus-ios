@@ -17,7 +17,9 @@ struct Payment: View {
     @State var isTap: Bool = false
     @State var isPaymentHistory: Bool = false
     @State private var bottomPadding: CGFloat = 0
-    @ObservedObject var userAPI = UserAPI()
+    @StateObject var userAPI = UserAPI()
+    
+    @State private var isQRCodeLoaded = false
     
     var body: some View {
         NavigationView{
@@ -91,18 +93,26 @@ struct Payment: View {
                                 Text("Mã QR").padding(.horizontal)
                                 Spacer()
                             }
-                            AsyncImage(url: URL(string : code)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                Image(systemName: "photo")
-                                    .imageScale(.large)
-                                    .foregroundColor(.gray)
+                            if isQRCodeLoaded{
+                                AsyncImage(url: URL(string : code)) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+//                                    Image(systemName: "photo")
+//                                        .imageScale(.large)
+//                                        .foregroundColor(.gray)
+                                    ProgressView() // Hiển thị hình ảnh hoặc vòng quay tải khi đang tải mã QR
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                        .padding()
+                                }
+                                .ignoresSafeArea()
+                                .frame(width: 300, height: 300)
+                            } else {
+                                ProgressView() // Hiển thị hình ảnh hoặc vòng quay tải khi đang tải mã QR
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .padding()
                             }
-                            .ignoresSafeArea()
-                            .frame(width: 300, height: 300)
-                            
                         }
                     }
                 
@@ -140,7 +150,14 @@ struct Payment: View {
                 bottomPadding = window.safeAreaInsets.bottom
             }
             fetchQRCode(token: dataHolder.tokenLogin)
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            Task{
+                do{
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
         }
         .fullScreenCover(isPresented: $isTap) {
             Money()
@@ -185,6 +202,7 @@ struct Payment: View {
                 let decodedResponse = try JSONDecoder().decode(QRCode.self, from: data)
                 DispatchQueue.main.async {
                     self.code = decodedResponse.data
+                    isQRCodeLoaded = true
                     print(code)
                 }
                 

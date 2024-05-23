@@ -13,6 +13,9 @@ struct ConfirmOTPMail: View {
     @State private var otp: [String] = Array(repeating: "", count: 6)
     @State private var currentTextField = 0
     
+    //check correct
+    @State private var isOTPCorrect:Bool = false
+    
     @FocusState private var fieldFocus:Int?
     
     @Binding var isOTPVerify: Bool
@@ -72,71 +75,53 @@ struct ConfirmOTPMail: View {
             }
             
             ZStack{
-                if !isOTPVerify {
+                if isOTPVerify == false {
                     ToastM(tint: .clear, title: "Mã OTP không chính xác. Xin vui lòng nhập lại")
                 }
             }
             
         }
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        .onChange(of: isOTPVerify, perform: { value in
+            if value{
+                presentationMode.wrappedValue.dismiss()
+            }
+        })
+        .onAppear{
+            
+        }
         .navigationTitle("Xác nhận OTP").navigationBarTitleDisplayMode(.inline).ignoresSafeArea().navigationBarBackButtonHidden(true).navigationBarHidden(isOTPVerify)
     }
     
-    //    private func otpTextField(_ index: Int) -> some View {
-    //        TextField("", text: Binding(
-    //            get: { self.otp[index] },
-    //            set: {
-    //                self.otp[index] = String($0.prefix(1).filter { $0.isNumber })
-    //                if $0.count > 0 && index < 5 {
-    //                    self.fieldFocus = index + 1
-    //                } else if $0.count == 0 && index > 0 {
-    //                    self.fieldFocus = index - 1
-    //                }
-    //            }
-    //        ))
-    //        .frame(width: 40, height: 40)
-    //        .multilineTextAlignment(.center)
-    //        .font(.title)
-    //        .textFieldStyle(PlainTextFieldStyle())
-    //        .textContentType(.oneTimeCode)
-    //        .foregroundColor(.black)
-    //        .tag(index)
-    //        .focused($fieldFocus, equals: index)
-    //        .overlay(
-    //            Rectangle()
-    //                .frame(height: 1)
-    //                .padding(.top, 40)
-    //                .foregroundColor(.blue)
-    //        )
-    //    }
     
     func verifyOTP(){
-                let enteredOtp = otp.joined()
+        let enteredOtp = otp.joined()
         
         guard let url = URL(string: "\(DataHolder.url)/api/v1/users/verify?code=\(enteredOtp)") else {
-                    print("Invalid url")
-                    return
-                }
+            print("Invalid url")
+            return
+        }
         
-                var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         
-        
-        
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    guard let httpResponse = response as? HTTPURLResponse else {
-                        print("Invalid response")
-                        return
-                    }
-        
-                    if httpResponse.statusCode == 200 {
-                        print("success!!")
-                        isOTPVerify = true
-                        presentationMode.wrappedValue.dismiss()
-                    } else {
-                        print("error")
-//                        isOTPVerify = false
-                    }
-                }.resume()
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                print("success!!")
+                isOTPVerify = true
+                presentationMode.wrappedValue.dismiss()
+            } else {
+                print("error")
+                isOTPVerify = false
+                isOTPCorrect = false
+                otp = Array(repeating: "", count: 6)
+            }
+        }.resume()
     }
     
     

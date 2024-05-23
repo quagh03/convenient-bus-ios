@@ -10,13 +10,11 @@ import SlidingTabView
 
 struct PaymentHistory: View {
     @State private var selectedTab = 0
-    @ObservedObject var transAPI = TransactionAPI()
+    @StateObject var transAPI = TransactionAPI()
     @EnvironmentObject var dataHolder: DataHolder
     @ObservedObject var userAPI = UserAPI()
-    
-   
-    
     @State var isTap:Bool = false
+    
     var body: some View {
         VStack{
             ZStack(){
@@ -29,65 +27,86 @@ struct PaymentHistory: View {
             
             // sliding
             SlidingTabView(selection: $selectedTab, tabs: ["Tất cả", "Nạp Tiền","Thanh toán"], animation: .easeInOut, activeAccentColor: .blue, selectionBarColor: .blue)
-            Spacer()
+//            Spacer()
             
             VStack{
-                if selectedTab == 0 {
-                    ScrollView{
-                        ForEach(transAPI.allTransactions, id: \.id) {trans in
-                            //                    PaymentHistoryRow(imgName: trans.status=="COMPLETED" ? "addCard": "minusCard", title: trans.type=="IN" ? "":"", time: <#T##String#>, amount: "\(trans.amount)", status: trans.status=="COMPLETED" ? "Thành công":"Thất bại")
-                            let timeString = extractMonthYear(from: trans.time)
-                            PaymentHistoryRow(imgName: trans.type == "IN" ? "addCard" : "minusCard",
-                                              title: trans.type == "IN" ? "Nạp tiền vào ví" : "Thanh toán vé \(timeString)",
-                                              time: timeString,
-                                              amount: "\(trans.amount)",
-                                              status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
-                                              color: trans.status == "COMPLETED" ? .green : .red)
-                            .onTapGesture {
-                                dataHolder.time = timeString
-                                dataHolder.type = trans.type
-                                dataHolder.status = trans.status
-                                dataHolder.amount = trans.amount
-                                dataHolder.vnpID = trans.vnpID
-                                dataHolder.firstNamePH = trans.user.firstName
-                                dataHolder.lastNamePH = trans.user.lastName
-                                dataHolder.phoneNumberPH = trans.user.phoneNumber
-                                dataHolder.emailPH = trans.user.email
-                                isTap = true
+                if transAPI.allTransactions.isEmpty {
+                    VStack{
+                        Text("Chưa có dữ liệu")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 18))
+                    }.offset(y: 20)
+                } else {
+                    if selectedTab == 0 {
+                        ScrollView{
+                            ForEach(transAPI.allTransactions, id: \.id) {trans in
+                                //                    PaymentHistoryRow(imgName: trans.status=="COMPLETED" ? "addCard": "minusCard", title: trans.type=="IN" ? "":"", time: <#T##String#>, amount: "\(trans.amount)", status: trans.status=="COMPLETED" ? "Thành công":"Thất bại")
+                                let timeString = extractMonthYear(from: trans.time)
+                                let moneyE = trans.amount/100
+                                let moneyWithoutDecimal = Int(moneyE)
+                                PaymentHistoryRow(imgName: trans.type == "IN" ? "addCard" : "minusCard",
+                                                  title: trans.type == "IN" ? "Nạp tiền vào ví" : "Thanh toán vé \(timeString)",
+                                                  time: timeString,
+                                                  amount: trans.type == "IN" ? "\(moneyWithoutDecimal)" : "\(trans.amount)",
+                                                  status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
+                                                  color: trans.status == "COMPLETED" ? .green : .red)
+                                .onTapGesture {
+                                    dataHolder.time = timeString
+                                    dataHolder.type = trans.type
+                                    dataHolder.status = trans.status
+                                    dataHolder.amount = trans.amount
+                                    dataHolder.vnpID = trans.vnpID
+                                    dataHolder.firstNamePH = trans.user.firstName
+                                    dataHolder.lastNamePH = trans.user.lastName
+                                    dataHolder.phoneNumberPH = trans.user.phoneNumber
+                                    dataHolder.emailPH = trans.user.email
+                                    isTap = true
+                                }
+                                
                             }
-                            
                         }
-                    }
-                } else if selectedTab == 1 {
-                    ScrollView{
-                        ForEach(transAPI.inTrans, id:\.id){trans in
-                            let timeString = extractMonthYear(from: trans.time)
-                            PaymentHistoryRow(imgName: "addCard",
-                                              title: "Nạp tiền vào ví",
-                                              time: timeString,
-                                              amount: "\(trans.amount)",
-                                              status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
-                                              color: trans.status == "COMPLETED" ? .green : .red)
+                    } else if selectedTab == 1 {
+                        ScrollView{
+                            ForEach(transAPI.inTrans, id:\.id){trans in
+                                let timeString = extractMonthYear(from: trans.time)
+                                let moneyE = trans.amount/100
+                                let moneyWithoutDecimal = Int(moneyE)
+                                PaymentHistoryRow(imgName: "addCard",
+                                                  title: "Nạp tiền vào ví",
+                                                  time: timeString,
+                                                  amount: "\(moneyE)",
+                                                  status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
+                                                  color: trans.status == "COMPLETED" ? .green : .red)
+                            }
                         }
-                    }
-                } else if selectedTab == 2 {
-                    ScrollView{
-                        ForEach(transAPI.outTrans, id: \.id) {trans in
-                            let timeString = extractMonthYear(from: trans.time)
-                            PaymentHistoryRow(imgName: "minusCard",
-                                              title: "Thanh toán vé \(timeString)",
-                                              time: timeString,
-                                              amount: "\(trans.amount)",
-                                              status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
-                                              color: trans.status == "COMPLETED" ? .green : .red)
-                            
+                    } else if selectedTab == 2 {
+                        ScrollView{
+                            ForEach(transAPI.outTrans, id: \.id) {trans in
+                                let timeString = extractMonthYear(from: trans.time)
+                                PaymentHistoryRow(imgName: "minusCard",
+                                                  title: "Thanh toán vé \(timeString)",
+                                                  time: timeString,
+                                                  amount: "\(trans.amount)",
+                                                  status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
+                                                  color: trans.status == "COMPLETED" ? .green : .red)
+                                
+                            }
                         }
                     }
                 }
             }
             
+            Spacer()
+            
         }.onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            Task{
+                do{
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
             transAPI.getAllTransaction(tokenLogin: dataHolder.tokenLogin, userId: dataHolder.idUser!)
         }
         .fullScreenCover(isPresented: $isTap) {

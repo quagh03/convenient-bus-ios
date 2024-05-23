@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 
 struct ScannerView: View {
+    @EnvironmentObject var dataHolder: DataHolder
     /// QR Code Scanner Properties
     @State private var isScanning: Bool = false
     @State private var session: AVCaptureSession = .init()
@@ -27,6 +28,12 @@ struct ScannerView: View {
     @State private var scannedCode: String = ""
     /// Device Orientation
     @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
+    /// TripAPI
+    @ObservedObject var tripAPI = TripAPI()
+    /// check
+    @Binding var check: Bool
+    
+    
     var body: some View {
         VStack(spacing: 8) {
             Button {
@@ -141,7 +148,41 @@ struct ScannerView: View {
                 /// Clearing the Data on Delegate
                 qrDelegate.scannedCode = nil
                 /// Presenting Scanned Code
-                presentError(scannedCode)
+//                presentError(scannedCode)
+                /// Get UserName
+                if let username = getValue(for: "username", from: scannedCode) {
+                    // Hiển thị thông báo thành công
+                    print("Added trip for username: \(username)")
+                    tripAPI.addTrip(tokenLogin: dataHolder.tokenLogin, dutyID: dataHolder.sessionId!, username: username) {success in
+                        if success {
+                            dataHolder.isAddTripSuccess = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                presentationMode.wrappedValue.dismiss()
+                                check = true
+                            }
+                        }else {
+                            dataHolder.isAddTripSuccess = false
+                            print("Failed to add trip for username: \(username)")
+                        }
+                    }
+                    
+//                    if tripAPI.isAddTripSuccessful {
+//                        // Thực hiện đóng view quét QR
+//                        dataHolder.isAddTripSuccess = true
+//                        DispatchQueue.main.asyncAfter(deadline: .now()+1){
+//                            presentationMode.wrappedValue.dismiss()
+//                            check = true
+//                        }
+//                    } else {
+//                        dataHolder.isAddTripSuccess = false
+//                        print("Failed to add trip for username: \(username)")
+//                    }
+                } else {
+                    // Trường hợp không tìm thấy username trong URL
+                    print( "No username found in scanned QR code.")
+                    // Thực hiện đóng view quét QR
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
         .onChange(of: session.isRunning) { newValue in
@@ -247,6 +288,22 @@ struct ScannerView: View {
     func presentError(_ message: String) {
         errorMessage = message
         showError.toggle()
+    }
+    
+    /// Get Value
+    func getValue(for key: String, from url: String) -> String? {
+        // Tách chuỗi URL thành các thành phần
+        if let urlComponents = URLComponents(string: url) {
+            // Lặp qua các query items trong URL để tìm tham số cần truy xuất
+            for queryItem in urlComponents.queryItems ?? [] {
+                // Nếu tìm thấy tham số có tên là key, trả về giá trị của nó
+                if queryItem.name == key {
+                    return queryItem.value
+                }
+            }
+        }
+        // Trả về nil nếu không tìm thấy giá trị cho key
+        return nil
     }
 }
 

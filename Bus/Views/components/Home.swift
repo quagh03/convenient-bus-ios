@@ -34,7 +34,8 @@ struct Home: View {
                                     .fill(.white)
                                     .frame(width: 40, height: 40)
                                     .overlay{
-                                        Image("logo").foregroundColor(.white)
+                                        Image("logo").resizable().frame(width: 40, height: 40)
+                                            .foregroundColor(.white)
                                     }
                                 Text("BUS CONVENIENT").bold().foregroundColor(.white).font(.system(size: 32))
                             }.offset(y:33)
@@ -97,17 +98,36 @@ struct Home: View {
             }
         }
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
-                dataHolder.idUser = userAPI.user?.id
-                dataHolder.fNameUser = userAPI.user?.firstName
-                dataHolder.lNameUser = userAPI.user?.lastName
-                dataHolder.phoneUser = userAPI.user?.phoneNumber
-                dataHolder.emailUser = userAPI.user?.email
-                dataHolder.dobUser =  userAPI.user?.dob
-                
-                ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+            Task {
+                do {
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                    
+                    DispatchQueue.main.async {
+                        dataHolder.idUser = userAPI.user?.id
+                        dataHolder.fNameUser = userAPI.user?.firstName
+                        dataHolder.lNameUser = userAPI.user?.lastName
+                        dataHolder.phoneUser = userAPI.user?.phoneNumber
+                        dataHolder.emailUser = userAPI.user?.email
+                        dataHolder.dobUser = userAPI.user?.dob
+                    }
+                    
+                    Task {
+                        do {
+                            // Gọi hàm để lấy tất cả vé
+                            try await ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
+                            
+                            // Các thao tác khác sau khi đã nhận dữ liệu từ getAllTicket có thể được thực hiện ở đây
+                            
+                        } catch {
+                            print("Error fetching ticket data: \(error)")
+                        }
+                    }
+                    
+                } catch {
+                    print("Error fetching user data: \(error)")
+                }
             }
+        
         }
         .fullScreenCover(isPresented: $isFavPress) {
             FavoriteScreen()

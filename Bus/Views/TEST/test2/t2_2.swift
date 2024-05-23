@@ -8,8 +8,30 @@
 import SwiftUI
 
 struct t2_2: View {
+    @State var pressed: Bool = false
+    @Environment(\.presentationMode) var mode
+    @State var pressed2: Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationView{
+            VStack{
+                Text("Page 2")
+                
+                Button(action: {
+                    pressed = true
+//                    mode.wrappedValue.dismiss()
+                }, label: {
+                    Text("To page 3")
+                })
+            }
+        }
+        .sheet(isPresented: $pressed, onDismiss: {
+            if pressed2 {
+                mode.wrappedValue.dismiss()
+            }
+        }) {
+            t2_3(pressed2: $pressed2)
+        }
     }
 }
 

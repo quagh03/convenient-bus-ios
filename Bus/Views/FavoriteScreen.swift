@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct FavoriteScreen: View {
-    @EnvironmentObject private var favorites: Favotites
+    @EnvironmentObject private var favorites: Favorites
     @EnvironmentObject var dataHolder: DataHolder
-    @ObservedObject var viewModel = BusRoutesApi()
+    @StateObject var viewModel = BusRoutesApi()
     @State private var isTap: Bool = false
+    @State private var favoriteChanged: Bool = false
     
     var body: some View {
         ZStack{
@@ -20,19 +22,39 @@ struct FavoriteScreen: View {
                     ReusableImage(color: "primary", height: 65, width: .infinity)
                     BarBackCustom(back: "",color: .white, nameRoute: "Yêu thích").padding(.horizontal)
                 }
-                Spacer()
-                ScrollView{
-                    ForEach(viewModel.busRouteFavorite, id: \.id) { favorite in
-                        RouteRow(busRoute: favorite)
-                            .onTapGesture {
-                                dataHolder.nameRouteDetail = favorite.routeName
-                                isTap = true
+                
+//                if viewModel.busRouteFavorite.isEmpty{
+//                    VStack{
+//                        Text("Chưa có dữ liệu").foregroundStyle(.gray).offset(y:50)
+//                    }
+//                }else{
+                    ScrollView{
+                        ForEach(viewModel.busRouteFavorite, id: \.id) { favorite in
+                            RouteRow(busRoute: favorite, favoriteChanged: $favoriteChanged)
+                                .onTapGesture {
+                                    dataHolder.nameRouteDetail = favorite.routeName
+                                    isTap = true
+                                }
+                        }.onAppear{
+                            viewModel.favoriteIDs = favorites.saveItems
+                            viewModel.fetchData()
+                        }
+//                        .onReceive(Just(favoriteChanged)) { _ in
+//                           // Fetch data again when favoriteChanged is toggled
+//                            viewModel.favoriteIDs = favorites.saveItems
+//                            viewModel.fetchData()
+//                        }
+                        .onReceive(Just(favoriteChanged)) { favoriteChangedValue in
+                            if favoriteChangedValue {
+                                // Fetch data again when favoriteChanged is toggled
+                                viewModel.favoriteIDs = favorites.saveItems
+                                viewModel.fetchData()
                             }
-                    }.onAppear{
-                        viewModel.favoriteIDs = favorites.saveItems
-                        viewModel.fetchData()
-                    }
-                }.padding(.horizontal)
+                        }
+                    }.padding(.horizontal)
+//                }
+                
+                Spacer()
             }
         }.fullScreenCover(isPresented: $isTap) {
             DetailBusRoute(nameRouteDetail: dataHolder.nameRouteDetail!)

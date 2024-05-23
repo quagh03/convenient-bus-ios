@@ -12,8 +12,12 @@ class FaceIDAuthentication: ObservableObject{
     @Published var isUnlocked = false
     @Published var showingAlert = false
     @Published var biometricError: NSError?
+    @Published var isLoggedIn = false
     
     private let context = LAContext()
+    private let dataHolder = DataHolder.shared
+    
+    var loginAction: ((String, String) -> Void)?
     
     func authenticate() {
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &biometricError) {
@@ -23,6 +27,10 @@ class FaceIDAuthentication: ObservableObject{
                 DispatchQueue.main.async {
                     if success {
                         self.isUnlocked = true
+                        
+                        if let savedUsername = self.dataHolder.savedUsername, let savedPassword = self.dataHolder.savedPassword {
+                            self.loginAction?(savedUsername, savedPassword)
+                        }
                     } else {
                         self.handleAuthenticationError(error: authenticationError)
                     }
@@ -31,6 +39,14 @@ class FaceIDAuthentication: ObservableObject{
         } else {
             self.handleAuthenticationError(error: biometricError)
         }
+    }
+    
+    func logOut(){
+//        dataHolder.savedUsername = nil
+//        dataHolder.savedPassword = nil
+        self.isLoggedIn = false
+        self.isUnlocked = false
+        self.context.invalidate()
     }
     
     private func handleAuthenticationError(error: Error?) {
@@ -57,4 +73,5 @@ class FaceIDAuthentication: ObservableObject{
         
         self.showingAlert = true
     }
+    
 }
