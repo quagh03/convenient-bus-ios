@@ -10,7 +10,7 @@ import SwiftUI
 struct testScannerView: View {
     var body: some View {
         VStack{
-            ScannerView()
+//            ScannerView()
         }
     }
 }

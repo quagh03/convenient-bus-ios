@@ -84,6 +84,7 @@ struct Dropdown: View {
         }.zIndex(20)
         .onAppear{
             busRouteAPI.fetchData()
+            dataHolder.nameRouteDd = nameRoute
         }
         .onReceive(Just(check)) { _ in
             // Gọi lại fetchData() mỗi khi check thay đổi từ false sang true

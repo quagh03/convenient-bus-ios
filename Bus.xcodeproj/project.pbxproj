@@ -88,6 +88,9 @@
 		3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */; };
 		3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */; };
 		3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9DA2BB97355005ED9B4 /* demoView.swift */; };
+		3D94CF6E2BFE30BD00C2AA99 /* t2_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF6D2BFE30BD00C2AA99 /* t2_1.swift */; };
+		3D94CF702BFE311F00C2AA99 /* t2_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF6F2BFE311F00C2AA99 /* t2_2.swift */; };
+		3D94CF722BFE312900C2AA99 /* t2_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF712BFE312900C2AA99 /* t2_3.swift */; };
 		3DA458102BDBF41E0032D811 /* TripHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4580F2BDBF41E0032D811 /* TripHistory.swift */; };
 		3DA458122BDCEE070032D811 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA458112BDCEE070032D811 /* Session.swift */; };
 		3DA458152BDD37B00032D811 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA458142BDD37B00032D811 /* Toast.swift */; };
@@ -196,6 +199,9 @@
 		3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
 		3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedBusRoutesAPI.swift; sourceTree = "<group>"; };
 		3D78A9DA2BB97355005ED9B4 /* demoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoView.swift; sourceTree = "<group>"; };
+		3D94CF6D2BFE30BD00C2AA99 /* t2_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_1.swift; sourceTree = "<group>"; };
+		3D94CF6F2BFE311F00C2AA99 /* t2_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_2.swift; sourceTree = "<group>"; };
+		3D94CF712BFE312900C2AA99 /* t2_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_3.swift; sourceTree = "<group>"; };
 		3DA4580F2BDBF41E0032D811 /* TripHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripHistory.swift; sourceTree = "<group>"; };
 		3DA458112BDCEE070032D811 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3DA458142BDD37B00032D811 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -399,6 +405,7 @@
 		3D5D74642BCD6B640043DB14 /* TEST */ = {
 			isa = PBXGroup;
 			children = (
+				3D94CF6C2BFE30AA00C2AA99 /* test2 */,
 				3D644B302BE33BF4004EBC6B /* New Group */,
 				3D78A9DA2BB97355005ED9B4 /* demoView.swift */,
 				3DF940332BC812A100B97C33 /* TEST.swift */,
@@ -476,6 +483,16 @@
 			path = navigationScreen;
 			sourceTree = "<group>";
 		};
+		3D94CF6C2BFE30AA00C2AA99 /* test2 */ = {
+			isa = PBXGroup;
+			children = (
+				3D94CF6D2BFE30BD00C2AA99 /* t2_1.swift */,
+				3D94CF6F2BFE311F00C2AA99 /* t2_2.swift */,
+				3D94CF712BFE312900C2AA99 /* t2_3.swift */,
+			);
+			path = test2;
+			sourceTree = "<group>";
+		};
 		3DA458132BDD37220032D811 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,7 +564,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "ConvenientBus" */;
+			buildConfigurationList = 3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "Bus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -607,6 +624,7 @@
 				3D71DF0B2BDE78F100CB4FBA /* CameraView.swift in Sources */,
 				3DE687EA2BBBF28C00C89FE3 /* BarBackCustom.swift in Sources */,
 				3D080F812BA948CB009C7D56 /* ConfirmOTPMail.swift in Sources */,
+				3D94CF6E2BFE30BD00C2AA99 /* t2_1.swift in Sources */,
 				3D1FB5E22BBE29A8007711FE /* QRCodeFetching.swift in Sources */,
 				3D7522312BD155770028178F /* FaceIDAuthentication.swift in Sources */,
 				3D3CF7B02BB11F320016B916 /* Account.swift in Sources */,
@@ -647,6 +665,7 @@
 				3D5D74682BCD84BE0043DB14 /* CircleCheckmarkParameters.swift in Sources */,
 				3D3B3AE02BBEAAE400627F37 /* Denomination.swift in Sources */,
 				3D71DF082BDE78BE00CB4FBA /* QRScannerDelegate.swift in Sources */,
+				3D94CF702BFE311F00C2AA99 /* t2_2.swift in Sources */,
 				3D080F752BA0AE0B009C7D56 /* FillInInformation.swift in Sources */,
 				3DA458102BDBF41E0032D811 /* TripHistory.swift in Sources */,
 				3D2732272BC61E3000134467 /* Database.swift in Sources */,
@@ -655,6 +674,7 @@
 				3D3CF7B22BB124FE0016B916 /* ReusableImage.swift in Sources */,
 				3D3CF7C22BB3BAF60016B916 /* BusRoute.swift in Sources */,
 				3D2732252BC61B7500134467 /* Favorites.swift in Sources */,
+				3D94CF722BFE312900C2AA99 /* t2_3.swift in Sources */,
 				3D3277702BC8D31F0063E1CD /* FavoriteScreen.swift in Sources */,
 				3D3B3AE82BBFFFD000627F37 /* VNPayApi.swift in Sources */,
 				3D71DF152BDFE03300CB4FBA /* testLogin.swift in Sources */,
@@ -884,7 +904,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "ConvenientBus" */ = {
+		3D080F4E2BA016F0009C7D56 /* Build configuration list for PBXProject "Bus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D080F5F2BA016F2009C7D56 /* Debug */,

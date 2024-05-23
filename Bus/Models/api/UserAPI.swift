@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 class UserAPI: ObservableObject {
-    
     @Published var user: User?
+    @Published var allUser: [User] = []
     @Published var balance: Float?
     @Published var id : Int?
     @Published var firstName: String?
@@ -24,11 +24,33 @@ class UserAPI: ObservableObject {
 //    init(dataHolder: DataHolder) { // Khởi tạo dataHolder từ bên ngoài
 //        self.dataHolder = dataHolder
 //    }
-
-  
+    
+    func getAllUser(){
+        guard let url = URL(string: "\(DataHolder.url)/api/v1/users/all") else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                print("Error fetching")
+                return
+            }
+            do{
+                let decodedData = try JSONDecoder().decode(Userdata2.self, from: data)
+                DispatchQueue.main.async {
+                    self.allUser = decodedData.data
+                }
+            } catch{
+                print(error)
+            }
+        }.resume()
+    }
     
 
-    func getUser(tokenLogin: String){
+    func getUser(tokenLogin: String) async throws {
         guard let url = URL(string: "\(DataHolder.url)/api/v1/users/info") else {
             return
         }
@@ -37,26 +59,43 @@ class UserAPI: ObservableObject {
         request.httpMethod = "GET"
         request.addValue("Bearer \(tokenLogin)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                print("Error fetching")
-                return 
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data else {
+//                print("Error fetching")
+//                return 
+//            }
+//            do{
+//                let decodedData = try JSONDecoder().decode(Userdata.self, from: data)
+//                DispatchQueue.main.async {
+//                    self.user = decodedData.data
+//                    self.balance = decodedData.data.balance
+//                    self.id = decodedData.data.id
+//                    self.firstName = decodedData.data.firstName
+//                    self.lastName = decodedData.data.lastName
+//                    self.phoneNumber = decodedData.data.phoneNumber
+//                    self.email = decodedData.data.email
+//                    self.role = decodedData.data.role
+//                }
+//            } catch{
+//                print(error)
+//            }
+//        }.resume()
+        let (data, _) = try await URLSession.shared.data(for: request)
+                
+        do {
+            let decodedData = try JSONDecoder().decode(Userdata.self, from: data)
+            DispatchQueue.main.async {
+                self.user = decodedData.data
+                self.balance = decodedData.data.balance
+                self.id = decodedData.data.id
+                self.firstName = decodedData.data.firstName
+                self.lastName = decodedData.data.lastName
+                self.phoneNumber = decodedData.data.phoneNumber
+                self.email = decodedData.data.email
+                self.role = decodedData.data.role
             }
-            do{
-                let decodedData = try JSONDecoder().decode(Userdata.self, from: data)
-                DispatchQueue.main.async {
-                    self.user = decodedData.data
-                    self.balance = decodedData.data.balance
-                    self.id = decodedData.data.id
-                    self.firstName = decodedData.data.firstName
-                    self.lastName = decodedData.data.lastName
-                    self.phoneNumber = decodedData.data.phoneNumber
-                    self.email = decodedData.data.email
-                    self.role = decodedData.data.role
-                }
-            } catch{
-                print(error)
-            }
-        }.resume()
+        } catch {
+            print(error)
+        }
     }
 }

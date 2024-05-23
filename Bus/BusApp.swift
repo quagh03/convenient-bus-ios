@@ -12,7 +12,9 @@ struct BusApp: App {
     let navigationManager = NavigationManager.shared
     @StateObject var dataHolder = DataHolder()
     let tabBarSetting = DataHolder()
-    let favorites = Favotites()
+    let favorites = Favorites()
+    
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

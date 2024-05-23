@@ -9,6 +9,34 @@ import Foundation
 import Combine
 
 class DataHolder : ObservableObject{
+    static let shared = DataHolder()
+    private let defaults = UserDefaults.standard
+    
+    private let usernameKey = "Username"
+    private let passwordKey = "Password"
+    
+    var savedUsername: String? {
+        get {
+            return defaults.string(forKey: usernameKey)
+        }
+        set {
+            defaults.set(newValue, forKey: usernameKey)
+        }
+    }
+    
+    var savedPassword: String? {
+        get {
+            return defaults.string(forKey: passwordKey)
+        }
+        set {
+            defaults.set(newValue, forKey: passwordKey)
+        }
+    }
+    func clearSavedCredentials() {
+        defaults.removeObject(forKey: usernameKey)
+        defaults.removeObject(forKey: passwordKey)
+    }
+    
     // url
     static let url: String = "http://103.170.123.135:8080"
     // userPresemt
@@ -64,6 +92,14 @@ class DataHolder : ObservableObject{
     
     //
     @Published var isStartSession: Bool
+    @Published var sessionId: Int?
+    
+    // add trip
+    @Published var isAddTripSuccess: Bool
+    
+    // check
+    @Published var check1:Bool = false
+    @Published var check2:Bool = false
     
     
     init() {
@@ -77,9 +113,62 @@ class DataHolder : ObservableObject{
         self.webViewUrl = nil
         // session
         self.isStartSession = false
+        // add trip
+        self.isAddTripSuccess = false
     }
     
     func logout(){
+        // Xóa token đăng nhập
         self.tokenLogin = ""
+        
+        // Đặt lại tất cả các thuộc tính khác về giá trị mặc định
+        self.idUser = nil
+        self.fNameUser = nil
+        self.lNameUser = nil
+        self.emailUser = nil
+        self.phoneUser = nil
+        self.dobUser = nil
+        
+        self.nameRouteHolder = nil
+        self.busRouteDetail = nil
+        self.nameRouteDetail = nil
+        
+        self.isTabBarHidden = false
+        
+        self.stringURL = nil
+        self.webViewUrl = nil
+        
+        self.priceTicket = nil
+        self.numOfTicket = nil
+        self.date = nil
+        self.date1 = nil
+        
+        self.isExistTicket = false
+        
+        self.buyTicketSuccess = false
+        self.buyTicketFailed = false
+        
+        self.type = nil
+        self.vnpID = nil
+        self.time = nil
+        self.amount = nil
+        self.status = nil
+        self.firstNamePH = nil
+        self.lastNamePH = nil
+        self.phoneNumberPH = nil
+        self.emailPH = nil
+        
+        self.nameRouteDd = nil
+        self.nameVehicleDd = nil
+        self.routeIDDd = nil
+        self.vehicleIDDd = nil
+        
+        self.isStartSession = false
+        
+        self.isAddTripSuccess = false
+        
+        self.check1 = false
+        self.check2 = false
     }
+
 }

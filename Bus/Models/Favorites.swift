@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Favotites: ObservableObject {
+class Favorites: ObservableObject {
     @Published var busRoutes = [BusRoute]()
     @Published var saveItems: Set<Int> = []
     
@@ -35,6 +35,8 @@ class Favotites: ObservableObject {
             saveItems.insert(busRoute.id)
         }
         db.save(items: saveItems)
+        
+        objectWillChange.send()
     }
     
 }

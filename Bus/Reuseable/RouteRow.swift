@@ -14,13 +14,15 @@ struct RouteRow: View {
 //    @Binding var name: String?
 //    @EnvironmentObject var dataHolder: DataHolder
     
-    @EnvironmentObject private var favorite: Favotites
+    @EnvironmentObject private var favorite: Favorites
     
 //    let busRouteDetail : BusRouteDetail
     
     @State private var isPressRow: Bool = false
     
     @State private var isFaved: Bool = false
+    
+    @Binding var favoriteChanged: Bool
     var body: some View {
             ZStack(alignment:.bottom){
                 HStack{
@@ -66,6 +68,7 @@ struct RouteRow: View {
                     // favorite
                     Button(action: {
                         favorite.toggleFavs(busRoute: busRoute)
+                        favoriteChanged.toggle()
                     }){
                         Rectangle()
                             .fill(.clear)

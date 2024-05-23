@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Combine
+
 
 struct DetailBuyTicket: View {
     @Environment(\.presentationMode) var presentationMode
@@ -19,6 +21,13 @@ struct DetailBuyTicket: View {
     @StateObject var circleParameters = CircleCheckmarkParameters()
     
     @Binding var isShowDetailBuyTicket: Bool
+    
+    @Binding var check: Bool
+    @Binding var isReturn: Bool
+    @State private var functionCompleted = false
+
+    @State private var isBtnPress:Bool = false
+    @State private var showProgressView = false
 
     
     let titleInfoIndi: [String] = ["Họ và tên", "Ngày sinh", "Email", "Số điện thoại"]
@@ -94,36 +103,69 @@ struct DetailBuyTicket: View {
                             Spacer()
                             Text("\(dataHolder.priceTicket! * dataHolder.numOfTicket!)").bold()
                         }.padding(.horizontal)
-//                        dataHolder.isExistTicket ? "Gia hạn":
+                        //                        dataHolder.isExistTicket ? "Gia hạn":
                         ReuseableButton(red: 96/255, green: 178/255, blue: 240/255, text: dataHolder.isExistTicket ? "Gia Hạn":"Mua vé", width: .infinity, imgName: "", textColor: .white) {
-                            if dataHolder.isExistTicket {
-                                ticketAPI.exprireTiket(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket!))
-                            } else {
-                                transAPI.deposit(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket! * dataHolder.numOfTicket!))
-                            }
+                            isBtnPress = true
                         }.padding(.bottom,15)
                         .padding(.horizontal)
+                        .alert(isPresented: $isBtnPress) {
+                            Alert(
+                                title: Text("Xác nhận"),
+                                message: dataHolder.isExistTicket ? Text("Bạn chắc chắn muốn gia hạn vé?") : Text("Bạn chắc chắn muốn mua vé?"),
+                                primaryButton: .default(dataHolder.isExistTicket ? Text("Gia hạn") : Text("Mua vé")) {
+                                    showProgressView = true
+                                    handleAction()
+                                },
+                                secondaryButton: .cancel()
+                            )
+                        }
                     }.padding(.vertical)
                 }
                 Spacer()
             }
-            // alert
-            if showingSuccessModal{
-                AlertPaymentSuccess()
-            } else if showingFailedModal{
-                AlertPaymentFailed()
+            
+            if showProgressView{
+                    ProgressView()
             }
-        }
-        .onAppear{
-//            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
-//            ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
-            if transAPI.buyTicketSuccess{
-                showingSuccessModal = true
-            } else if transAPI.buyTicketFailed{
-                showingFailedModal = true
+            
+            if functionCompleted{
+                if dataHolder.check1 {
+                    AlertPaymentSuccess(isReturn: $isReturn).frame(maxWidth: .infinity).ignoresSafeArea()
+                } else {
+                    AlertPaymentFailed().frame(maxWidth: .infinity).ignoresSafeArea()
+                }
             }
+            
         }
-
+        
+    }
+    
+    func handleAction(){
+//        if dataHolder.isExistTicket {
+//            ticketAPI.exprireTiket(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket!))
+//            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+//                dataHolder.check1 = ticketAPI.isExpireTicket!
+//            }
+//            
+//        } else {
+//            transAPI.deposit(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket! * dataHolder.numOfTicket!))
+//        }
+//        
+//        check = true
+//        showProgressView = false
+//        functionCompleted = true
+        Task {
+            if dataHolder.isExistTicket {
+                try await ticketAPI.exprireTiket(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket!))
+//                try await ticketAPI.expireTicket(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket!))
+                dataHolder.check1 = ticketAPI.isExpireTicket ?? false
+            } else {
+                try await transAPI.deposit(tokenLogin: dataHolder.tokenLogin, startDate: dataHolder.date!, periods: dataHolder.numOfTicket!, price: Double(dataHolder.priceTicket! * dataHolder.numOfTicket!))
+            }
+            
+            showProgressView = false
+            functionCompleted = true
+        }
     }
     
     func isShowDetailToggle(){

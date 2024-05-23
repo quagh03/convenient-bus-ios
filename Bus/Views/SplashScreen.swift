@@ -18,39 +18,43 @@ struct SplashScreen: View {
     
     var body: some View {
         NavigationView{
-            if isVisible{
-                if monitor.isConnected{
-                    Login().environmentObject(dataHolder).navigationBarHidden(true)
-                } else {
-                    CheckNetwork {
-                        restartApp()
-                    }
-                }
-            }else{
-                VStack{
-                    VStack{
-                        Image("splashscreen")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150,height: 150)
-                            .ignoresSafeArea()
-                    }
-                    .scaleEffect(size)
-                    .opacity(opacity)
-                    .onAppear{
-                        withAnimation {
-                            self.size = 0.9
-                            self.opacity = 1
+            VStack{
+                if isVisible{
+                    if monitor.isConnected{
+                        Login().navigationBarHidden(true)
+                    } else {
+                        CheckNetwork {
+                            restartApp()
                         }
                     }
-                }.onAppear{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                        self.isVisible = true
+                }else{
+                    VStack{
+                        VStack{
+                            Image("splashscreen")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150,height: 150)
+                                .ignoresSafeArea()
+                        }
+                        .scaleEffect(size)
+                        .opacity(opacity)
+                        .onAppear{
+                            withAnimation {
+                                self.size = 0.9
+                                self.opacity = 1
+                            }
+                        }
+                    }.onAppear{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                            withAnimation{
+                                self.isVisible = true
+                            }
+                        }
                     }
                 }
-            }
-        }.navigationBarHidden(true)
-            .edgesIgnoringSafeArea(.top)
+            }.navigationBarHidden(true)
+                .edgesIgnoringSafeArea(.top)
+        }
         
     }
     

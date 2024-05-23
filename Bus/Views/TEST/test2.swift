@@ -22,63 +22,17 @@ struct test2: View {
 //    let busRoutes: [BusRoute]
     @State var check = false
     var body: some View {
-        VStack{
-            ZStack() {
-                // menu
-                ZStack{
-                    RoundedRectangle(cornerRadius: 0)
-                    //                        .fill(.white)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 0)
-                                .stroke(.gray,lineWidth: 1)
-                        }
-                    ScrollView {
-                        VStack(spacing: 17){
-                            ForEach(1..<3, id: \.self) { item in
-                                Button {
-                                    
-                                } label: {
-                                    Text("sdsd")
-                                        .foregroundColor(.black).bold().padding(.vertical,4)
-                                    Spacer()
-                                }
-                            }
-                            .padding(.horizontal)
-                            .foregroundColor(.white)
-                        }
-                        .frame(maxWidth: .infinity,alignment:.leading)
-                        .padding(.vertical,15)
-                    }
-                }
-                .foregroundColor(.white.opacity(1))
-                .frame(height: show ? 100 : 60)
-                .offset(y: show ? 85 : 0)
-                
-                // text hien thi
-                ZStack{
-                    RoundedRectangle(cornerRadius: 0).frame(height: 60)
-                        .foregroundColor(.white)
-                        .overlay{
-                            RoundedRectangle(cornerRadius: 0)
-                                .stroke(.gray,lineWidth: 1)
-                        }
-                    HStack{
-                        Text("Tuyến xe")
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .rotationEffect(.degrees(show ? 90 : 0))
-                    }.padding(.horizontal)
-                }
-                //                .offset(y: -145)
-                .onTapGesture {
-                    withAnimation {
-                        show.toggle()
-                        check = true
-                    }
-                }
-                //end
+        ZStack{
+            Button(action: {show = true}, label: {
+                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+            })
+            
+            if show {
+                AlertPaymentSuccess(isReturn: .constant(false))
+                    
             }
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.gray)
     }
     
     func startCheck(){

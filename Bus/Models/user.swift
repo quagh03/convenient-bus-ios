@@ -25,3 +25,7 @@ struct User:Codable{
 struct Userdata: Codable{
     let data: User
 }
+
+struct Userdata2: Codable{
+    let data: [User]
+}

@@ -15,7 +15,7 @@ class DutyAPI:ObservableObject{
 //    @Published var sessionID: Int?
     
     
-    func startSession(driverID:Int, routeID: Int, vehicleID:Int, tokenLogin: String){
+    func startSession(driverID:Int, routeID: Int, vehicleID:Int, tokenLogin: String) async throws {
         guard let url = URL(string: "\(DataHolder.url)/api/v1/duty_sessions") else {
             print("Invalid url")
             return
@@ -35,34 +35,58 @@ class DutyAPI:ObservableObject{
             request.setValue("application/json", forHTTPHeaderField: "Content-type")
             request.addValue("Bearer \(tokenLogin)", forHTTPHeaderField: "Authorization")
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Invalid response")
-                    return
-                }
-                if httpResponse.statusCode == 200 {
-                    print("Start")
-                    if let responseData = data {
-                        do{
-                            let decodedData = try JSONDecoder().decode(SessionData.self, from: responseData)
-                            DispatchQueue.main.async {
-                                self.isStart = true
-                                self.sessionId = decodedData.data.id
-                            }
-                        } catch {
-                            print(error)
-                        }
+//            URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let httpResponse = response as? HTTPURLResponse else {
+//                    print("Invalid response")
+//                    return
+//                }
+//                if httpResponse.statusCode == 200 {
+//                    print("Start")
+//                    if let responseData = data {
+//                        do{
+//                            let decodedData = try JSONDecoder().decode(SessionData.self, from: responseData)
+//                            DispatchQueue.main.async {
+//                                self.isStart = true
+//                                self.sessionId = decodedData.data.id
+//                            }
+//                        } catch {
+//                            print(error)
+//                        }
+//                    }
+//                } else {
+//                    print("Start failed")
+//                }
+//            }.resume()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+                   
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                print("Start")
+                do {
+                    let decodedData = try JSONDecoder().decode(SessionData.self, from: data)
+                    DispatchQueue.main.async {
+                        self.isStart = true
+                        self.sessionId = decodedData.data.id
                     }
-                } else {
-                    print("Start failed")
+                } catch {
+                    print(error)
                 }
-            }.resume()
+            } else {
+                print("Start failed")
+            }
+            
+            
         }catch{
             print(error)
         }
     }
     
-    func finishSession(id:Int, tokenLogin: String){
+    func finishSession(id:Int, tokenLogin: String) async throws{
         guard let url = URL(string: "\(DataHolder.url)/api/v1/duty_sessions/end?id=\(id)") else {
             print("Invalid url")
             return
@@ -74,22 +98,38 @@ class DutyAPI:ObservableObject{
             request.setValue("application/json", forHTTPHeaderField: "Content-type")
             request.addValue("Bearer \(tokenLogin)", forHTTPHeaderField: "Authorization")
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    print("Invalid response")
-                    return
+//            URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let httpResponse = response as? HTTPURLResponse else {
+//                    print("Invalid response")
+//                    return
+//                }
+//                
+//                if httpResponse.statusCode == 200 {
+//                    print("Close session")
+//                    DispatchQueue.main.async {
+//                        self.isStart = false
+//                    }
+//                } else {
+//                    print("Close failed")
+//                }
+//            }.resume()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                print("Close session")
+                DispatchQueue.main.async {
+                    self.isStart = false
                 }
-                
-                if httpResponse.statusCode == 200 {
-                    print("Close session")
-                    DispatchQueue.main.async {
-                        self.isStart = false
-                    }
-                } else {
-                    print("Close failed")
-                }
-            }.resume()
+            } else {
+                print("Close failed")
+            }
+            
         }
-        
     }
 }

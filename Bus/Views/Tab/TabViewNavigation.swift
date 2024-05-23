@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct TabViewNavigation: View {
     @EnvironmentObject var dataHolder: DataHolder
@@ -14,20 +15,22 @@ struct TabViewNavigation: View {
     @StateObject var userAPI = UserAPI()
     @State private var isPress: Bool = false
     @State private var isLogOut: Bool = false
+    @State private var check: Bool = false
     var body: some View {
         NavigationView{
             ZStack(alignment: .bottom){
                 if userAPI.role == "ROLE_DRIVER" {
                     TabView{
                         if selectedTabIndex == 0 {
-                            Driver().navigationBarHidden(true)
+                            Driver(check: $check)
+                                .navigationBarHidden(true).edgesIgnoringSafeArea(.top)
                         } else if selectedTabIndex == 1 {
                             Account(isLogOut: $isLogOut).navigationBarHidden(true)
                         }
                     }
                     //                .navigationBarBackButtonHidden(true).ignoresSafeArea()
                     
-                    CustomTabNavDriver(index: $selectedTabIndex, isPress: $isPress).navigationBarHidden(true)
+                    CustomTabNavDriver(index: $selectedTabIndex, isPress: $isPress).navigationBarHidden(true).edgesIgnoringSafeArea(.bottom)
                     //                    .navigationBarBackButtonHidden(true).ignoresSafeArea()
                     
                 } else if userAPI.role == "ROLE_GUEST" {
@@ -55,7 +58,7 @@ struct TabViewNavigation: View {
                         
                     }
                     //                .navigationBarBackButtonHidden(true)
-                } else {
+                } else if userAPI.role == "ROLE_ADMIN"{
                     TabView{
                         Home(selection: $selectedTabIndex).navigationBarHidden(true)
                             .tabItem{
@@ -72,7 +75,7 @@ struct TabViewNavigation: View {
                                 Image(systemName: "map.fill")
                                 Text("Route")
                             }.tag(2)
-                        Driver().navigationBarHidden(true)
+                        Driver(check: $check).navigationBarHidden(true)
                             .tabItem {
                                 Image(systemName: "car.fill")
                                 Text("Driver")
@@ -92,20 +95,32 @@ struct TabViewNavigation: View {
             //                }
             //            }
             //        }
+            
+            NavigationLink(destination: Login(), isActive: $isLogOut){
+                EmptyView()
+            }
+            
         }.navigationBarHidden(true)
         .onAppear{
-            userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+            Task{
+                do{
+                    try await userAPI.getUser(tokenLogin: dataHolder.tokenLogin)
+                }catch{
+                    print("Error fetching user data: \(error)")
+                }
+               
+            }
         }
         .fullScreenCover(isPresented: $isPress) {
-            ScannerView()
+            ScannerView(check: $check)
         }
 //        .edgesIgnoringSafeArea(.top)
 //        .ignoresSafeArea()
-        .background(
-            NavigationLink(destination: Login(), isActive: $isLogOut) {
-                EmptyView()
-            }
-        )
+//        .background(
+//            NavigationLink(destination: Login(), isActive: $isLogOut) {
+//                EmptyView()
+//            }
+//        )
     }
 }
 

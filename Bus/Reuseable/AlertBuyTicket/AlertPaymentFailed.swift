@@ -31,6 +31,7 @@ struct AlertPaymentFailed: View {
                             self.isProcessing = true
                         }
                     }
+                    .offset(y:50)
                 if paymentSuccess{
                     CustomCircleFailed(parameters: circleParameters)
                         .onAppear {
@@ -48,10 +49,10 @@ struct AlertPaymentFailed: View {
                     //                        .offset(x: shouldAnimate ? -UIScreen.main.bounds.width / 2 + 50 : 0, y: shouldAnimate ? -UIScreen.main.bounds.height / 2 + 100 : 0) // Move to top left corner after a delay
 //                        .animation(.spring())
                 }
-            }
+            }.offset(y:-50)
             //
             if isProcessing {
-                Text("Thanh toán thất bại !").padding(.vertical).font(.system(size: 23)).offset(y: 90)
+                Text("Thanh toán thất bại !").padding(.vertical).font(.system(size: 23)).offset(y: 40)
             }
             
             VStack{
@@ -65,7 +66,7 @@ struct AlertPaymentFailed: View {
                 }
             }
 
-        }.background(.clear)
+        }.background(.white)
     }
 }
 
