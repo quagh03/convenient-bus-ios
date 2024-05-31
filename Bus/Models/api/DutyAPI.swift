@@ -69,10 +69,11 @@ class DutyAPI:ObservableObject{
                 print("Start")
                 do {
                     let decodedData = try JSONDecoder().decode(SessionData.self, from: data)
-                    DispatchQueue.main.async {
+//                    DispatchQueue.main.async {
                         self.isStart = true
                         self.sessionId = decodedData.data.id
-                    }
+                        
+//                    }
                 } catch {
                     print(error)
                 }

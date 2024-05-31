@@ -36,13 +36,15 @@ struct Dropdown: View {
                                     withAnimation{
                                         dataHolder.nameRouteDd = item.routeName
                                         dataHolder.routeIDDd = item.id
+//                                        dataHolder.routeSelected = true
                                         show.toggle()
                                         check = false
+                                        dataHolder.checkdd1 = false
                                     }
                                     print(item.id)
                                 } label: {
                                     Text(item.routeName)
-                                        .foregroundColor(.black).bold().padding(.vertical,4)
+                                        .foregroundColor((dataHolder.routeIDDd == item.id && dataHolder.isStartSession) ? .red:.black).bold().padding(.vertical,4)
                                     Spacer()
                                 }
                             }
@@ -77,18 +79,20 @@ struct Dropdown: View {
                     withAnimation {
                         show.toggle()
                         check = true
+                        dataHolder.checkdd1 = true
                     }
                 }
                 //end
             }
-        }.zIndex(20)
+        }.disabled(dataHolder.isStartSession)
+        .zIndex(20)
         .onAppear{
             busRouteAPI.fetchData()
             dataHolder.nameRouteDd = nameRoute
         }
         .onReceive(Just(check)) { _ in
             // Gọi lại fetchData() mỗi khi check thay đổi từ false sang true
-            if check && !previousCheck {
+            if (check && !previousCheck) || (dataHolder.checkdd1 && !dataHolder.preCheckdd1) {
                 busRouteAPI.fetchData()
             }
             // Lưu trạng thái hiện tại của check cho lần sau

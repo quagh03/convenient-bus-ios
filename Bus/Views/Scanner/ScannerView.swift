@@ -33,6 +33,8 @@ struct ScannerView: View {
     /// check
     @Binding var check: Bool
     
+    @Binding var addTripSuccess: Bool
+    
     
     var body: some View {
         VStack(spacing: 8) {
@@ -154,15 +156,24 @@ struct ScannerView: View {
                     // Hiển thị thông báo thành công
                     print("Added trip for username: \(username)")
                     tripAPI.addTrip(tokenLogin: dataHolder.tokenLogin, dutyID: dataHolder.sessionId!, username: username) {success in
-                        if success {
-                            dataHolder.isAddTripSuccess = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                presentationMode.wrappedValue.dismiss()
-                                check = true
+                        DispatchQueue.main.async{
+                            if success {
+                                dataHolder.isAddTripSuccess = true
+                                addTripSuccess = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    
+                                    presentationMode.wrappedValue.dismiss()
+                                    check = true
+                                }
+                            }else {
+                                dataHolder.isAddTripSuccess = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    
+                                    presentationMode.wrappedValue.dismiss()
+                                    check = true
+                                }
+                                print("Failed to add trip for username: \(username)")
                             }
-                        }else {
-                            dataHolder.isAddTripSuccess = false
-                            print("Failed to add trip for username: \(username)")
                         }
                     }
                     

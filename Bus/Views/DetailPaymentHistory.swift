@@ -125,15 +125,7 @@ struct DetailPaymentHistory: View {
                                                         .stroke(lineWidth: 1)
                                                         .foregroundColor(Color("lightGray"))
                                                 }
-                                            
-                                            
-                                            
-                                           
-                                            
                                             Spacer()
-                                            
-                                            
-                                            
                                         }
 //                                        .padding(.horizontal)
                                         

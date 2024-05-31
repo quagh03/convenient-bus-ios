@@ -132,7 +132,7 @@ struct DetailBuyTicket: View {
                 if dataHolder.check1 {
                     AlertPaymentSuccess(isReturn: $isReturn).frame(maxWidth: .infinity).ignoresSafeArea()
                 } else {
-                    AlertPaymentFailed().frame(maxWidth: .infinity).ignoresSafeArea()
+                    AlertPaymentFailed(isReturn: $isReturn).frame(maxWidth: .infinity).ignoresSafeArea()
                 }
             }
             

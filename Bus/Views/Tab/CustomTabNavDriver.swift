@@ -50,6 +50,7 @@ struct CustomTabNavDriver: View {
                             .frame(maxWidth: 35, maxHeight:35)
                             .foregroundColor(.blue)
                             .padding(10) // Add some padding to increase tap area
+                            .zIndex(10)
                             .background(
                                 Circle()
                                     .fill(Color.white) // Add a white background

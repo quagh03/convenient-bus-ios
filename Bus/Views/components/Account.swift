@@ -21,6 +21,8 @@ struct Account: View {
     @Binding var isLogOut: Bool
     @ObservedObject var faceIDAuth = FaceIDAuthentication()
     
+    @Binding var addTripSuccess: Bool
+    
     let title: [String] = ["Họ", "Tên", "Ngày sinh", "Số điện thoại", "Email", "Giới tính", "Ngày tham gia"]
     
     var body: some View {
@@ -40,8 +42,9 @@ struct Account: View {
 //                                isShowingPicker = true
                             }
                             HStack{
-                                Text("\(userAPI.user?.lastName ?? "")")
-                                Text("\(userAPI.user?.firstName ?? "")")
+                                Text("\(userAPI.user?.lastName ?? "")\(userAPI.user?.firstName ?? "")")
+//                                Text("\(userAPI.user?.lastName ?? "")")
+//                                Text("\(userAPI.user?.firstName ?? "")")
                             }.offset(y:60)
                         }.frame(maxWidth: .infinity)
                         
@@ -104,7 +107,7 @@ struct Account: View {
             
         }
         .fullScreenCover(isPresented: $isTripHistoryPressed, content: {
-            TripHistory()
+            TripHistory(addTripSuccess: addTripSuccess)
         })
         .onAppear{
             Task{

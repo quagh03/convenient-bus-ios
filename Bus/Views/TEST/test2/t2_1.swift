@@ -11,11 +11,12 @@ struct t2_1: View {
     var body: some View {
         NavigationView{
             VStack{
-                Text("Page 1")
+//                Text("Page 1")
+//                
+//                NavigationLink("Link to page 2") {
+//                    t2_2()
+//                }
                 
-                NavigationLink("Link to page 2") {
-                    t2_2()
-                }
             }
         }
     }

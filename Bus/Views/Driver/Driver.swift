@@ -116,34 +116,29 @@ struct Driver: View {
 //                                            }
                                             Task {
                                                 if !dutyAPI.isStart {
-                                                    try await dutyAPI.startSession(driverID: dataHolder.idUser!, routeID: dataHolder.routeIDDd!, vehicleID: dataHolder.vehicleIDDd!, tokenLogin: dataHolder.tokenLogin)
+                                                    do{
+                                                        try await dutyAPI.startSession(driverID: dataHolder.idUser!, routeID: dataHolder.routeIDDd!, vehicleID: dataHolder.vehicleIDDd!, tokenLogin: dataHolder.tokenLogin)
+                                                        DispatchQueue.main.async{
+                                                            dataHolder.isStartSession = dutyAPI.isStart
+                                                            dataHolder.sessionId = dutyAPI.sessionId!
+//                                                            dataHolder.routeSelected=true
+                                                            isProcessing = false
+                                                        }
+                                                    } catch {
+                                                        print("Failed to start session: \(error)")
+                                                    }
                                                 } else {
-                                                    try await dutyAPI.finishSession(id: dutyAPI.sessionId!, tokenLogin: dataHolder.tokenLogin)
+                                                    do{
+                                                        try await dutyAPI.finishSession(id: dutyAPI.sessionId!, tokenLogin: dataHolder.tokenLogin)
+                                                        isProcessing = false
+                                                        dataHolder.vehicleSelected = false
+//                                                        dataHolder.routeSelected = false
+                                                    }catch{
+                                                        print("Failed to finish session: \(error)")
+                                                    }
                                                 }
-
-                                                dataHolder.isStartSession = dutyAPI.isStart
-                                                dataHolder.sessionId = dutyAPI.sessionId!
-
-                                                isProcessing = false
                                             }
                                             
-                                            
-//                                            DispatchQueue.global().async {
-//                                                if !dutyAPI.isStart {
-//                                                    dutyAPI.startSession(driverID: dataHolder.idUser!, routeID: dataHolder.routeIDDd!, vehicleID: dataHolder.vehicleIDDd!, tokenLogin: dataHolder.tokenLogin)
-//                                                } else {
-//                                                    dutyAPI.finishSession(id: dutyAPI.sessionId!, tokenLogin: dataHolder.tokenLogin)
-//                                                }
-//                                                
-//                                                // Cập nhật trạng thái và ID phiên làm việc
-//                                                DispatchQueue.main.async {
-//                                                    dataHolder.isStartSession = dutyAPI.isStart
-////                                                    dataHolder.sessionId = dutyAPI.sessionId!
-//                                                    
-//                                                    // Tắt ProgressView sau khi hàm hoàn thành
-//                                                    isProcessing = false
-//                                                }
-//                                            }
                                             
                                         },
                                         secondaryButton: .cancel()
@@ -160,15 +155,15 @@ struct Driver: View {
                 Spacer()
             }
             
-            ZStack{
+//            ZStack{
                 if check{
                     if dataHolder.isAddTripSuccess {
-                        ToastM(tint: .clear, title: "Thêm thành công").zIndex(50)
-                    } else {
-                        ToastM(tint: .clear, title: "Chưa mua vé").zIndex(50)
+                        ToastM1(symbol:"checkmark" ,tint: .clear, title: "Thanh toán thành công").zIndex(50)
+                    } else if !dataHolder.isAddTripSuccess {
+                        ToastM1(symbol:"xmark" ,tint: .clear, title: "Thanh toán thất bại").zIndex(50)
                     }
                 }
-            }.zIndex(50)
+//            }.zIndex(50)
         }
         .onAppear{
             if let window = UIApplication.shared.windows.first {

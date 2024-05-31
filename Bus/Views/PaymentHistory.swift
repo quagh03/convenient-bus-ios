@@ -47,7 +47,7 @@ struct PaymentHistory: View {
                                 PaymentHistoryRow(imgName: trans.type == "IN" ? "addCard" : "minusCard",
                                                   title: trans.type == "IN" ? "Nạp tiền vào ví" : "Thanh toán vé \(timeString)",
                                                   time: timeString,
-                                                  amount: trans.type == "IN" ? "\(moneyWithoutDecimal)" : "\(trans.amount)",
+                                                  amount: trans.type == "IN" ? "\(moneyWithoutDecimal)" : "\(Int(trans.amount))",
                                                   status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
                                                   color: trans.status == "COMPLETED" ? .green : .red)
                                 .onTapGesture {
@@ -74,7 +74,7 @@ struct PaymentHistory: View {
                                 PaymentHistoryRow(imgName: "addCard",
                                                   title: "Nạp tiền vào ví",
                                                   time: timeString,
-                                                  amount: "\(moneyE)",
+                                                  amount: "\(moneyWithoutDecimal)",
                                                   status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
                                                   color: trans.status == "COMPLETED" ? .green : .red)
                             }
@@ -83,10 +83,11 @@ struct PaymentHistory: View {
                         ScrollView{
                             ForEach(transAPI.outTrans, id: \.id) {trans in
                                 let timeString = extractMonthYear(from: trans.time)
+                                let moneyWithoutDecimal = Int(trans.amount)
                                 PaymentHistoryRow(imgName: "minusCard",
                                                   title: "Thanh toán vé \(timeString)",
                                                   time: timeString,
-                                                  amount: "\(trans.amount)",
+                                                  amount: "\(moneyWithoutDecimal)",
                                                   status: trans.status == "COMPLETED" ? "Thành công" : "Thất bại",
                                                   color: trans.status == "COMPLETED" ? .green : .red)
                                 

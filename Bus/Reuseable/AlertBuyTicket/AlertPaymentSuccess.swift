@@ -40,7 +40,7 @@ struct AlertPaymentSuccess: View {
                         .onAppear {
                             // Cập nhật tham số khi hiển thị CustomCircleCheckmark
                             circleParameters.updateParameters()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5){
 //                                circleParameters.initialValues()
                                 isPress = false
                                 self.shouldAnimate = true
@@ -52,6 +52,7 @@ struct AlertPaymentSuccess: View {
                     //                        .offset(x: shouldAnimate ? -UIScreen.main.bounds.width / 2 + 50 : 0, y: shouldAnimate ? -UIScreen.main.bounds.height / 2 + 100 : 0) // Move to top left corner after a delay
 //                        .animation(.spring())
 //                }
+                
             }.offset(y: -50)
             //
             if isProcessing {

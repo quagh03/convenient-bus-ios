@@ -12,8 +12,8 @@ struct SplashScreen: View {
     @State private var size = 0.8
     @State private var opacity = 0.5
     
-    @ObservedObject var monitor = NetworkMonitor()
-    
+    @StateObject var monitor = NetworkMonitor()
+    let favorites = Favorites()
     @EnvironmentObject var dataHolder: DataHolder
     
     var body: some View {
@@ -59,10 +59,16 @@ struct SplashScreen: View {
     }
     
     func restartApp() {
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        UIApplication.shared.windows.forEach { window in
-            window.rootViewController = UIHostingController(rootView: SplashScreen())
-            window.makeKeyAndVisible()
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0 is UIWindowScene }) as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                // Khởi tạo lại giao diện người dùng với ContentView là màn hình khởi đầu
+                window.rootViewController = UIHostingController(rootView: ContentView()
+                    .environmentObject(dataHolder)
+                    .environmentObject(monitor)
+                    .environmentObject(favorites)
+                )
+            }
         }
     }
 }
