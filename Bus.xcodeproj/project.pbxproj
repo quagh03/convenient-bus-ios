@@ -88,6 +88,7 @@
 		3D78A9D52BB7C416005ED9B4 /* DataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */; };
 		3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */; };
 		3D78A9DB2BB97355005ED9B4 /* demoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78A9DA2BB97355005ED9B4 /* demoView.swift */; };
+		3D8A92702C04D86A00625047 /* ToastM1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A926F2C04D86A00625047 /* ToastM1.swift */; };
 		3D94CF6E2BFE30BD00C2AA99 /* t2_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF6D2BFE30BD00C2AA99 /* t2_1.swift */; };
 		3D94CF702BFE311F00C2AA99 /* t2_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF6F2BFE311F00C2AA99 /* t2_2.swift */; };
 		3D94CF722BFE312900C2AA99 /* t2_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94CF712BFE312900C2AA99 /* t2_3.swift */; };
@@ -199,6 +200,7 @@
 		3D78A9D42BB7C416005ED9B4 /* DataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHolder.swift; sourceTree = "<group>"; };
 		3D78A9D82BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedBusRoutesAPI.swift; sourceTree = "<group>"; };
 		3D78A9DA2BB97355005ED9B4 /* demoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoView.swift; sourceTree = "<group>"; };
+		3D8A926F2C04D86A00625047 /* ToastM1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastM1.swift; sourceTree = "<group>"; };
 		3D94CF6D2BFE30BD00C2AA99 /* t2_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_1.swift; sourceTree = "<group>"; };
 		3D94CF6F2BFE311F00C2AA99 /* t2_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_2.swift; sourceTree = "<group>"; };
 		3D94CF712BFE312900C2AA99 /* t2_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = t2_3.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				3D3B3AE52BBFE8E900627F37 /* HeightSpacer.swift */,
 				3D09F2B52BC6A42600974321 /* ProfileRow.swift */,
 				3DF940352BC81C5700B97C33 /* TripHistoryRow.swift */,
+				3D8A926F2C04D86A00625047 /* ToastM1.swift */,
 			);
 			path = Reuseable;
 			sourceTree = "<group>";
@@ -653,6 +656,7 @@
 				3D080F792BA1A988009C7D56 /* DateTimePickerTextField.swift in Sources */,
 				3DB949002BD3EFDF00144D04 /* Driver.swift in Sources */,
 				3D78A9D92BB9445A005ED9B4 /* CombinedBusRoutesAPI.swift in Sources */,
+				3D8A92702C04D86A00625047 /* ToastM1.swift in Sources */,
 				3D71DF0F2BDE7E7500CB4FBA /* test6.swift in Sources */,
 				3D71DF132BDF8B3A00CB4FBA /* TripAPI.swift in Sources */,
 				3DF325D72BB5A5FF00BD62A1 /* CustomRowStopStatic.swift in Sources */,

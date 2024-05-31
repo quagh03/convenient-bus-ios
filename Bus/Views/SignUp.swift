@@ -19,7 +19,7 @@ struct SignUp: View {
     @State private var birth: Date?
     
     @State private var isSignUpActive = false
-//    @EnvironmentObject var navigationManager: NavigationManager
+    //    @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var dataHolder: DataHolder
     @State private var selectedGenderIndex = 0
     
@@ -31,6 +31,8 @@ struct SignUp: View {
     @State private var showErrorAlertEmail = false
     @State private var showErrorAlertUsername = false
     @State private var showErrorAlertEmailExist = false
+    @State private var showErrorAlertPhoneExist = false
+    @State private var showErrorAlertPasswordMatch = false
     
     @State private var errorMessage = ""
     @State private var isSignUpButtonTapped = false
@@ -84,41 +86,21 @@ struct SignUp: View {
                                 isSignUpLoad = true
                                 if allFieldsFilled() {
                                     if !isValidEmail(email) {
-                                        showToast = true
-                                        isShowing = true
-                                        showErrorAlertEmail = true
-                                        showErrorAlertPass = false
+                                        showAlert(alertType: .invalidEmail)
                                     } else if !isPasswordValid(password) {
-                                        showToast = true
-                                        isShowing = true
-                                        showErrorAlertPass = true
-                                        showErrorAlertEmail = false
+                                        showAlert(alertType: .invalidPassword)
+                                    } else if !passwordsMatch(){
+                                        showAlert(alertType: .showErrorAlertPasswordMatch)
+                                    } else if !isOldEnough(birthDate: birth!) {
+                                        showAlert(alertType: .other(message: "Người dùng phải lớn hơn 6 tuổi!"))
                                     } else {
-                                        let emailExists = userAPI.allUser.contains { user in
-                                            return user.email == email
-                                        }
-                                        let usernameExists = userAPI.allUser.contains { user in
-                                            return user.username == username
-                                        }
-                                        if emailExists {
-                                            showToast = true
-                                            isShowing = true
-                                            showErrorAlertEmailExist = true
-                                        } else if usernameExists {
-                                            showToast = true
-                                            isShowing = true
-                                            showErrorAlertUsername = true
-                                        } else {
-                                            signUp()
-                                        }
+                                        checkDuplicateInformation()
                                     }
                                 } else {
-                                    showToast = true
-                                    isShowing = true
-                                    showErrorAlert = true
+                                    showAlert(alertType: .incompleteFields)
                                 }
                             }.padding(.top, 10)
-                            .disabled(isSignUpLoad)
+                                .disabled(isSignUpLoad)
                             //                        }
                             
                         }
@@ -130,63 +112,22 @@ struct SignUp: View {
                 
                 
                 ZStack{
-                    if(showErrorAlert && showToast){
-                        ToastM(symbol: "", tint: .clear, title: "Vui lòng nhập đầy đủ thông tin!")
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
+                    if showToast {
+                        ToastM(symbol: "", tint: .clear, title: errorMessage)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
-                                        showErrorAlert = false
-                                        showToast = false
-                                    }
-                                }
-                            }
-                    } else if (showErrorAlertPass && showToast){
-                        ToastM(symbol: "", tint: .clear, title: "Mật khẩu phải có ít nhất 8 ký tự!")
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                                    withAnimation {
-                                        showErrorAlertPass = false
-                                        showToast = false
-                                    }
-                                }
-                            }
-                    } else if ( showErrorAlertEmail && showToast){
-                        ToastM(symbol: "", tint: .clear, title: "Email không đúng định dạng!")
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                                    withAnimation {
-                                        showErrorAlertEmail = false
-                                        showToast = false
-                                    }
-                                }
-                            }
-                    } else if (showErrorAlertEmailExist && showToast){
-                        ToastM(symbol: "", tint: .clear, title: "Email đã tồn tại!")
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                                    withAnimation {
-                                        showErrorAlertEmail = false
-                                        showToast = false
-                                    }
-                                }
-                            }
-                    } else if (showErrorAlertUsername && showToast){
-                        ToastM(symbol: "", tint: .clear, title: "Username đã tồn tại!")
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now()+2){
-                                    withAnimation {
-                                        showErrorAlertEmail = false
-                                        showToast = false
+                                        resetAlertStates()
                                     }
                                 }
                             }
                     }
                 }
             }
-                .navigationBarHidden(true)
+            .navigationBarHidden(true)
         }
         .onAppear{
-            userAPI.getAllUser()
+//            userAPI.getAllUser()
         }
         .sheet(isPresented: $isSignUpSuccess, onDismiss: {
             if isOTPVerify{
@@ -195,18 +136,113 @@ struct SignUp: View {
         }) {
             ConfirmOTPMail(isOTPVerify: $isOTPVerify)
         }
-//        .sheet(isPresented: $isSignUpSuccess, content: {
-//            ConfirmOTPMail(isOTPVerify: $isOTPVerify)
-//                .onChange(of: isOTPVerify) { newValue in
-//                    if newValue {
-//                        dismiss()
-//                    }
-//                }
-//        })
+        //        .sheet(isPresented: $isSignUpSuccess, content: {
+        //            ConfirmOTPMail(isOTPVerify: $isOTPVerify)
+        //                .onChange(of: isOTPVerify) { newValue in
+        //                    if newValue {
+        //                        dismiss()
+        //                    }
+        //                }
+        //        })
         .navigationTitle("Đăng ký")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(isSignUpSuccess).navigationBarBackButtonHidden(isSignUpSuccess)
     }
+    
+    func calculateAge(birthDate: Date) -> Int {
+        let calendar = Calendar.current
+        let now = Date()
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+        let age = ageComponents.year!
+        return age
+    }
+
+    func isOldEnough(birthDate: Date) -> Bool {
+        let age = calculateAge(birthDate: birthDate)
+        return age >= 6
+    }
+    
+    func resetAlertStates() {
+        showErrorAlert = false
+        showErrorAlertPass = false
+        showErrorAlertEmail = false
+        showErrorAlertUsername = false
+        showErrorAlertEmailExist = false
+        showErrorAlertPhoneExist = false
+        showErrorAlertPasswordMatch = false
+        showToast = false
+        errorMessage = ""
+    }
+    enum AlertType {
+        case incompleteFields
+        case invalidEmail
+        case invalidPassword
+        case emailExists
+        case usernameExists
+        case phoneExists
+        case showErrorAlertPasswordMatch
+        case other(message: String)
+    }
+    func showAlert(alertType: AlertType) {
+        showToast = true
+        isShowing = true
+        isSignUpLoad = false
+        
+        switch alertType {
+        case .incompleteFields:
+            showErrorAlert = true
+            errorMessage = "Vui lòng nhập đầy đủ thông tin!"
+        case .invalidEmail:
+            showErrorAlertEmail = true
+            errorMessage = "Email không đúng định dạng!"
+        case .invalidPassword:
+            showErrorAlertPass = true
+            errorMessage = "Mật khẩu phải có ít nhất 8 ký tự!"
+        case .emailExists:
+            showErrorAlertEmailExist = true
+            errorMessage = "Người dùng đã tồn tại, Vui lòng kiểm tra lại email, username hoặc số điện thoại!"
+        case .usernameExists:
+            showErrorAlertUsername = true
+            errorMessage = "Username đã tồn tại!"
+        case .phoneExists:
+            showErrorAlertPhoneExist = true
+            errorMessage = "Số điện thoại đã tồn tại!"
+        case .showErrorAlertPasswordMatch:
+            showErrorAlertPasswordMatch = true
+            errorMessage = "Mật khẩu không khớp!"
+        case .other(let message):
+            showErrorAlert = true
+            errorMessage = message
+        }
+        print("Alert triggered: \(errorMessage)")
+    }
+    
+    func passwordsMatch() -> Bool {
+        return password == confirmPassword
+    }
+
+    
+    func checkDuplicateInformation() {
+//        let emailExists = userAPI.allUser.contains { $0.email == email }
+//        let usernameExists = userAPI.allUser.contains { $0.username == username }
+//        let phoneExists = userAPI.allUser.contains { $0.phoneNumber == phone }
+        
+//        if emailExists {
+//            showAlert(alertType: .emailExists)
+//        } else if usernameExists {
+//            showAlert(alertType: .usernameExists)
+//        } else if phoneExists {
+//            showAlert(alertType: .phoneExists)
+//        } else {
+            signUp()
+//        }
+//        if !isSignUpSuccess{
+//            showAlert(alertType: <#T##AlertType#>)
+//        }
+        
+        
+    }
+    
     
     func dismiss(){
         presentationMode.wrappedValue.dismiss()
@@ -248,14 +284,54 @@ struct SignUp: View {
                     isSignUpLoad = false
                 } else {
                     print("Đăng ký không thành công!")
-                    isSignUpSuccess = false
-                    isSignUpLoad = false
+//                    isSignUpSuccess = false
+//                    isSignUpLoad = false
+                    if let data = data {
+                        do {
+                            if let errorResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                               let errorCode = errorResponse["code"] as? Int,
+                               let errorMessage = errorResponse["message"] as? String {
+                                DispatchQueue.main.async {
+                                    self.handleSignUpError(errorCode: errorCode, errorMessage: errorMessage)
+                                }
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.handleSignUpError(errorCode: nil, errorMessage: "Unknown error")
+                                }
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                self.handleSignUpError(errorCode: nil, errorMessage: "Failed to parse error response")
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.handleSignUpError(errorCode: nil, errorMessage: "No data received")
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.isSignUpLoad = false
+                    }
                 }
             }.resume()
             
         } catch{
             print("Error")
             
+        }
+    }
+    
+    func handleSignUpError(errorCode: Int?, errorMessage: String) {
+        print("Error: \(errorMessage) with code: \(String(describing: errorCode))")
+        if let code = errorCode {
+            switch code {
+            case 3004:
+                showAlert(alertType: .emailExists)
+            default:
+                showAlert(alertType: .other(message: errorMessage))
+            }
+        } else {
+            showAlert(alertType: .other(message: errorMessage))
         }
     }
     

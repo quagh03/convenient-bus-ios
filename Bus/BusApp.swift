@@ -13,6 +13,7 @@ struct BusApp: App {
     @StateObject var dataHolder = DataHolder()
     let tabBarSetting = DataHolder()
     let favorites = Favorites()
+    @StateObject var networkMonitor = NetworkMonitor()
     
     
     var body: some Scene {
@@ -21,6 +22,7 @@ struct BusApp: App {
                 .environmentObject(navigationManager)
                 .environmentObject(dataHolder)
                 .environmentObject(favorites)
+                .environmentObject(networkMonitor)
         }
     }
 }

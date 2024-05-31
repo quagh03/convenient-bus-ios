@@ -37,11 +37,12 @@ struct DropdownBus: View {
                                             dataHolder.vehicleIDDd = item.id
                                             show.toggle()
                                             check = false
+                                            dataHolder.checkdd2 = false
                                         }
                                         print(item.id)
                                     } label: {
                                         Text(item.plateNumber)
-                                            .foregroundColor(.black).bold()
+                                            .foregroundColor((dataHolder.vehicleIDDd == item.id && dataHolder.isStartSession) ? .red:.black).bold()
                                         
                                     }
                                 }
@@ -76,6 +77,7 @@ struct DropdownBus: View {
                         withAnimation {
                             show.toggle()
                             check = true
+                            dataHolder.checkdd2 = true
                         }
                     }
                     //end
@@ -83,6 +85,7 @@ struct DropdownBus: View {
                 
             }
         }
+        .disabled(dataHolder.isStartSession)
         .zIndex(20)
         .onAppear{
             vehicleAPI.getAllVehicle(tokenLogin: dataHolder.tokenLogin)
@@ -90,7 +93,7 @@ struct DropdownBus: View {
         }
         .onReceive(Just(check)) { _ in
             // Gọi lại fetchData() mỗi khi check thay đổi từ false sang true
-            if check && !previousCheck {
+            if (check && !previousCheck) || (dataHolder.checkdd2 && !dataHolder.preCheckdd2) {
                 vehicleAPI.getAllVehicle(tokenLogin: dataHolder.tokenLogin)
             }
             // Lưu trạng thái hiện tại của check cho lần sau
@@ -100,8 +103,8 @@ struct DropdownBus: View {
     }
 }
 
-struct DropdownBus_Previews: PreviewProvider {
-    static var previews: some View {
-        DropdownBus()
-    }
-}
+//struct DropdownBus_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DropdownBus()
+//    }
+//}

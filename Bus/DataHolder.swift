@@ -101,6 +101,15 @@ class DataHolder : ObservableObject{
     @Published var check1:Bool = false
     @Published var check2:Bool = false
     
+    // check dropdown
+    @Published var checkdd1:Bool = false
+    @Published var preCheckdd1:Bool = false
+    @Published var checkdd2:Bool = false
+    @Published var preCheckdd2:Bool = false
+    
+    // check driver
+    @Published var routeSelected:Bool=false
+    @Published var vehicleSelected:Bool=false
     
     init() {
         self.nameRouteHolder = "initial name"

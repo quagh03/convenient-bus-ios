@@ -11,6 +11,7 @@ import SwiftUI
 class TripAPI: ObservableObject{
     @Published var trip: [Trip] = []
     @Published var isAddTripSuccessful: Bool = false
+    @Published var isLoad: Bool = false
 
     func getTripForUser(tokenLogin: String){
         guard let url = URL(string: "\(DataHolder.url)/api/v1/trip_history/user") else {
@@ -27,10 +28,12 @@ class TripAPI: ObservableObject{
                 print("Invalid response duty" )
                 return
             }
+            self.isLoad = true
             do{
                 let decodedData = try JSONDecoder().decode(TripData.self, from: data)
                 DispatchQueue.main.async {
                     self.trip = decodedData.data
+                    self.isLoad = false
                 }
             }catch{
                 print(error)

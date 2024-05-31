@@ -19,10 +19,14 @@ struct PaymentHistoryRow: View {
         ZStack{
             Rectangle().fill(.clear)
                 .frame(height: 81)
-                .overlay{
+                .overlay(
                     Rectangle()
-                        .stroke(.gray , lineWidth: 1)
-                }
+                        .fill(.gray)
+                        .frame(height: 1) // Độ dày của đường viền
+                        .padding(.top, 81), // Đẩy lên đến cạnh dưới
+                    alignment: .bottom
+                )
+
                 .overlay{
                     HStack{
                         // image

@@ -189,6 +189,8 @@ struct Login: View {
                             DispatchQueue.main.async {
                                 dataHolder.tokenLogin = token
                                 print(token)
+                                dataHolder.savedUsername = username
+                                dataHolder.savedPassword = password
                             }
                             print(token)
                         } else{
@@ -200,8 +202,8 @@ struct Login: View {
                 }
                 
                 isLogin = true
-                dataHolder.savedUsername = username
-                dataHolder.savedPassword = password
+//                dataHolder.savedUsername = username
+//                dataHolder.savedPassword = password
                 
             } else {
                 print("Đăng nhập không thành công!")

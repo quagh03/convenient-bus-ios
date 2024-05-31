@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var dataHolder = DataHolder()
+    @EnvironmentObject var networkMonitor: NetworkMonitor
     var body: some View {
         VStack{
             ZStack{
-                SplashScreen()
+                SplashScreen().environmentObject(dataHolder)
             }
         }
     }

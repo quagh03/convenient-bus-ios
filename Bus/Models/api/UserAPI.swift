@@ -42,6 +42,7 @@ class UserAPI: ObservableObject {
                 let decodedData = try JSONDecoder().decode(Userdata2.self, from: data)
                 DispatchQueue.main.async {
                     self.allUser = decodedData.data
+                    print("get all user")
                 }
             } catch{
                 print(error)

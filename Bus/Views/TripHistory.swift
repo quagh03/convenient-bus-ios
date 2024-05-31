@@ -11,6 +11,7 @@ struct TripHistory: View {
     @ObservedObject var tripAPI = TripAPI()
     @EnvironmentObject var dataHolder: DataHolder
     @State private var isLoading = true
+    @State var addTripSuccess:Bool = false
     
     var body: some View {
         VStack{
@@ -24,46 +25,55 @@ struct TripHistory: View {
                             .font(.system(size: 18))
                     }.offset(y: 20)
                 }else {
-                    VStack{
-//                        ForEach(tripAPI.trip, id: \.id){ trip in
-//                            let timeString = extractMonthYear(from: trip.date)
-//                            TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
-//                        }
-                        ForEach(groupedTrips, id: \.0) { month, tripsInMonth in
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text(month)
-                                    .font(.headline)
-                                    .padding(.leading)
-                                ForEach(tripsInMonth.sorted(by: { $0.date > $1.date }), id: \.id) { trip in
-                                    let timeString = extractMonthYear(from: trip.date)
-                                    TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
+                    if tripAPI.isLoad {
+                        ProgressView() // Hiển thị hình ảnh hoặc vòng quay tải khi đang tải mã QR
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .padding()
+                    } else {
+                        VStack{
+                            ForEach(groupedTrips, id: \.0) { month, tripsInMonth in
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(month)
+                                        .font(.headline)
+                                        .padding(.leading)
+                                    ForEach(tripsInMonth.sorted(by: { $0.date > $1.date }), id: \.id) { trip in
+                                        let timeString = extractMonthYear(from: trip.date)
+                                        TripHistoryRow(nameRoute: trip.dutySession.route.routeName, date: timeString, plateNumber: trip.dutySession.vehicle.plateNumber)
+                                    }
                                 }
                             }
-                        }
-                       Spacer()
-                    }.frame(maxWidth: .infinity)
+                            Spacer()
+                        }.frame(maxWidth: .infinity)
+                    }
                 }
             }
         }
-            .onAppear{
+        .onAppear{
+            tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
+
+        }
+        .onChange(of: addTripSuccess) { newValue in
+            if newValue {
                 tripAPI.getTripForUser(tokenLogin: dataHolder.tokenLogin)
             }
+            addTripSuccess = false
+        }
     }
     
     var groupedTrips: [(String, [Trip])] {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            
-            let tripsByMonth = Dictionary(grouping: tripAPI.trip) { trip in
-                let date = dateFormatter.date(from: trip.date)!
-                let calendar = Calendar.current
-                let month = calendar.component(.month, from: date)
-                let year = calendar.component(.year, from: date)
-                return "Tháng \(month) - \(year)"
-            }
-            
-            return tripsByMonth.sorted { $0.key > $1.key }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        let tripsByMonth = Dictionary(grouping: tripAPI.trip) { trip in
+            let date = dateFormatter.date(from: trip.date)!
+            let calendar = Calendar.current
+            let month = calendar.component(.month, from: date)
+            let year = calendar.component(.year, from: date)
+            return "Tháng \(month) - \(year)"
         }
+        
+        return tripsByMonth.sorted { $0.key > $1.key }
+    }
     
     
     func extractMonthYear(from date: String) -> String {

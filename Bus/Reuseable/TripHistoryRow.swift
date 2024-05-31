@@ -21,7 +21,7 @@ struct TripHistoryRow: View {
                     Text("Biển số xe")
                 }
                 Spacer()
-                VStack(alignment: .leading, spacing: 10){
+                VStack(alignment: .trailing, spacing: 10){
                     Text(nameRoute)
                     Text(date)
                     Text(plateNumber)

@@ -116,7 +116,6 @@ struct Home: View {
                             // Gọi hàm để lấy tất cả vé
                             try await ticketAPI.getAllTicket(tokenLogin: dataHolder.tokenLogin, userID: dataHolder.idUser!)
                             
-                            // Các thao tác khác sau khi đã nhận dữ liệu từ getAllTicket có thể được thực hiện ở đây
                             
                         } catch {
                             print("Error fetching ticket data: \(error)")
